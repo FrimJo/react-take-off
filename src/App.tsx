@@ -1,28 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext, useMemo } from 'react'
+import { MyContext } from './contexts/MyContext'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+const App = () => {
+  const myContext = useContext(MyContext)
+  const { state, dispatch } = myContext
+  const { value, error } = state
+  return (
+    <>
+      {error && <h3>{error}</h3>}
+      <div>{value}</div>
+      <button onClick={() => dispatch({ type: 'increment' })}>Increment</button>
+      <button onClick={() => dispatch({ type: 'clear' })}>Clear</button>
+      <input
+        value={value}
+        onChange={event =>
+          dispatch({ type: 'setValue', value: +event.target.value })
+        }
+      />
+    </>
+  )
 }
 
-export default App;
+export default App
