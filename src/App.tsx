@@ -1,20 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useCallback } from 'react'
 import { MyContext } from './contexts/MyContext'
 
 const App = () => {
-  const myContext = useContext(MyContext)
-  const { state, dispatch } = myContext
+  const [state, dispatch] = useContext(MyContext)
+  const handleIncrementClick = useCallback(() => dispatch({ type: 'increment' }), [])
+  const handleResetClick = useCallback(() => dispatch({ type: 'clear' }), [])
+  const handleFetchClick = useCallback(() => dispatch({ type: 'fetch' }), [])
+  const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => dispatch({ type: 'setValue', value: +event.target.value }), [])
   return (
     <>
       <div>{state.value}</div>
-      <button onClick={() => dispatch({ type: 'increment' })}>Increment</button>
-      <button onClick={() => dispatch({ type: 'clear' })}>Clear</button>
-      <input
-        value={state.value}
-        onChange={event =>
-          dispatch({ type: 'setValue', value: +event.target.value })
-        }
-      />
+      <button onClick={handleIncrementClick}>Increment</button>
+      <button onClick={handleResetClick}>Clear</button>
+      <button onClick={handleFetchClick}>Fetch</button>
+      <input value={state.value} onChange={handleChange} />
     </>
   )
 }
