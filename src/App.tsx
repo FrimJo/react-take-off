@@ -1,19 +1,25 @@
-import React, { useContext, useCallback } from 'react'
+import React, { useContext, useCallback, useMemo } from 'react'
 import { MyContext } from './contexts/MyContext'
 
 const App = () => {
-  const [state, dispatch] = useContext(MyContext)
-  const handleIncrementClick = useCallback(() => dispatch({ type: 'increment' }), [])
-  const handleResetClick = useCallback(() => dispatch({ type: 'clear' }), [])
-  const handleFetchClick = useCallback(() => dispatch({ type: 'fetch' }), [])
-  const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => dispatch({ type: 'setValue', value: +event.target.value }), [])
+  const [state, actions] = useContext(MyContext)
+
+  const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => actions.changeValue(+event.target.value), [])
+  const value = useMemo(() => (state.isLoading ? '...' : state.value), [state.isLoading, state.value])
   return (
     <>
-      <div>{state.value}</div>
-      <button onClick={handleIncrementClick}>Increment</button>
-      <button onClick={handleResetClick}>Clear</button>
-      <button onClick={handleFetchClick}>Fetch</button>
-      <input value={state.value} onChange={handleChange} />
+      <div>{value}</div>
+      <button disabled={state.isLoading} onClick={actions.increment}>
+        Increment
+      </button>
+      <button disabled={state.isLoading} onClick={actions.reset}>
+        Clear
+      </button>
+      <button disabled={state.isLoading} onClick={actions.fetchDataAsync}>
+        Fetch
+      </button>
+      <input disabled={state.isLoading} value={value} onChange={handleChange} />
+      {state.isLoading && <div>is loading</div>}
     </>
   )
 }
