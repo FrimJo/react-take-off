@@ -21,16 +21,21 @@ const MyContextProvider: React.FunctionComponent = ({ children }) => {
     setLoading(false)
   }, [])
 
-  const increment = useCallback(() => setValue(value + 1), [value])
-  const reset = useCallback(() => setValue(0), [])
-  const changeValue = useCallback((value: number) => !isNaN(value) && setValue(value), [])
+  const actions = {
+    fetchDataAsync,
+    increment: useCallback(() => setValue(value + 1), [value]),
+    reset: useCallback(() => setValue(0), []),
+    changeValue: useCallback((value: number) => !isNaN(value) && setValue(value), [])
+  }
+
+  const state = { isLoading, value }
 
   useEffect(() => {
     fetchDataAsync()
     return () => controller.abort()
   }, [])
 
-  return <MyContext.Provider value={[{ isLoading, value }, { fetchDataAsync, increment, reset, changeValue }]}>{children}</MyContext.Provider>
+  return <MyContext.Provider value={[state, actions]}>{children}</MyContext.Provider>
 }
 
 const MyContextConsumer = MyContext.Consumer
