@@ -1,15 +1,25 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
+    "sourceMap": true,
+    "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "keyofStringsOnly": true,
+    "declaration": false,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
@@ -21,5 +31,14 @@
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "types",
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest"
   ]
 }
