@@ -1,41 +1,57 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useContext,
+} from 'react'
 import * as api from '../services/api'
+import useRandomNumber from '../hooks/useRandomNumber'
 
-const MyContext = React.createContext({} as [
-    { isLoading: boolean; value: number },
-    { fetchDataAsync: () => void; increment: () => void; reset: () => void; changeValue: (value: number) => void }
-])
+type State = { isLoading: boolean; value: number }
+type Actions = {
+  fetchDataAsync: () => void
+  increment: () => void
+  reset: () => void
+  setValue: (value: number) => void
+}
+
+const MyContext = React.createContext({} as [State, Actions])
 
 const MyContextProvider: React.FunctionComponent = ({ children }) => {
-    const [isLoading, setLoading] = useState(true)
-    const [value, setValue] = useState(0)
-    const controller = useMemo(() => new AbortController(), [])
+  const [isLoading, setLoading] = useState(true)
+  const { value, increment, reset, setValue } = useRandomNumber()
 
-    const fetchDataAsync = useCallback(async () => {
-        setLoading(true)
-        const { signal } = controller
-        const { data, length } = await api.fetchRandomNumberAsync(signal)
-        if (length > 0) {
-            setValue(data[0])
-        }
-        setLoading(false)
-    }, [])
+  const controller = useMemo(() => new AbortController(), [])
 
-    const actions = {
-        fetchDataAsync,
-        increment: useCallback(() => setValue(value + 1), [value]),
-        reset: useCallback(() => setValue(0), []),
-        changeValue: useCallback((value: number) => !isNaN(value) && setValue(value), []),
+  const fetchDataAsync = useCallback(async () => {
+    const { signal } = controller
+    setLoading(true)
+    const { data, length } = await api.fetchRandomNumberAsync(signal)
+    if (length > 0) {
+      setValue(data[0])
     }
+    setLoading(false)
+  }, [])
 
-    const state = { isLoading, value }
-
-    useEffect(() => {
-        fetchDataAsync()
-        return () => controller.abort()
-    }, [])
-
-    return <MyContext.Provider value={[state, actions]}>{children}</MyContext.Provider>
+  useEffect(() => {
+    fetchDataAsync()
+    return () => controller.abort()
+  }, [])
+  return (
+    <MyContext.Provider
+      value={[
+        { isLoading, value },
+        {
+          fetchDataAsync,
+          increment,
+          reset,
+          setValue,
+        },
+      ]}>
+      {children}
+    </MyContext.Provider>
+  )
 }
 
 const MyContextConsumer = MyContext.Consumer
