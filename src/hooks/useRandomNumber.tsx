@@ -6,17 +6,16 @@ enum Type {
   SET,
 }
 
-type ReducerState = { value: number }
-type ReducerBaseAction = { type: Type; changes?: ReducerState }
-type ReducerAction = (
+type State = { value: number }
+
+type Action =
   | { type: Type.INCREMENT }
   | { type: Type.RESET }
-  | { type: Type.SET; value: number }) &
-  ReducerBaseAction
+  | { type: Type.SET; value: number }
 
-type ReducerFunction = React.Reducer<ReducerState, ReducerAction>
+type ActionWithChanges = Action & { changes: State }
 
-const randomNumberReducer: ReducerFunction = (state, action): ReducerState => {
+const localReducer: ReducerFunction<Action> = (state, action): State => {
   switch (action.type) {
     case Type.INCREMENT:
       return { ...state, value: state.value + 1 }
@@ -27,8 +26,9 @@ const randomNumberReducer: ReducerFunction = (state, action): ReducerState => {
   }
 }
 
-type UseRandomNumberHook = (
-  reducer?: ReducerFunction
+type ReducerFunction<T extends Action = Action> = React.Reducer<State, T>
+type UseRandomNumber = (
+  reducer?: ReducerFunction<ActionWithChanges>
 ) => {
   value: number
   increment: () => void
@@ -36,14 +36,12 @@ type UseRandomNumberHook = (
   setValue: (value: number) => void
 }
 
-const useRandomNumber: UseRandomNumberHook = (
-  reducer = (s, a) => ({ ...s, ...a.changes })
-) => {
+const useRandomNumber: UseRandomNumber = reducer => {
   const [{ value }, dispatch] = React.useReducer<ReducerFunction>(
-    (prevState, action) => {
-      const changes = randomNumberReducer(prevState, action)
+    (state, action) => {
+      const changes = localReducer(state, action)
 
-      return reducer(prevState, { ...action, changes })
+      return reducer ? reducer(state, { ...action, changes }) : changes
     },
     { value: 0 }
   )

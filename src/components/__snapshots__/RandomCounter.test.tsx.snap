@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generates a random number on init 1`] = `
+<div>
+  ...
+</div>
+`;

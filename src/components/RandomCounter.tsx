@@ -25,7 +25,12 @@ const RandomCounter: React.FunctionComponent = ({ children }) => {
       <button disabled={state.isLoading} onClick={actions.fetchDataAsync}>
         Fetch
       </button>
-      <input disabled={state.isLoading} value={value} onChange={handleChange} />
+      <input
+        aria-label="input-field"
+        disabled={state.isLoading}
+        value={value}
+        onChange={handleChange}
+      />
       {state.isLoading && <div>is loading</div>}
     </>
   )

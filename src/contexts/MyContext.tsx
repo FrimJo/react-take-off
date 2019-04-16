@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useContext,
-} from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import * as api from '../services/api'
 import useRandomNumber from '../hooks/useRandomNumber'
 
@@ -20,14 +14,15 @@ const MyContext = React.createContext({} as [State, Actions])
 
 const MyContextProvider: React.FunctionComponent = ({ children }) => {
   const [isLoading, setLoading] = useState(true)
-  const { value, increment, reset, setValue } = useRandomNumber()
-
-  const controller = useMemo(() => new AbortController(), [])
+  const { value, increment, reset, setValue } = useRandomNumber(
+    (currentState, action) => {
+      return action.changes
+    }
+  )
 
   const fetchDataAsync = useCallback(async () => {
-    const { signal } = controller
     setLoading(true)
-    const { data, length } = await api.fetchRandomNumberAsync(signal)
+    const { data, length } = await api.fetchRandomNumberAsync()
     if (length > 0) {
       setValue(data[0])
     }
@@ -36,7 +31,7 @@ const MyContextProvider: React.FunctionComponent = ({ children }) => {
 
   useEffect(() => {
     fetchDataAsync()
-    return () => controller.abort()
+    return () => {}
   }, [])
   return (
     <MyContext.Provider
