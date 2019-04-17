@@ -1,12 +1,9 @@
-import { Payload } from '../services/api'
+import { AxiosStatic } from 'axios'
 
-const data: Payload = {
-  type: 'number',
-  length: 2,
-  data: [5],
-  success: true,
-}
+export type AxiosStaticMock = {
+  get: jest.Mock
+} & AxiosStatic
 
 export default {
-  get: jest.fn(() => Promise.resolve({ data })),
+  get: jest.fn(),
 }
