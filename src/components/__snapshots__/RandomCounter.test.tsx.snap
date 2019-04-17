@@ -1,6 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generates a random number on init 1`] = `
+exports[`RandomCounter makes an API call and displays the value when load-greeting is clicked: idle 1`] = `
+<div>
+  5
+</div>
+`;
+
+exports[`RandomCounter makes an API call and displays the value when load-greeting is clicked: loading 1`] = `
+<div>
+  ...
+</div>
+`;
+
+exports[`RandomCounter makes an API call and displays the value when load-greeting is clicked: loading 2`] = `
 <div>
   ...
 </div>
