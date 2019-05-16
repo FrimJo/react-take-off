@@ -16,8 +16,8 @@ import { AxiosStaticMock } from 'src/__mocks__/axios'
 afterEach(cleanup)
 
 const axiosMock = axios as AxiosStaticMock
-// What When
-test('RandomCounter makes an API call and displays the value when load-greeting is clicked', async () => {
+
+test('RandomCounter makes an API call and displays the value', async () => {
   const data: Payload = {
     type: 'number',
     length: 2,
@@ -33,49 +33,51 @@ test('RandomCounter makes an API call and displays the value when load-greeting 
     </MyContextProvider>
   )
 
-  const input = getByLabelText('input-field') as HTMLInputElement
-  const increment = getByText(/Increment/i) as HTMLButtonElement
-  const clear = getByText(/Clear/i) as HTMLButtonElement
-  const fetch = getByText(/Fetch/i) as HTMLButtonElement
+  const inputField = getByLabelText('input-field') as HTMLInputElement
+  const incrementButton = getByText(/Increment/i) as HTMLButtonElement
+  const clearButton = getByText(/Clear/i) as HTMLButtonElement
+  const fetchButton = getByText(/Fetch/i) as HTMLButtonElement
+  const valueText = getByText(/Value/i) as HTMLButtonElement
 
-  expect(input.value).toBe('...')
-  expect(input.disabled).toBe(true)
-  expect(increment.disabled).toBe(true)
-  expect(clear.disabled).toBe(true)
-  expect(fetch.disabled).toBe(true)
+  expect(inputField.value).toBe('...')
+  expect(inputField.disabled).toBe(true)
+  expect(incrementButton.disabled).toBe(true)
+  expect(clearButton.disabled).toBe(true)
+  expect(fetchButton.disabled).toBe(true)
   expect(container.firstChild).toMatchSnapshot('loading')
 
   await waitForDomChange()
   expect(axiosMock.get).toHaveBeenCalledTimes(1)
-  expect(input.value).toBe('5')
-  expect(input.disabled).toBe(false)
-  expect(increment.disabled).toBe(false)
-  expect(clear.disabled).toBe(false)
-  expect(fetch.disabled).toBe(false)
+  expect(valueText).toHaveTextContent('5')
+  expect(inputField.value).toBe('5')
+  expect(inputField.disabled).toBe(false)
+  expect(incrementButton.disabled).toBe(false)
+  expect(clearButton.disabled).toBe(false)
+  expect(fetchButton.disabled).toBe(false)
   expect(container.firstChild).toMatchSnapshot('idle')
 
-  fireEvent.change(input, { target: { value: '34' } })
-  expect(input.value).toBe('34')
+  fireEvent.change(inputField, { target: { value: '34' } })
+  expect(inputField.value).toBe('34')
+  fireEvent.click(incrementButton)
+  expect(inputField.value).toBe('35')
 
-  fireEvent.click(increment)
-  expect(input.value).toBe('35')
-
-  fireEvent.click(clear)
-  expect(input.value).toBe('0')
+  fireEvent.click(clearButton)
+  expect(inputField.value).toBe('0')
 
   axiosMock.get.mockResolvedValueOnce({ data })
-  fireEvent.click(fetch)
-  expect(input.value).toBe('...')
-  expect(input.disabled).toBe(true)
-  expect(increment.disabled).toBe(true)
-  expect(clear.disabled).toBe(true)
-  expect(fetch.disabled).toBe(true)
+  fireEvent.click(fetchButton)
+  expect(inputField.value).toBe('...')
+  expect(inputField.disabled).toBe(true)
+  expect(incrementButton.disabled).toBe(true)
+  expect(clearButton.disabled).toBe(true)
+  expect(fetchButton.disabled).toBe(true)
   expect(container.firstChild).toMatchSnapshot('loading')
 
   await waitForDomChange()
-  expect(input.value).toBe('5')
-  expect(input.disabled).toBe(false)
-  expect(increment.disabled).toBe(false)
-  expect(clear.disabled).toBe(false)
-  expect(fetch.disabled).toBe(false)
+  expect(inputField.value).toBe('5')
+  expect(valueText).toHaveTextContent('5')
+  expect(inputField.disabled).toBe(false)
+  expect(incrementButton.disabled).toBe(false)
+  expect(clearButton.disabled).toBe(false)
+  expect(fetchButton.disabled).toBe(false)
 })

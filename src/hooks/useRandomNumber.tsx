@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 enum Type {
   INCREMENT,
@@ -6,16 +6,19 @@ enum Type {
   SET,
 }
 
-type State = { value: number }
+type RandomNumberState = { value: number }
 
 type Action =
   | { type: Type.INCREMENT }
   | { type: Type.RESET }
   | { type: Type.SET; value: number }
 
-type ActionWithChanges = Action & { changes: State }
+type ActionWithChanges = Action & { changes: RandomNumberState }
 
-const localReducer: ReducerFunction<Action> = (state, action): State => {
+const localReducer: ReducerFunction<Action> = (
+  state,
+  action
+): RandomNumberState => {
   switch (action.type) {
     case Type.INCREMENT:
       return { ...state, value: state.value + 1 }
@@ -26,7 +29,10 @@ const localReducer: ReducerFunction<Action> = (state, action): State => {
   }
 }
 
-type ReducerFunction<T extends Action = Action> = React.Reducer<State, T>
+type ReducerFunction<T extends Action = Action> = React.Reducer<
+  RandomNumberState,
+  T
+>
 type UseRandomNumber = (
   reducer?: ReducerFunction<ActionWithChanges>
 ) => {
@@ -39,16 +45,21 @@ type UseRandomNumber = (
 const useRandomNumber: UseRandomNumber = reducer => {
   const [{ value }, dispatch] = React.useReducer<ReducerFunction>(
     (state, action) => {
-      const changes = localReducer(state, action)
+      const updatedState = localReducer(state, action)
 
-      return reducer ? reducer(state, { ...action, changes }) : changes
+      return reducer
+        ? reducer(state, { ...action, changes: updatedState })
+        : updatedState
     },
     { value: 0 }
   )
 
-  const increment = () => dispatch({ type: Type.INCREMENT })
-  const reset = () => dispatch({ type: Type.RESET })
-  const setValue = (value: number) => dispatch({ type: Type.SET, value })
+  const increment = useCallback(() => dispatch({ type: Type.INCREMENT }), [])
+  const reset = useCallback(() => dispatch({ type: Type.RESET }), [])
+  const setValue = useCallback(
+    (value: number) => dispatch({ type: Type.SET, value }),
+    []
+  )
 
   return { value, increment, reset, setValue }
 }

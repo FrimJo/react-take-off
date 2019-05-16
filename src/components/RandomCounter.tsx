@@ -1,5 +1,8 @@
 import React, { useContext, useCallback, useMemo } from 'react'
 import { MyContext } from '../contexts/MyContext'
+import styled from 'styled-components'
+
+const StyledButton = styled.button``
 
 const RandomCounter: React.FunctionComponent = ({ children }) => {
   const [state, actions] = useContext(MyContext)
@@ -7,7 +10,7 @@ const RandomCounter: React.FunctionComponent = ({ children }) => {
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) =>
       actions.setValue(+event.target.value),
-    []
+    [actions]
   )
   const value = useMemo(() => (state.isLoading ? '...' : state.value), [
     state.isLoading,
@@ -15,16 +18,16 @@ const RandomCounter: React.FunctionComponent = ({ children }) => {
   ])
   return (
     <>
-      <div>{value}</div>
-      <button disabled={state.isLoading} onClick={actions.increment}>
+      <div>{`Value: ${value}`}</div>
+      <StyledButton disabled={state.isLoading} onClick={actions.increment}>
         Increment
-      </button>
-      <button disabled={state.isLoading} onClick={actions.reset}>
+      </StyledButton>
+      <StyledButton disabled={state.isLoading} onClick={actions.reset}>
         Clear
-      </button>
-      <button disabled={state.isLoading} onClick={actions.fetchDataAsync}>
+      </StyledButton>
+      <StyledButton disabled={state.isLoading} onClick={actions.fetchDataAsync}>
         Fetch
-      </button>
+      </StyledButton>
       <input
         aria-label="input-field"
         disabled={state.isLoading}
