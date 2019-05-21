@@ -1,4 +1,3 @@
-import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
 import 'jest-dom/extend-expect'
 import React from 'react'
 import {
@@ -6,12 +5,13 @@ import {
   fireEvent,
   cleanup,
   waitForDomChange,
+  act,
 } from 'react-testing-library'
 import RandomCounter from './RandomCounter'
 import { MyContextProvider } from '../contexts/MyContext'
 import axios from 'axios'
-import { Payload } from 'src/services/api'
-import { AxiosStaticMock } from 'src/__mocks__/axios'
+import { AxiosStaticMock } from '__mocks__/axios'
+import { Payload } from 'services/api'
 
 afterEach(cleanup)
 
@@ -56,16 +56,25 @@ test('RandomCounter makes an API call and displays the value', async () => {
   expect(fetchButton.disabled).toBe(false)
   expect(container.firstChild).toMatchSnapshot('idle')
 
-  fireEvent.change(inputField, { target: { value: '34' } })
+  act(() => {
+    fireEvent.change(inputField, { target: { value: '34' } })
+  })
+
   expect(inputField.value).toBe('34')
-  fireEvent.click(incrementButton)
+  act(() => {
+    fireEvent.click(incrementButton)
+  })
   expect(inputField.value).toBe('35')
 
-  fireEvent.click(clearButton)
+  act(() => {
+    fireEvent.click(clearButton)
+  })
   expect(inputField.value).toBe('0')
 
   axiosMock.get.mockResolvedValueOnce({ data })
-  fireEvent.click(fetchButton)
+  act(() => {
+    fireEvent.click(fetchButton)
+  })
   expect(inputField.value).toBe('...')
   expect(inputField.disabled).toBe(true)
   expect(incrementButton.disabled).toBe(true)

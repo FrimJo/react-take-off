@@ -1,40 +1,43 @@
 import React, { useContext, useCallback, useMemo } from 'react'
-import { MyContext } from '../contexts/MyContext'
+import { StateContext, ActionsContext } from '../contexts/MyContext'
 import styled from 'styled-components'
 
 const StyledButton = styled.button``
 
 const RandomCounter: React.FunctionComponent = ({ children }) => {
-  const [state, actions] = useContext(MyContext)
+  const context = useContext(StateContext)
+  const actions = useContext(ActionsContext)
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) =>
       actions.setValue(+event.target.value),
     [actions]
   )
-  const value = useMemo(() => (state.isLoading ? '...' : state.value), [
-    state.isLoading,
-    state.value,
+  const value = useMemo(() => (context.isLoading ? '...' : context.value), [
+    context.isLoading,
+    context.value,
   ])
   return (
     <>
       <div>{`Value: ${value}`}</div>
-      <StyledButton disabled={state.isLoading} onClick={actions.increment}>
+      <StyledButton disabled={context.isLoading} onClick={actions.increment}>
         Increment
       </StyledButton>
-      <StyledButton disabled={state.isLoading} onClick={actions.reset}>
+      <StyledButton disabled={context.isLoading} onClick={actions.reset}>
         Clear
       </StyledButton>
-      <StyledButton disabled={state.isLoading} onClick={actions.fetchDataAsync}>
+      <StyledButton
+        disabled={context.isLoading}
+        onClick={actions.fetchDataAsync}>
         Fetch
       </StyledButton>
       <input
         aria-label="input-field"
-        disabled={state.isLoading}
+        disabled={context.isLoading}
         value={value}
         onChange={handleChange}
       />
-      {state.isLoading && <div>is loading</div>}
+      {context.isLoading && <div>is loading</div>}
     </>
   )
 }

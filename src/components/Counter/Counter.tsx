@@ -14,12 +14,6 @@ type Props = {
   }
 }
 
-type PassThrough = (
-  nodeName: 'Wrapper' | 'Counter',
-  props: object,
-  instance: any
-) => object
-
 type getCounterProps = {
   Wrapper: StyledComponent<any, any, WrapperProps, never>
   Count: StyledComponent<any, any, CountProps, never>

@@ -1,4 +1,3 @@
-import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
 import 'jest-dom/extend-expect'
 import { render, cleanup } from 'react-testing-library'
 import React from 'react'

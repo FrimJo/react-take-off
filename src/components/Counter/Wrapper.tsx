@@ -1,7 +1,6 @@
 import styled, {
   ThemedStyledProps,
   FlattenInterpolation,
-  StyledComponent,
 } from 'styled-components'
 
 export type WrapperProps = {

@@ -1,10 +1,7 @@
 import styled, {
-  css,
   FlattenInterpolation,
-  BaseThemedCssFunction,
   ThemedStyledProps,
 } from 'styled-components'
-import React, { FunctionComponent } from 'react'
 
 export type Props = {
   styles: FlattenInterpolation<ThemedStyledProps<Props, any>>

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useMemo } from 'react'
 import * as api from '../services/api'
 import useRandomNumber from '../hooks/useRandomNumber'
 
@@ -10,7 +10,8 @@ type Actions = {
   setValue: (value: number) => void
 }
 
-const MyContext = React.createContext({} as [State, Actions])
+const StateContext = React.createContext({} as State)
+const ActionsContext = React.createContext({} as Actions)
 
 const MyContextProvider: React.FunctionComponent = ({ children }) => {
   const [isLoading, setLoading] = useState(true)
@@ -31,22 +32,31 @@ const MyContextProvider: React.FunctionComponent = ({ children }) => {
     fetchDataAsync()
     return () => {}
   }, [fetchDataAsync])
+
+  const stateValue: State = useMemo(
+    () => ({
+      isLoading,
+      value,
+    }),
+    [isLoading, value]
+  )
+
+  const actionValue: Actions = useMemo(
+    () => ({
+      fetchDataAsync,
+      increment,
+      reset,
+      setValue,
+    }),
+    [fetchDataAsync, increment, reset, setValue]
+  )
   return (
-    <MyContext.Provider
-      value={[
-        { isLoading, value },
-        {
-          fetchDataAsync,
-          increment,
-          reset,
-          setValue,
-        },
-      ]}>
-      {children}
-    </MyContext.Provider>
+    <StateContext.Provider value={stateValue}>
+      <ActionsContext.Provider value={actionValue}>
+        {children}
+      </ActionsContext.Provider>
+    </StateContext.Provider>
   )
 }
 
-const MyContextConsumer = MyContext.Consumer
-
-export { MyContext, MyContextProvider, MyContextConsumer }
+export { StateContext, ActionsContext, MyContextProvider }
