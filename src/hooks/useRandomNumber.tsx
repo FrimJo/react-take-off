@@ -6,14 +6,15 @@ enum Type {
   SET,
 }
 
-type RandomNumberState = { value: number }
+type RandomNumberState = { readonly value: number }
 
-type Action =
+type Action = Readonly<
   | { type: Type.INCREMENT }
   | { type: Type.RESET }
   | { type: Type.SET; value: number }
+>
 
-type ActionWithChanges = Action & { changes: RandomNumberState }
+type ActionWithChanges = Action & { readonly changes: RandomNumberState }
 
 const localReducer: ReducerFunction<Action> = (
   state,

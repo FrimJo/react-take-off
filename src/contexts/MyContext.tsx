@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useState, useMemo } from 'react'
 import * as api from '../services/api'
 import useRandomNumber from '../hooks/useRandomNumber'
 
-type State = { isLoading: boolean; value: number }
-type Actions = {
+type State = { readonly isLoading: boolean; readonly value: number }
+type Actions = Readonly<{
   fetchDataAsync: () => void
   increment: () => void
   reset: () => void
   setValue: (value: number) => void
-}
+}>
 
 const StateContext = React.createContext({} as State)
 const ActionsContext = React.createContext({} as Actions)
