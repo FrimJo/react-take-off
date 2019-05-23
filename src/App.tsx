@@ -1,4 +1,5 @@
 import React from 'react'
+import { hot } from 'react-hot-loader/root'
 import RandomCounter from './components/RandomCounter'
 import { MyContextProvider } from './contexts/MyContext'
 import { css } from 'styled-components'
@@ -17,13 +18,11 @@ const styles = {
   `,
 }
 
-const App = () => {
-  return (
-    <MyContextProvider>
-      <Counter styles={styles}>4815162342</Counter>
-      <RandomCounter />
-    </MyContextProvider>
-  )
-}
+const App = () => (
+  <MyContextProvider>
+    <Counter styles={styles}>4815162342</Counter>
+    <RandomCounter />
+  </MyContextProvider>
+)
 
-export default App
+export default hot(App)
