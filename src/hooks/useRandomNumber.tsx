@@ -6,7 +6,9 @@ enum Type {
   SET,
 }
 
-type RandomNumberState = { readonly value: number }
+interface IRandomNumberState {
+  readonly value: number
+}
 
 type Action = Readonly<
   | { type: Type.INCREMENT }
@@ -14,12 +16,12 @@ type Action = Readonly<
   | { type: Type.SET; value: number }
 >
 
-type ActionWithChanges = Action & { readonly changes: RandomNumberState }
+type ActionWithChanges = Action & { readonly changes: IRandomNumberState }
 
 const localReducer: ReducerFunction<Action> = (
   state,
   action
-): RandomNumberState => {
+): IRandomNumberState => {
   switch (action.type) {
     case Type.INCREMENT:
       return { ...state, value: state.value + 1 }
@@ -31,7 +33,7 @@ const localReducer: ReducerFunction<Action> = (
 }
 
 type ReducerFunction<T extends Action = Action> = React.Reducer<
-  RandomNumberState,
+  IRandomNumberState,
   T
 >
 type UseRandomNumber = (
@@ -58,7 +60,7 @@ const useRandomNumber: UseRandomNumber = reducer => {
   const increment = useCallback(() => dispatch({ type: Type.INCREMENT }), [])
   const reset = useCallback(() => dispatch({ type: Type.RESET }), [])
   const setValue = useCallback(
-    (value: number) => dispatch({ type: Type.SET, value }),
+    (v: number) => dispatch({ type: Type.SET, value: v }),
     []
   )
 

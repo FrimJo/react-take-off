@@ -3,12 +3,12 @@ import styled, {
   ThemedStyledProps,
 } from 'styled-components'
 
-export type Props = {
-  styles: FlattenInterpolation<ThemedStyledProps<Props, any>>
+export interface IProps {
+  styles: FlattenInterpolation<ThemedStyledProps<IProps, any>>
   primary: boolean
 }
 
-const StyledButton = styled.button<Props>`
+const StyledButton = styled.button<IProps>`
   border-radius: 3px;
   font-size: 1em;
   margin: 1em;

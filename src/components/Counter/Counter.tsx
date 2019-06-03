@@ -1,44 +1,44 @@
 import React, { FunctionComponent } from 'react'
-import { WrapperProps } from './Wrapper'
-import { CountProps } from './Count'
 import styled, {
   FlattenInterpolation,
-  ThemedStyledProps,
   StyledComponent,
+  ThemedStyledProps,
 } from 'styled-components'
+import { ICountProps } from './Count'
+import { IWrapperProps } from './Wrapper'
 
-type Props = {
+interface IProps {
   styles?: {
-    Wrapper?: FlattenInterpolation<ThemedStyledProps<WrapperProps, any>>
-    Count?: FlattenInterpolation<ThemedStyledProps<CountProps, any>>
+    Wrapper?: FlattenInterpolation<ThemedStyledProps<IWrapperProps, any>>
+    Count?: FlattenInterpolation<ThemedStyledProps<ICountProps, any>>
   }
 }
 
-type getCounterProps = {
-  Wrapper: StyledComponent<any, any, WrapperProps, never>
-  Count: StyledComponent<any, any, CountProps, never>
+interface IGetCounterProps {
+  Wrapper: StyledComponent<any, any, IWrapperProps, never>
+  Count: StyledComponent<any, any, ICountProps, never>
 }
 
 const getCounter = ({
   Wrapper,
   Count,
-}: getCounterProps): FunctionComponent<Props> => ({
+}: IGetCounterProps): FunctionComponent<IProps> => ({
   children,
   styles = {},
 }) => (
-  <Wrapper styles={styles.Wrapper} primary>
+  <Wrapper styles={styles.Wrapper} primary={true}>
     <Count styles={styles.Count}>{children}</Count>
   </Wrapper>
 )
 
 const Counter = getCounter({
-  Wrapper: styled.div<WrapperProps>`
+  Wrapper: styled.div<IWrapperProps>`
     background-color: purple;
     height: 100px;
     width: 100px;
     ${props => props.styles}
   `,
-  Count: styled.div<CountProps>`
+  Count: styled.div<ICountProps>`
     color: white;
     display: block;
     text-align: center;

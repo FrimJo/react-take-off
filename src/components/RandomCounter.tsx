@@ -1,6 +1,6 @@
-import React, { useContext, useCallback, useMemo } from 'react'
-import { StateContext, ActionsContext } from '../contexts/MyContext'
+import React, { useCallback, useContext, useMemo } from 'react'
 import styled from 'styled-components'
+import { ActionsContext, StateContext } from '../contexts/MyContext'
 
 const StyledButton = styled.button``
 
