@@ -6,7 +6,6 @@
   },
   "defaultSeverity": "warning",
   "rules": {
-    // override tslint-react rules here
     "prettier": true
   }
 }
