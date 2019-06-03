@@ -6,6 +6,7 @@
   },
   "defaultSeverity": "warning",
   "rules": {
+    "object-literal-sort-keys": false,
     "prettier": true
   }
 }
