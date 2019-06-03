@@ -18,7 +18,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "typecheck": "tsc -w -p tsconfig.json",
-    "typecheck-once": "tsc -p tsconfig.json"
+    "typecheck-once": "tsc -p tsconfig.json",
+    "lint": "tslint --project ./tsconfig.json",
+    "lint-fix": "tslint --project ./tsconfig.json --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
