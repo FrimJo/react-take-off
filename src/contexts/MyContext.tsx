@@ -1,8 +1,11 @@
-import React, { useCallback, useEffect, useState, useMemo } from 'react'
-import * as api from '../services/api'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import useRandomNumber from '../hooks/useRandomNumber'
+import * as api from '../services/api'
 
-type State = { readonly isLoading: boolean; readonly value: number }
+interface IState {
+  readonly isLoading: boolean
+  readonly value: number
+}
 type Actions = Readonly<{
   fetchDataAsync: () => void
   increment: () => void
@@ -10,7 +13,7 @@ type Actions = Readonly<{
   setValue: (value: number) => void
 }>
 
-const StateContext = React.createContext({} as State)
+const StateContext = React.createContext({} as IState)
 const ActionsContext = React.createContext({} as Actions)
 
 const MyContextProvider: React.FunctionComponent = ({ children }) => {
@@ -30,10 +33,9 @@ const MyContextProvider: React.FunctionComponent = ({ children }) => {
 
   useEffect(() => {
     fetchDataAsync()
-    return () => {}
   }, [fetchDataAsync])
 
-  const stateValue: State = useMemo(
+  const stateValue: IState = useMemo(
     () => ({
       isLoading,
       value,

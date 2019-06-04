@@ -6,7 +6,7 @@
   },
   "defaultSeverity": "warning",
   "rules": {
-    // override tslint-react rules here
+    "object-literal-sort-keys": false,
     "prettier": true
   }
 }

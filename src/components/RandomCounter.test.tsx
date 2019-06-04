@@ -1,17 +1,17 @@
+import { AxiosStaticMock } from '__mocks__/axios'
+import axios from 'axios'
 import 'jest-dom/extend-expect'
 import React from 'react'
 import {
-  render,
-  fireEvent,
-  cleanup,
-  waitForDomChange,
   act,
+  cleanup,
+  fireEvent,
+  render,
+  waitForDomChange,
 } from 'react-testing-library'
-import RandomCounter from './RandomCounter'
-import { MyContextProvider } from '../contexts/MyContext'
-import axios from 'axios'
-import { AxiosStaticMock } from '__mocks__/axios'
 import { Payload } from 'services/api'
+import { MyContextProvider } from '../contexts/MyContext'
+import RandomCounter from './RandomCounter'
 
 afterEach(cleanup)
 

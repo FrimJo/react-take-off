@@ -3,7 +3,7 @@ import axios from 'axios'
 export type Payload = Readonly<{
   type: string
   length: number
-  data: Array<number>
+  data: number[]
   success: boolean
 }>
 

@@ -1,14 +1,14 @@
 import styled, {
-  ThemedStyledProps,
   FlattenInterpolation,
+  ThemedStyledProps,
 } from 'styled-components'
 
-export type WrapperProps = {
-  styles?: FlattenInterpolation<ThemedStyledProps<WrapperProps, any>>
+export interface IWrapperProps {
+  styles?: FlattenInterpolation<ThemedStyledProps<IWrapperProps, any>>
   primary: boolean
 }
 
-const Wrapper = styled.div<WrapperProps>`
+const Wrapper = styled.div<IWrapperProps>`
   ${props => props.styles}
 `
 

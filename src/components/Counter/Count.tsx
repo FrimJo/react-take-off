@@ -3,11 +3,11 @@ import styled, {
   ThemedStyledProps,
 } from 'styled-components'
 
-export type CountProps = {
-  styles: FlattenInterpolation<ThemedStyledProps<CountProps, any>>
+export interface ICountProps {
+  styles: FlattenInterpolation<ThemedStyledProps<ICountProps, any>>
 }
 
-const Count = styled.div<CountProps>`
+const Count = styled.div<ICountProps>`
   ${props => props.styles}
 `
 
