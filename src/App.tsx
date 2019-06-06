@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { hot } from 'react-hot-loader/root'
 import { css } from 'styled-components'
 import { ICountProps } from './components/Counter/Count'
@@ -19,10 +19,12 @@ const styles = {
 }
 
 const App = () => (
-  <MyContextProvider>
-    <Counter styles={styles}>4815162342</Counter>
-    <RandomCounter />
-  </MyContextProvider>
+  <Suspense fallback={<>loading…</>}>
+    <MyContextProvider>
+      <Counter styles={styles}>4815162342</Counter>
+      <RandomCounter />
+    </MyContextProvider>
+  </Suspense>
 )
 
 export default hot(App)

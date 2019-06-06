@@ -1,13 +1,12 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import useRandomNumber from '../hooks/useRandomNumber'
+import useAxiosSuspense from 'hooks/useAxiosSuspense'
+import React, { useEffect, useMemo } from 'react'
+import useNumber from '../hooks/useNumber'
 import * as api from '../services/api'
 
 interface IState {
-  readonly isLoading: boolean
   readonly value: number
 }
 type Actions = Readonly<{
-  fetchDataAsync: () => void
   increment: () => void
   reset: () => void
   setValue: (value: number) => void
@@ -17,40 +16,35 @@ const StateContext = React.createContext({} as IState)
 const ActionsContext = React.createContext({} as Actions)
 
 const MyContextProvider: React.FunctionComponent = ({ children }) => {
-  const [isLoading, setLoading] = useState(true)
-  const { value, increment, reset, setValue } = useRandomNumber(
+  const { value, increment, reset, setValue } = useNumber(
     (currentState, action) => action.changes
   )
 
-  const fetchDataAsync = useCallback(async () => {
-    setLoading(true)
-    const { data, length } = await api.fetchRandomNumberAsync()
-    if (length > 0) {
-      setValue(data[0])
-    }
-    setLoading(false)
-  }, [setValue])
+  const [data] = useAxiosSuspense<api.Payload>(
+    'https://qrng.anu.edu.au/API/jsonI.php?length=1&type=uint8'
+  )
+  console.log('data', data)
 
   useEffect(() => {
-    fetchDataAsync()
-  }, [fetchDataAsync])
+    if (data.data.length > 0) {
+      setValue(data.data[0])
+    }
+  }, [data, setValue])
 
   const stateValue: IState = useMemo(
     () => ({
-      isLoading,
       value,
     }),
-    [isLoading, value]
+    [value]
   )
 
   const actionValue: Actions = useMemo(
     () => ({
-      fetchDataAsync,
       increment,
       reset,
       setValue,
     }),
-    [fetchDataAsync, increment, reset, setValue]
+    [increment, reset, setValue]
   )
   return (
     <StateContext.Provider value={stateValue}>
