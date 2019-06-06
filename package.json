@@ -11,9 +11,6 @@
     "styled-components": "^4.2.0"
   },
   "scripts": {
-    "postmerge": "yarnhook",
-    "postcheckout": "yarnhook",
-    "postrewrite": "yarnhook",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

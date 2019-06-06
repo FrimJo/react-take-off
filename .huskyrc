@@ -1,0 +1,8 @@
+{
+  "skipCI": false,
+  "hooks": {
+    "postmerge": "yarnhook",
+    "postcheckout": "yarnhook",
+    "postrewrite": "yarnhook",
+  }
+}
