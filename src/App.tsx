@@ -1,3 +1,4 @@
+import useDataApi from 'hooks/useDataApi'
 import React from 'react'
 import { hot } from 'react-hot-loader/root'
 import { css } from 'styled-components'
@@ -18,11 +19,14 @@ const styles = {
   `,
 }
 
-const App = () => (
-  <MyContextProvider>
-    <Counter styles={styles}>4815162342</Counter>
-    <RandomCounter />
-  </MyContextProvider>
-)
+const App = () => {
+  const [state, setUrl] = useDataApi('', { name: '' })
+  return (
+    <MyContextProvider>
+      <Counter styles={styles}>4815162342</Counter>
+      <RandomCounter />
+    </MyContextProvider>
+  )
+}
 
 export default hot(App)

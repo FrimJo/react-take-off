@@ -7,6 +7,9 @@ export type Payload = Readonly<{
   success: boolean
 }>
 
+export const randomNumberUrl =
+  'https://qrng.anu.edu.au/API/jsonI.php?length=1&type=uint8'
+
 export const fetchRandomNumberAsync = async (): Promise<Payload> =>
   await axios
     .get<Payload>('https://qrng.anu.edu.au/API/jsonI.php?length=1&type=uint8')
