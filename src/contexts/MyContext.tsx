@@ -1,5 +1,5 @@
 import useDataApi from 'hooks/useDataApi'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import useRandomNumber from '../hooks/useRandomNumber'
 import * as api from '../services/api'
 
