@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
-console.log('process', process)
 process.on('unhandledRejection', up => {
   throw up
 })

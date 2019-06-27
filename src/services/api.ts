@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export type Payload = Readonly<{
-  type: string
+  type: string | null
   length: number
   data: number[]
   success: boolean

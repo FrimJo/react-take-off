@@ -1,7 +1,6 @@
-import React from 'react'
 import axios from 'axios'
-
-import dataFetchReducer, { FetchState, FetchAction } from './dataFetchReducer'
+import React from 'react'
+import dataFetchReducer, { FetchState } from './dataFetchReducer'
 
 const useDataApi = <T extends object = object>(
   initialUrl: string,
@@ -10,7 +9,7 @@ const useDataApi = <T extends object = object>(
   const [url, setUrl] = React.useState(initialUrl)
 
   const [state, dispatch] = React.useReducer(dataFetchReducer, {
-    isLoading: false,
+    isLoading: true,
     isError: false,
     error: null,
     data: initialData,
@@ -42,7 +41,7 @@ const useDataApi = <T extends object = object>(
     }
   }, [url])
 
-  return [<FetchState<T>>state, setUrl]
+  return [state as FetchState<T>, setUrl]
 }
 
 export default useDataApi

@@ -1,4 +1,3 @@
-import useDataApi from 'hooks/useDataApi'
 import React from 'react'
 import { hot } from 'react-hot-loader/root'
 import { css } from 'styled-components'
@@ -6,7 +5,7 @@ import { ICountProps } from './components/Counter/Count'
 import Counter from './components/Counter/Counter'
 import { IWrapperProps } from './components/Counter/Wrapper'
 import RandomCounter from './components/RandomCounter'
-import { MyContextProvider } from './contexts/MyContext'
+import { RandomNumberProvider } from './contexts/RandomNumberContext'
 
 const styles = {
   Wrapper: css<IWrapperProps>`
@@ -20,12 +19,11 @@ const styles = {
 }
 
 const App = () => {
-  const [state, setUrl] = useDataApi('', { name: '' })
   return (
-    <MyContextProvider>
+    <RandomNumberProvider>
       <Counter styles={styles}>4815162342</Counter>
       <RandomCounter />
-    </MyContextProvider>
+    </RandomNumberProvider>
   )
 }
 

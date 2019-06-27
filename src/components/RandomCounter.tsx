@@ -1,12 +1,15 @@
-import React, { useCallback, useContext, useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import styled from 'styled-components'
-import { ActionsContext, StateContext } from '../contexts/MyContext'
+import {
+  useRandomNumberActions,
+  useRandomNumberState,
+} from '../contexts/RandomNumberContext'
 
 const StyledButton = styled.button``
 
 const RandomCounter: React.FunctionComponent = ({ children }) => {
-  const context = useContext(StateContext)
-  const actions = useContext(ActionsContext)
+  const context = useRandomNumberState()
+  const actions = useRandomNumberActions()
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) =>

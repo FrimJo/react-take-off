@@ -1,14 +1,15 @@
-export type FetchState<T extends object = object> = {
+export type FetchState<T extends object = object> = Readonly<{
   isLoading: boolean
   isError: boolean
   error: any
   data: T
-}
+}>
 
-export type FetchAction<T extends object = object> =
+export type FetchAction<T extends object = object> = Readonly<
   | { type: 'FETCH_INIT' }
   | { type: 'FETCH_SUCCESS'; payload: T }
   | { type: 'FETCH_FAILURE'; payload: string }
+>
 
 const dataFetchReducer: React.Reducer<FetchState, FetchAction> = (
   state,
@@ -20,6 +21,7 @@ const dataFetchReducer: React.Reducer<FetchState, FetchAction> = (
         ...state,
         isLoading: true,
         isError: false,
+        error: '',
       }
     case 'FETCH_SUCCESS':
       return {
@@ -35,8 +37,6 @@ const dataFetchReducer: React.Reducer<FetchState, FetchAction> = (
         isError: true,
         error: action.payload,
       }
-    default:
-      throw new Error()
   }
 }
 

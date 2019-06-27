@@ -10,7 +10,7 @@ import {
   waitForDomChange,
 } from 'react-testing-library'
 import { Payload } from 'services/api'
-import { MyContextProvider } from '../contexts/MyContext'
+import { RandomNumberProvider } from '../contexts/RandomNumberContext'
 import RandomCounter from './RandomCounter'
 
 afterEach(cleanup)
@@ -28,9 +28,9 @@ test('RandomCounter makes an API call and displays the value', async () => {
   axiosMock.get.mockResolvedValueOnce({ data })
 
   const { getByText, getByLabelText, container } = render(
-    <MyContextProvider>
+    <RandomNumberProvider>
       <RandomCounter />
-    </MyContextProvider>
+    </RandomNumberProvider>
   )
 
   const inputField = getByLabelText('input-field') as HTMLInputElement
