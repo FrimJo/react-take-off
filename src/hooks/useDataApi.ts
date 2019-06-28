@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import dataFetchReducer, { FetchState } from './dataFetchReducer'
+import dataFetchReducer, { FetchState } from 'reducers/dataFetchReducer'
 
 const useDataApi = <T extends object = object>(
   initialUrl: string,

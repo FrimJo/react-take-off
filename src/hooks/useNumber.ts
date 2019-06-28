@@ -1,5 +1,6 @@
-import { DraftReducer } from 'components/types'
-import React, { useCallback } from 'react'
+import useDraftReducer from 'hooks/useDraftReducer'
+import { useCallback } from 'react'
+import { DraftReducer } from 'types'
 
 type NumberState = Readonly<{ value: number }>
 
@@ -7,9 +8,9 @@ type NumberAction = Readonly<
   { type: 'INCREMENT' } | { type: 'RESET' } | { type: 'SET'; value: number }
 >
 
-const reducer: React.Reducer<NumberState, NumberAction> = (
-  prevState,
-  action
+const reducer = (
+  prevState: NumberState,
+  action: NumberAction
 ): NumberState => {
   switch (action.type) {
     case 'INCREMENT':
@@ -22,17 +23,8 @@ const reducer: React.Reducer<NumberState, NumberAction> = (
 }
 
 const useNumber = (draftReducer?: DraftReducer<NumberState, NumberAction>) => {
-  const [{ value }, dispatch] = React.useReducer<
-    React.Reducer<NumberState, NumberAction>
-  >(
-    (prevState, action) => {
-      const draft = reducer(prevState, action)
-      return draftReducer
-        ? draftReducer(prevState, { ...action, draft })
-        : draft
-    },
-    { value: 0 }
-  )
+
+  const [{value}, dispatch] = useDraftReducer(reducer, {value:0}, draftReducer)
 
   const increment = useCallback(() => dispatch({ type: 'INCREMENT' }), [])
   const reset = useCallback(() => dispatch({ type: 'RESET' }), [])
