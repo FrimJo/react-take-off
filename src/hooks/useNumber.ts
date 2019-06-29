@@ -1,5 +1,5 @@
-import useDraftReducer, { DraftReducer } from 'hooks/useDraftReducer'
 import { useCallback } from 'react'
+import useDraftReducer, { DraftReducer } from 'use-draft-reducer'
 
 type NumberState = Readonly<{ value: number }>
 

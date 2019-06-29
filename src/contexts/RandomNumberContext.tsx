@@ -1,7 +1,7 @@
 import useDataApi from 'hooks/useDataApi'
+import useNumber from 'hooks/useNumber'
 import React, { useEffect, useMemo } from 'react'
-import useNumber from '../hooks/useNumber'
-import * as api from '../services/api'
+import * as api from 'services/api'
 
 type State = Readonly<{
   isLoading: boolean

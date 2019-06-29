@@ -1,5 +1,6 @@
 import { AxiosStaticMock } from '__mocks__/axios'
 import axios from 'axios'
+import { RandomNumberProvider } from 'contexts/RandomNumberContext'
 import 'jest-dom/extend-expect'
 import React from 'react'
 import {
@@ -10,7 +11,6 @@ import {
   waitForDomChange,
 } from 'react-testing-library'
 import { Payload } from 'services/api'
-import { RandomNumberProvider } from '../contexts/RandomNumberContext'
 import RandomCounter from './RandomCounter'
 
 afterEach(cleanup)

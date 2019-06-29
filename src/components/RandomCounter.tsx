@@ -1,9 +1,9 @@
-import React, { useCallback, useMemo } from 'react'
-import styled from 'styled-components'
 import {
   useRandomNumberActions,
   useRandomNumberState,
-} from '../contexts/RandomNumberContext'
+} from 'contexts/RandomNumberContext'
+import React, { useCallback, useMemo } from 'react'
+import styled from 'styled-components'
 
 const StyledButton = styled.button``
 
