@@ -1,7 +1,7 @@
-import useDataApi from 'hooks/useDataApi'
 import useNumber from 'hooks/useNumber'
 import React, { useEffect, useMemo } from 'react'
 import * as api from 'services/api'
+import useDraftDataApi from 'use-draft-data-api'
 
 type State = Readonly<{
   isLoading: boolean
@@ -19,14 +19,15 @@ const StateContext = React.createContext<State | undefined>(undefined)
 const ActionsContext = React.createContext<Actions | undefined>(undefined)
 
 const RandomNumberProvider: React.FunctionComponent = ({ children }) => {
-  const [{ data, isLoading }, doFetch] = useDataApi<api.Payload>(
+  const [{ data, isLoading }, doFetch] = useDraftDataApi<api.Payload>(
     api.randomNumberUrl,
     {
       type: null,
       length: 0,
       data: [],
       success: false,
-    }
+    },
+    (prevState, action) => action.draft
   )
 
   const { value, increment, reset, setValue } = useNumber(

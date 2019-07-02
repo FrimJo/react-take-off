@@ -9,7 +9,8 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
     "styled-components": "^4.2.0",
-    "use-draft-reducer": "^0.1.1"
+    "use-draft-data-api": "^0.1.1",
+    "use-draft-reducer": "^0.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,24 +37,24 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react-hooks": "^1.0.4",
+    "@testing-library/react-hooks": "^1.1.0",
     "@types/jest": "^24.0.13",
-    "@types/node": "12.0.2",
-    "@types/react": "16.8.18",
+    "@types/node": "12.0.10",
+    "@types/react": "16.8.22",
     "@types/react-dom": "16.8.4",
     "@types/styled-components": "^4.1.15",
-    "babel-plugin-styled-components": "^1.10.0",
-    "husky": "^2.3.0",
+    "babel-plugin-styled-components": "^1.10.6",
+    "husky": "^3.0.0",
     "jest-dom": "^3.2.2",
-    "prettier": "1.17.1",
-    "react-hot-loader": "^4.8.7",
+    "prettier": "1.18.2",
+    "react-hot-loader": "^4.12.0",
     "react-test-renderer": "^16.8.6",
-    "react-testing-library": "^7.0.1",
+    "react-testing-library": "^8.0.1",
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
     "tslint-react": "^4.0.0",
-    "typescript": "3.4.5",
+    "typescript": "3.5.2",
     "yarnhook": "^0.4.0"
   }
 }
