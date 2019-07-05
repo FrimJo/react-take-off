@@ -1,7 +1,7 @@
+import useDraftDataApi from 'hooks/useDraftDataApi'
 import useNumber from 'hooks/useNumber'
 import React, { useEffect, useMemo } from 'react'
 import * as api from 'services/api'
-import useDraftDataApi from 'use-draft-data-api'
 
 type State = Readonly<{
   isLoading: boolean
@@ -30,7 +30,7 @@ const RandomNumberProvider: React.FunctionComponent = ({ children }) => {
     (prevState, action) => action.draft
   )
 
-  const { value, increment, reset, setValue } = useNumber(
+  const { state, increment, reset, setValue } = useNumber(
     (prevState, action) => action.draft
   )
 
@@ -43,14 +43,15 @@ const RandomNumberProvider: React.FunctionComponent = ({ children }) => {
     ) {
       setValue(data.data[0])
     }
-  }, [setValue, data])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   const stateValue: State = useMemo(
     () => ({
       isLoading,
-      value,
+      value: state.value,
     }),
-    [isLoading, value]
+    [isLoading, state.value]
   )
 
   const actionValue: Actions = useMemo(
@@ -66,7 +67,8 @@ const RandomNumberProvider: React.FunctionComponent = ({ children }) => {
       reset,
       setValue,
     }),
-    [doFetch, increment, reset, setValue]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   )
   return (
     <StateContext.Provider value={stateValue}>

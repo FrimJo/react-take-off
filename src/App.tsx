@@ -21,9 +21,20 @@ const styles = {
 const App = () => {
   return (
     <RandomNumberProvider>
-      <Counter styles={styles}>4815162342</Counter>
+      <Counter styles={styles}>200</Counter>
       <RandomCounter />
+      <TempComopnent />
     </RandomNumberProvider>
+  )
+}
+
+const TempComopnent = () => {
+  const [value, setValue] = React.useState(0)
+  return (
+    <div>
+      <div>{value}</div>
+      <button onClick={() => setValue(v => v + 1)}>increment</button>
+    </div>
   )
 }
 

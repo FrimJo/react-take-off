@@ -45,7 +45,8 @@ const useDraftDataApi = <T extends object = object>(
     return () => {
       didCancel = true
     }
-  }, [dispatch, url])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url])
 
   return [state as FetchState<T>, setUrl]
 }

@@ -22,13 +22,16 @@ const reducer: React.Reducer<NumberState, NumberAction> = (
   }
 }
 
-const useNumber = () => {
-  const [state, dispatch] = React.useReducer(reducer, { value: 0 })
+const useNumber = (draftReducer?: DraftReducer<NumberState, NumberAction>) => {
+  const [state, dispatch] = useDraftReducer(reducer, { value: 0 }, draftReducer)
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const increment = useCallback(() => dispatch({ type: 'INCREMENT' }), [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const reset = useCallback(() => dispatch({ type: 'RESET' }), [])
   const setValue = useCallback(
     (v: number) => dispatch({ type: 'SET', value: v }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
 
