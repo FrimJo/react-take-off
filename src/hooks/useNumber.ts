@@ -1,9 +1,10 @@
+import useDraftReducer, { DraftReducer } from 'hooks/useDraftReducer'
+import React from 'react'
 import { useCallback } from 'react'
-import useDraftReducer, { DraftReducer } from 'use-draft-reducer'
 
-type NumberState = Readonly<{ value: number }>
+export type NumberState = Readonly<{ value: number }>
 
-type NumberAction = Readonly<
+export type NumberAction = Readonly<
   { type: 'INCREMENT' } | { type: 'RESET' } | { type: 'SET'; value: number }
 >
 
@@ -21,23 +22,17 @@ const reducer: React.Reducer<NumberState, NumberAction> = (
   }
 }
 
-const useNumber = (draftReducer?: DraftReducer<NumberState, NumberAction>) => {
-  const [{ value }, dispatch] = useDraftReducer(
-    reducer,
-    { value: 0 },
-    draftReducer
-  )
+const useNumber = () => {
+  const [state, dispatch] = React.useReducer(reducer, { value: 0 })
 
-  const increment = useCallback(() => dispatch({ type: 'INCREMENT' }), [
-    dispatch,
-  ])
-  const reset = useCallback(() => dispatch({ type: 'RESET' }), [dispatch])
+  const increment = useCallback(() => dispatch({ type: 'INCREMENT' }), [])
+  const reset = useCallback(() => dispatch({ type: 'RESET' }), [])
   const setValue = useCallback(
     (v: number) => dispatch({ type: 'SET', value: v }),
-    [dispatch]
+    []
   )
 
-  return { value: value, increment, reset, setValue }
+  return { state, increment, reset, setValue }
 }
 
 export default useNumber
