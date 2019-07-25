@@ -20,6 +20,20 @@ This README describes the necessary steps to get a local development environment
 
 Install dependencies with `yarn install`
 
+Dublicate the file called `.env.sample` and rename it to `.env`. Then, open `.env` and remove the optional variables and set the `REACT_APP_API_URL` variable to your desired backend url.
+
+Example for using remote backend
+
+```
+REACT_APP_API_URL=https://api-test.site.com
+```
+
+Example for using local backend (replace PPPP with port)
+
+```
+REACT_APP_API_URL=https://localhost:PORT
+```
+
 ### Start
 
 Start the application with `yarn start`
@@ -28,10 +42,8 @@ This should open http://localhost:3000 in your browser.
 
 ### Test
 
-This project uses [jest](https://jestjs.io) for testing, and the written tests are based on [test-isolation-with-react](https://kentcdodds.com/blog/test-isolation-with-react).
+This project uses [jest](https://jestjs.io) for testing.
 The following command will start jest in watch mode:
-
-Jest Manual Mocks https://jestjs.io/docs/en/manual-mocks
 
 ```
 yarn test
@@ -74,11 +86,15 @@ We use `kebab-kase` for all our files and folders in this project.
 
 The folder structure used in this project is based of an article written by [Charles Stover](https://medium.com/@Charles_Stover) called [Optimal file structure for React applications](https://medium.com/@Charles_Stover/optimal-file-structure-for-react-applications-f3e35ad0a145)
 
-- `public` is where our static files reside.
+- `public` is where our static files reside. (located outside of `src` folder.)
+- `api` is where we keep all code for communicating with the backend. This folder should be pure TypeScript and not contain any React related code.
 - `assets` is where any kind of asset, like images are place here.
 - `components` contains all components of the application.
+- `config` contains routes and other configurable variables.
 - `localization` is where all the language files reside.
-- `routes` is where each entry point in to the page has its own folder.
+- `pages` is where we define all entry points referenced from the `routes.ts` file in `config` folder.
+- `styles` contains all styling related code, souch as global styling, theme and colors.
+- `types` contains special type definition files for thirdparty modules.
 - `utilities` contains helper functions.
 
 ### Utilities folder `utilities`
@@ -96,25 +112,15 @@ Each component can, but does not need to, contain the following type files:
 - `component-name-styles.ts` is where we store the styled components.
 - `component-name-view.tsx` is your stateless view Component. For the majority of cases, this Component should be able to be pure functional Component (no hooks!).
 - `index.ts` is your entry point for importing your Component. It contains nothing but an export statement that points to the topmost Component at any point in time, because the topmost Component changes often during development.
-- `component-name-....-test.ts` are created for each file tested.
+- `component-name-test.ts` are created for writing tests.
 
-The `components` folder also hosts its own `utilities` folder for utilities and components used by it self or it children.
+The `components` folder can also hosts its own `utilities` folder for utilities and components used by it self or it children.
 
 A component folder can also contain their own components used only by it self.
 
 ### React Router
 
-`routes` folder contains one folder for each entry point, like `controller` in a .NET MVC project, where each entry point folder contains a single `index.ts` file. Naming the folder is base on where they are not what they do.
-
-Example
-
-```
-hostname.com/random-page -> src/routes/random-page/index.ts
-```
-
-### Tests
-
-Test files are to be created in the smae foler as the files they are testing.
+In `configs/routes.ts` we define all routes for this project, and the pages refrenced in the rotues are located in `pages`.
 
 ### Using [Material-UI](https://github.com/mui-org/material-ui)
 
