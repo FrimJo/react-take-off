@@ -1,5 +1,3 @@
 import React from 'react'
 
-const LoginPageView: React.SFC = () => <div>404</div>
-
-export default LoginPageView
+export const NotFoundPageView: React.SFC = () => <div>404</div>

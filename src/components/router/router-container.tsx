@@ -2,8 +2,8 @@ import React from 'react'
 import { Route, Router, Switch } from 'react-router-dom'
 
 import { routesArray } from 'config/page-routes'
-import NotFoundPage from 'pages/not-found'
-import history from 'utilities/history'
+import { NotFoundPage } from 'pages/not-found'
+import { history } from 'utilities/history'
 import { PrivateRoute } from './components/private-route'
 
 export const RouterContainer = () => (

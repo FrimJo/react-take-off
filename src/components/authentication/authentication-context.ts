@@ -1,6 +1,6 @@
 import React from 'react'
 
-import usePromiseApi from 'utilities/use-promise'
+import { usePromiseApi } from 'utilities/use-promise'
 import { createContext } from 'utilities/create-context'
 
 const logInAsync = async () => true

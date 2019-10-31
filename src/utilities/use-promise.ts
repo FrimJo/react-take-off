@@ -1,6 +1,6 @@
 import React from 'react'
 
-import fetchDataReducer from './fetch-data-reducer'
+import { fetchDataReducer } from './fetch-data-reducer'
 
 type FetchAsync = <T>(promise: Promise<T>) => Promise<T>
 export type PromiseState = Readonly<{
@@ -9,7 +9,10 @@ export type PromiseState = Readonly<{
   error: any[]
 }>
 
-const usePromiseApi = (): { state: PromiseState; fetchAsync: FetchAsync } => {
+export const usePromiseApi = (): {
+  state: PromiseState
+  fetchAsync: FetchAsync
+} => {
   const [{ count, error }, dispatch] = React.useReducer(fetchDataReducer, {
     error: [],
     count: 0,
@@ -42,5 +45,3 @@ const usePromiseApi = (): { state: PromiseState; fetchAsync: FetchAsync } => {
 
   return { state: { isError, isLoading, error }, fetchAsync }
 }
-
-export default usePromiseApi

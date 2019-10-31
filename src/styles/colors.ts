@@ -1,3 +1,1 @@
-const Colors = {}
-
-export default Colors
+export const Colors = {}

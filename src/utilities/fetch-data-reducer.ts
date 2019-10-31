@@ -10,7 +10,7 @@ export type FetchAction = Readonly<
   | { type: 'FETCH_ABORTED' }
 >
 
-const fetchDataReducer = (
+export const fetchDataReducer = (
   prevState: FetchState,
   action: FetchAction
 ): FetchState => {
@@ -45,5 +45,3 @@ const fetchDataReducer = (
     }
   }
 }
-
-export default fetchDataReducer

@@ -1,3 +1,3 @@
-import NotFoundPage from './not-found-page-view'
+import { NotFoundPageView } from './not-found-page-view'
 
-export default NotFoundPage
+export { NotFoundPageView as NotFoundPage }

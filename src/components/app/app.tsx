@@ -4,10 +4,10 @@ import React from 'react'
 import { Authentication } from 'components/authentication'
 import { Router } from 'components/router'
 import { ThemeProvider } from 'components/theme-provider'
-import GlobalStyle from 'styles/global-styles'
+import { GlobalStyle } from 'styles/global-styles'
 import { THEME } from 'styles/theme'
 
-const App = () => (
+export const App = () => (
   <StylesProvider injectFirst={true}>
     <ThemeProvider theme={THEME}>
       <Authentication.Provider>
@@ -17,5 +17,3 @@ const App = () => (
     </ThemeProvider>
   </StylesProvider>
 )
-
-export default App
