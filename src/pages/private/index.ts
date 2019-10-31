@@ -1,2 +1,2 @@
-import Private from './private-view'
-export default Private
+import { PrivatePageView } from './private-view'
+export { PrivatePageView as PrivatePage }

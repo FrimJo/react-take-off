@@ -1,28 +1,28 @@
 import { RouteComponentProps, RouteProps } from 'react-router'
 
-import PrivatePage from 'pages/private'
-import StartPage from 'pages/start'
+import { PrivatePage } from 'pages/private'
+import { StartPage } from 'pages/start'
 
-interface IRoute extends RouteProps {
+interface IPageRoute extends RouteProps {
   private: boolean
   path: string
   component: React.ComponentType<RouteComponentProps<any>>
 }
 
-const Route = {
+const RouteRoutes = {
   Start: {
     path: '/',
     exact: true,
     private: false,
     component: StartPage,
-  } as IRoute,
+  } as IPageRoute,
   Private: {
     path: '/private',
     exact: true,
     private: true,
     component: PrivatePage,
-  } as IRoute,
+  } as IPageRoute,
 }
 
-export const routesArray = Object.values(Route)
-export default Route
+export const routesArray = Object.values(RouteRoutes)
+export default RouteRoutes

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import SpinnerStyle from './spinner-style'
+import { SpinnerStyle } from './spinner-style'
 
 export type Props = Readonly<{
   className?: string | null
@@ -8,7 +8,11 @@ export type Props = Readonly<{
   size?: number
 }>
 
-const SpinnerView: React.SFC<Props> = ({ className, size = 64, ...props }) => (
+export const SpinnerView: React.SFC<Props> = ({
+  className,
+  size = 64,
+  ...props
+}) => (
   <SpinnerStyle size={size} className={className || ''} {...props}>
     <div />
     <div />
@@ -16,5 +20,3 @@ const SpinnerView: React.SFC<Props> = ({ className, size = 64, ...props }) => (
     <div />
   </SpinnerStyle>
 )
-
-export default SpinnerView

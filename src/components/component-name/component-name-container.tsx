@@ -1,14 +1,13 @@
 import React from 'react'
-import ComponentNameView from './component-name-view'
+import { ComponentNameView } from './component-name-view'
+import { ComponentNameContext } from './component-name-context'
 
-const ComponentNameContainer: React.FunctionComponent = () => {
+export const ComponentNameContainer: React.FunctionComponent = () => {
   const [name, setName] = React.useState('dafault name')
   return (
-    <div>
+    <ComponentNameContext.Provider>
       <label>ComponentContainer</label>
       <ComponentNameView prop1={name} />
-    </div>
+    </ComponentNameContext.Provider>
   )
 }
-
-export default ComponentNameContainer

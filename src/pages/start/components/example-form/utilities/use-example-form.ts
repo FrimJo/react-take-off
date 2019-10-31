@@ -1,4 +1,3 @@
-import React from 'react'
 import * as yup from 'yup'
 
 import { Name, OnSubmitFunction } from 'types'
@@ -13,40 +12,29 @@ type ExampleForm = Readonly<{
 }>
 
 // Define the hook to be used to leverage this form
-const useExampleForm = () => {
-  const initialValues: ExampleForm = React.useMemo(
-    () => ({
-      field1: '',
-      field2: '',
-      field3: '',
-    }),
-    []
-  )
+export const useExampleForm = () => {
+  const initialValues: ExampleForm = {
+    field1: '',
+    field2: '',
+    field3: '',
+  }
 
-  const onSubmit: OnSubmitFunction<ExampleForm> = React.useCallback(
-    ({ field1, field2, field3 }, { setSubmitting }) =>
-      dummyFnc(field1, field2, field3).finally(() => setSubmitting(false)),
-    []
-  )
+  const onSubmit: OnSubmitFunction<ExampleForm> = (
+    { field1, field2, field3 },
+    { setSubmitting }
+  ) => dummyFnc(field1, field2, field3).finally(() => setSubmitting(false))
 
-  const validationSchema = React.useMemo(
-    () =>
-      yup.object().shape<ExampleForm>({
-        field1: yup.string().required(),
-        field2: yup.string().required(),
-        field3: yup.string().required(),
-      }),
-    []
-  )
+  const validationSchema = yup.object().shape<ExampleForm>({
+    field1: yup.string().required(),
+    field2: yup.string().required(),
+    field3: yup.string().required(),
+  })
 
-  const name: Name<ExampleForm> = React.useMemo(
-    () => ({
-      field1: 'field1',
-      field2: 'field2',
-      field3: 'field3',
-    }),
-    []
-  )
+  const name: Name<ExampleForm> = {
+    field1: 'field1',
+    field2: 'field2',
+    field3: 'field3',
+  }
 
   return {
     initialValues,
@@ -55,5 +43,3 @@ const useExampleForm = () => {
     name,
   }
 }
-
-export default useExampleForm

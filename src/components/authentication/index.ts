@@ -1,2 +1,2 @@
-import Authentication from './authentication-context'
-export default Authentication
+import { AuthenticationContext } from './authentication-context'
+export { AuthenticationContext as Authentication }

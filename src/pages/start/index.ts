@@ -1,2 +1,2 @@
-import StartPage from './start-page-view'
-export default StartPage
+import { StartPageView } from './start-page-view'
+export { StartPageView as StartPage }

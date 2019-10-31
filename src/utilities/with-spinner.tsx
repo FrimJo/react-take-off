@@ -2,7 +2,7 @@ import { Fade, PropTypes } from '@material-ui/core'
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-import Spinner from 'components/spinner'
+import { Spinner } from 'components/spinner'
 
 type Options = Readonly<{
   color?: string

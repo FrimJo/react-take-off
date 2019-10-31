@@ -6,14 +6,14 @@ import {
   RouteProps,
 } from 'react-router-dom'
 
-import Authentication from 'components/authentication'
 import Route from 'config/routes'
+import { Authentication } from 'components/authentication'
 
 interface IProps extends RouteProps {
   component: React.ComponentType<RouteComponentProps>
 }
 
-const PrivateRoute: React.FunctionComponent<IProps> = ({
+export const PrivateRouteContainer: React.FunctionComponent<IProps> = ({
   component: Component,
   ...rest
 }) => {
@@ -36,5 +36,3 @@ const PrivateRoute: React.FunctionComponent<IProps> = ({
     />
   )
 }
-
-export default PrivateRoute

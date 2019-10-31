@@ -1,5 +1,6 @@
 {
   "hooks": {
+    "pre-commit": "pretty-quick --staged",
     "post-merge": "yarnhook",
     "post-checkout": "yarnhook",
     "post-rewrite": "yarnhook"

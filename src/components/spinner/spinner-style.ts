@@ -14,7 +14,7 @@ type StyledProps = Readonly<{
   size: number
 }>
 
-const SpinnerStyle = styled.div<StyledProps>`
+export const SpinnerStyle = styled.div<StyledProps>`
   display: inline-block;
   position: relative;
   width: ${props => props.size}px;
@@ -45,4 +45,3 @@ const SpinnerStyle = styled.div<StyledProps>`
     }
   }
 `
-export default SpinnerStyle

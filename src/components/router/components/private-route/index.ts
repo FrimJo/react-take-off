@@ -1,2 +1,2 @@
-import PrivateRoute from './private-route-container'
-export default PrivateRoute
+import { PrivateRouteContainer } from './private-route-container'
+export { PrivateRouteContainer as PrivateRoute }

@@ -1,70 +1,46 @@
 import React from 'react'
 
-export type FetchState = Readonly<{
-  isLoading: boolean
+import fetchDataReducer from './fetch-data-reducer'
+
+type FetchAsync = <T>(promise: Promise<T>) => Promise<T>
+export type PromiseState = Readonly<{
   isError: boolean
-  error: any
+  isLoading: boolean
+  error: any[]
 }>
 
-export type FetchAction = Readonly<
-  | { type: 'FETCH_INIT' }
-  | { type: 'FETCH_SUCCESS' }
-  | { type: 'FETCH_FAILURE'; payload: string }
->
-
-const fetchDataReducer = (
-  state: FetchState,
-  action: FetchAction
-): FetchState => {
-  switch (action.type) {
-    case 'FETCH_INIT':
-      return {
-        ...state,
-        isLoading: true,
-        isError: false,
-        error: '',
-      }
-    case 'FETCH_SUCCESS':
-      return {
-        ...state,
-        isLoading: false,
-        isError: false,
-      }
-    case 'FETCH_FAILURE':
-      return {
-        ...state,
-        isLoading: false,
-        isError: true,
-        error: action.payload,
-      }
-  }
-}
-
-const usePromiseApi = () => {
-  const [state, dispatch] = React.useReducer(fetchDataReducer, {
-    isLoading: false,
-    isError: false,
-    error: null,
+const usePromiseApi = (): { state: PromiseState; fetchAsync: FetchAsync } => {
+  const [{ count, error }, dispatch] = React.useReducer(fetchDataReducer, {
+    error: [],
+    count: 0,
   })
 
-  const fetchAsync = React.useCallback(
-    async <T extends any>(promise: Promise<T>): Promise<T> => {
-      dispatch({ type: 'FETCH_INIT' })
+  const isLoading = React.useMemo(() => count > 0, [count])
+  const isError = React.useMemo(() => error.length > 0, [error.length])
 
-      try {
-        const result = await promise
-        dispatch({ type: 'FETCH_SUCCESS' })
+  const fetchAsync: FetchAsync = async promise => {
+    dispatch({ type: 'FETCH_INIT' })
 
-        return result
-      } catch (error) {
+    try {
+      const result = await promise
+      dispatch({ type: 'FETCH_SUCCESS' })
+
+      return result
+    } catch (error) {
+      // Aborted has error code 20
+      if (error instanceof DOMException && error.code === 20) {
+        console.error('Request aborted')
+        dispatch({ type: 'FETCH_ABORTED' })
+      } else {
         dispatch({ type: 'FETCH_FAILURE', payload: error })
-        return Promise.reject()
       }
-    },
-    []
-  )
 
-  return { state, fetchAsync }
+      // throw error
+      return Promise.reject(error)
+    }
+  }
+
+  return { state: { isError, isLoading, error }, fetchAsync }
 }
 
 export default usePromiseApi

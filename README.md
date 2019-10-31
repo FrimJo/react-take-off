@@ -38,7 +38,7 @@ REACT_APP_API_URL=https://localhost:PORT
 
 Start the application with `yarn start`
 
-This should open http://localhost:3000 in your browser.
+This will open http://localhost:3000 in your browser.
 
 ### Test
 
@@ -99,7 +99,7 @@ The folder structure used in this project is based of an article written by [Cha
 
 ### Utilities folder `utilities`
 
-This is a folder full of helper functions that are used globally.
+This is a folder full of helper functions that are used globally in the project.
 
 ### Components folder `components`
 
@@ -111,12 +111,10 @@ Each component can, but does not need to, contain the following type files:
 - `component-name-context.tsx` is where the non local stat logic lies.
 - `component-name-styles.ts` is where we store the styled components.
 - `component-name-view.tsx` is your stateless view Component. For the majority of cases, this Component should be able to be pure functional Component (no hooks!).
-- `index.ts` is your entry point for importing your Component. It contains nothing but an export statement that points to the topmost Component at any point in time, because the topmost Component changes often during development.
-- `component-name-test.ts` are created for writing tests.
+- `index.ts` is your entry point for importing your Component. It contains nothing but an import and export statement that points to the topmost Component at any point in time, because the topmost Component changes often during development.
+- `component-name-test.ts` are created when writing tests.
 
-The `components` folder can also hosts its own `utilities` folder for utilities and components used by it self or it children.
-
-A component folder can also contain their own components used only by it self.
+The `components` folder can also hosts its own `utilities` for utilities and `components` for child components used by it self or it children.
 
 ### React Router
 

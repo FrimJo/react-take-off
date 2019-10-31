@@ -1,6 +1,6 @@
 {
   "plugins": [
-    "react-hot-loader/babel",
+    "next/babel",
     [
       "babel-plugin-styled-components",
       {

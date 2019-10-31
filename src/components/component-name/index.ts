@@ -1,3 +1,3 @@
-import ComponentName from './component-name-container'
+import { ComponentNameContainer } from './component-name-container'
 
-export default ComponentName
+export { ComponentNameContainer as ComponentName }

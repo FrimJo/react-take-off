@@ -1,3 +1,3 @@
-import ExampleForm from './example-form-container'
+import { ExampleFormContainer } from './example-form-container'
 
-export default ExampleForm
+export { ExampleFormContainer as ExampleForm }
