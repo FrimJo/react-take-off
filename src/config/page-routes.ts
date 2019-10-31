@@ -9,7 +9,7 @@ interface IPageRoute extends RouteProps {
   component: React.ComponentType<RouteComponentProps<any>>
 }
 
-const RouteRoutes = {
+export const PageRoutes = {
   Start: {
     path: '/',
     exact: true,
@@ -24,5 +24,4 @@ const RouteRoutes = {
   } as IPageRoute,
 }
 
-export const routesArray = Object.values(RouteRoutes)
-export default RouteRoutes
+export const routesArray = Object.values(PageRoutes)

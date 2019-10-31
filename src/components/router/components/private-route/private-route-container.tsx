@@ -6,7 +6,7 @@ import {
   RouteProps,
 } from 'react-router-dom'
 
-import Route from 'config/routes'
+import { PageRoutes } from 'config/page-routes'
 import { Authentication } from 'components/authentication'
 
 interface IProps extends RouteProps {
@@ -25,7 +25,7 @@ export const PrivateRouteContainer: React.FunctionComponent<IProps> = ({
         props => {
           if (!isLoggedIn) {
             // not logged in so redirect to login page with the return url
-            return <Redirect to={{ pathname: Route.Start.path }} />
+            return <Redirect to={{ pathname: PageRoutes.Start.path }} />
           }
 
           // authorised so return component
