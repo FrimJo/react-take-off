@@ -1,6 +1,8 @@
+// this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
+/** @jsx jsx */
 import { Fade, PropTypes, useTheme } from '@material-ui/core'
 import React from 'react'
-import { css } from '@emotion/core'
+import { css, jsx } from '@emotion/core'
 import styled from '@emotion/styled'
 
 import { Spinner } from 'components/spinner'
@@ -28,49 +30,53 @@ type WithSpinner = Readonly<{
 
 const withSpinner = <P extends WithSpinner>(
   Component: React.ComponentType<P>,
-  { color = 'white', size = 16 }: Options
+  options: Options = {}
 ) => {
-  const SpinnerComponent: React.SFC<P & WithSpinnerProps> = ({
-    children,
-    showSpinner,
-    disabled,
-    className,
-    color: themeColor = 'primary',
-    ...rest
-  }) => {
-    const theme = useTheme()
-    const disabledLocal = disabled || showSpinner || false
+  const SpinnerComponent: React.SFC<P & WithSpinnerProps> = React.memo(
+    ({
+      children,
+      showSpinner,
+      disabled,
+      className,
+      color: themeColor = 'primary',
+      ...rest
+    }) => {
+      const { color = 'white', size = 16 } = options
+      const theme = useTheme()
+      const disabledLocal = disabled || showSpinner || false
 
-    /*
+      /*
     Change default disabled background-color and text color
     for a dsiabled button if we are using a spinner.
     */
-    const styling =
-      showSpinner !== undefined
-        ? css`
-            &.MuiButton-contained.Mui-disabled {
-              color: ${theme.palette[themeColor].contrastText};
-              background-color: ${theme.palette[themeColor].main};
-            }
-          `
-        : ''
+      const styling =
+        showSpinner !== undefined
+          ? css`
+              &.MuiButton-contained.Mui-disabled {
+                color: ${theme.palette[themeColor].contrastText};
+                background-color: ${theme.palette[themeColor].dark};
+              }
+            `
+          : ''
 
-    return (
-      <Component
-        css={styling}
-        disabled={disabledLocal}
-        calssName={className}
-        {...(rest as P)}>
-        <Fade in={showSpinner} unmountOnExit={true}>
-          <SpinnerContainer color={color} size={size} className="mr-1" />
-        </Fade>
-        {/* We use visibility to keep the size of the button whn showing spinner*/}
-        <ChildrenContainer visibility={showSpinner ? 'hidden' : 'visible'}>
-          {children}
-        </ChildrenContainer>
-      </Component>
-    )
-  }
+      return (
+        <Component
+          css={styling}
+          disabled={disabledLocal}
+          className={className}
+          color={themeColor}
+          {...(rest as P)}>
+          <Fade in={showSpinner} unmountOnExit={true}>
+            <SpinnerContainer color={color} size={size} className="mr-1" />
+          </Fade>
+          {/* We use visibility to keep the size of the button whn showing spinner*/}
+          <ChildrenContainer visibility={showSpinner ? 'hidden' : 'visible'}>
+            {children}
+          </ChildrenContainer>
+        </Component>
+      )
+    }
+  )
 
   return SpinnerComponent
 }
