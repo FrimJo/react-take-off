@@ -48,8 +48,9 @@ const withSpinner = <P extends WithSpinner>(
         Change default disabled background-color and text color
         for a dsiabled button if we are using a spinner.
       */
+      const hasColorProp = theme.palette.hasOwnProperty(themeColor)
       const styling =
-        showSpinner !== undefined && theme.palette.hasOwnProperty(themeColor)
+        showSpinner !== undefined && hasColorProp
           ? css`
               &.MuiButton-contained.Mui-disabled {
                 color: ${theme.palette[themeColor].contrastText};
@@ -57,7 +58,6 @@ const withSpinner = <P extends WithSpinner>(
               }
             `
           : ''
-
       return (
         <Component
           css={styling}

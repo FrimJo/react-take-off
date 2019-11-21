@@ -27,37 +27,6 @@ export const ExampleFormContainer: React.FC = () => {
               showSpinner={isSubmitting}>
               Submit
             </ButtonWithSpinner>
-            <ButtonWithSpinner
-              color="secondary"
-              variant="contained"
-              type="submit"
-              disabled={!dirty}
-              showSpinner={isSubmitting}>
-              Submit
-            </ButtonWithSpinner>
-            <ButtonWithSpinner
-              color="default"
-              variant="contained"
-              type="submit"
-              disabled={!dirty}
-              showSpinner={isSubmitting}>
-              Submit
-            </ButtonWithSpinner>
-            <ButtonWithSpinner
-              color="inherit"
-              variant="contained"
-              type="submit"
-              disabled={!dirty}
-              showSpinner={isSubmitting}>
-              Submit
-            </ButtonWithSpinner>
-            <ButtonWithSpinner
-              variant="contained"
-              type="submit"
-              disabled={!dirty}
-              showSpinner={isSubmitting}>
-              Submit
-            </ButtonWithSpinner>
           </Box>
         </Form>
       )}
