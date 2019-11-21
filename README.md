@@ -2,6 +2,20 @@
 
 This README describes the necessary steps to get a local development environment of the web app up and running.
 
+### TODO
+
+- [ ] Add `lint-staged` and rule for `no-irregular-whitespace`
+- [ ] Update VSCode to run `tslint --fix` on save without pretteir bug
+- [ ] Look into using `xstate`
+- [ ] Update name of `usePromise` hook to `wrapPromise`
+- [ ] Update `usePromise` hook to use `React.suspence`
+- [ ] Update to `Formik` v2
+- [ ] Make usePromise return array
+- [ ] Graph QL
+- [ ] Remove TS check on compile
+- [ ] Use only `eslint` and not `tslint`
+- [ ] Update Error boundery to use promise
+
 ### Prerequisites
 
 - A git client
