@@ -2,7 +2,7 @@ import { createMuiTheme } from '@material-ui/core'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles'
 import React from 'react'
-import { ThemeProvider as ScThemeProvider } from 'styled-components'
+import { ThemeProvider as ScThemeProvider } from 'emotion-theming'
 
 type Props = Readonly<{
   theme: ThemeOptions

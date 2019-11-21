@@ -1,7 +1,8 @@
-import { createGlobalStyle } from 'styled-components'
+import { css } from '@emotion/core'
 
-export const GlobalStyle = createGlobalStyle`
+export const GlobalStyles = css`
   html,
   body,
-  #app {}
+  #app {
+  }
 `

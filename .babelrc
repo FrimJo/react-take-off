@@ -1,11 +1,3 @@
 {
-  "plugins": [
-    "next/babel",
-    [
-      "babel-plugin-styled-components",
-      {
-        "displayName": false
-      }
-    ]
-  ]
+  "plugins": ["next/babel", ["emotion"]]
 }
