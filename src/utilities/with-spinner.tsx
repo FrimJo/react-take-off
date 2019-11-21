@@ -43,14 +43,13 @@ const withSpinner = <P extends WithSpinner>(
     }) => {
       const { color = 'white', size = 16 } = options
       const theme = useTheme()
-      const disabledLocal = disabled || showSpinner || false
 
       /*
-    Change default disabled background-color and text color
-    for a dsiabled button if we are using a spinner.
-    */
+        Change default disabled background-color and text color
+        for a dsiabled button if we are using a spinner.
+      */
       const styling =
-        showSpinner !== undefined
+        showSpinner !== undefined && themeColor !== 'default'
           ? css`
               &.MuiButton-contained.Mui-disabled {
                 color: ${theme.palette[themeColor].contrastText};
@@ -62,7 +61,7 @@ const withSpinner = <P extends WithSpinner>(
       return (
         <Component
           css={styling}
-          disabled={disabledLocal}
+          disabled={disabled || showSpinner || false}
           className={className}
           color={themeColor}
           {...(rest as P)}>
