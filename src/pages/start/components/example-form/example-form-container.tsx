@@ -19,6 +19,7 @@ export const ExampleFormContainer: React.FC = () => {
             <Field variant={'outlined'} name={name.field1} />
             <Field variant={'outlined'} name={name.field2} />
             <Field variant={'outlined'} name={name.field3} />
+            <DwithSpinner showSpinner={true} />
             <ButtonWithSpinner
               color="primary"
               variant="contained"
@@ -33,5 +34,9 @@ export const ExampleFormContainer: React.FC = () => {
     </Formik>
   )
 }
+
+const D = () => <div className="test">test</div>
+
+const DwithSpinner = withSpinner(D, { color: 'pink' })
 
 const ButtonWithSpinner = withSpinner(Button)
