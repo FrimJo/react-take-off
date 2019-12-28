@@ -1,21 +1,21 @@
-export type FetchState = Readonly<{
+export type ManagerState = Readonly<{
   count: number
   error: any[]
 }>
 
-export type FetchAction = Readonly<
-  | { type: 'FETCH_INIT' }
-  | { type: 'FETCH_SUCCESS' }
-  | { type: 'FETCH_FAILURE'; payload: any }
-  | { type: 'FETCH_ABORTED' }
+export type ManagerAction = Readonly<
+  | { type: 'INIT' }
+  | { type: 'SUCCESS' }
+  | { type: 'FAILURE'; payload: any }
+  | { type: 'ABORTED' }
 >
 
-export const fetchDataReducer = (
-  prevState: FetchState,
-  action: FetchAction
-): FetchState => {
+export const managerReducer = (
+  prevState: ManagerState,
+  action: ManagerAction
+): ManagerState => {
   switch (action.type) {
-    case 'FETCH_INIT': {
+    case 'INIT': {
       return prevState.count === 0
         ? {
             ...prevState,
@@ -24,20 +24,20 @@ export const fetchDataReducer = (
           }
         : { ...prevState, count: prevState.count + 1 }
     }
-    case 'FETCH_SUCCESS': {
+    case 'SUCCESS': {
       return {
         ...prevState,
         count: prevState.count - 1,
       }
     }
-    case 'FETCH_FAILURE': {
+    case 'FAILURE': {
       return {
         ...prevState,
         error: [...prevState.error, action.payload],
         count: prevState.count - 1,
       }
     }
-    case 'FETCH_ABORTED': {
+    case 'ABORTED': {
       return {
         ...prevState,
         count: prevState.count - 1,
