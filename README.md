@@ -7,15 +7,15 @@ This README describes the necessary steps to get a local development environment
 - [ ] Add `lint-staged` and rule for `no-irregular-whitespace`
 - [ ] Update VSCode to run `tslint --fix` on save without pretteir bug
 - [ ] Look into using `xstate`
-- [ ] Update name of `usePromise` hook to `wrapPromise`
-- [ ] Update `usePromise` hook to use `React.suspence`
+- [x] Update name of `usePromise` hook to `usePromiseManager`
+- [ ] Update `usePromiseManager` hook to use `React.suspence`
 - [ ] Update to `Formik` v2
-- [ ] Make usePromise return array
+- [ ] Make usePromiseManager return array
 - [ ] Graph QL
 - [ ] Remove TS check on compile
 - [ ] Use only `eslint` and not `tslint`
 - [ ] Update Error boundery to use promise
-- [ ] Update `usePromise`s `fetchAsync` to take `slient` option (do not trigger isLoading)
+- [ ] Update `usePromiseManager`s `manage` to take `slient` option (do not trigger isLoading)
 - [x] Migrate from styled-components to Emotion
 
 ### Prerequisites
