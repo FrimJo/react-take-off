@@ -4,7 +4,7 @@ export type ManagerState = Readonly<{
 }>
 
 export type ManagerAction = Readonly<
-  | { type: 'INIT' }
+  | { type: 'INIT'; payload?: boolean }
   | { type: 'SUCCESS' }
   | { type: 'FAILURE'; payload: any }
   | { type: 'ABORTED' }
@@ -16,31 +16,34 @@ export const managerReducer = (
 ): ManagerState => {
   switch (action.type) {
     case 'INIT': {
-      return prevState.count === 0
-        ? {
-            ...prevState,
-            error: [],
-            count: 1,
-          }
-        : { ...prevState, count: prevState.count + 1 }
+      const error = prevState.count === 0 ? [] : [...prevState.error]
+      const count = action.payload
+        ? prevState.count
+        : prevState.count === 0
+        ? 1
+        : prevState.count + 1
+      return {
+        error,
+        count,
+      }
     }
     case 'SUCCESS': {
       return {
         ...prevState,
-        count: prevState.count - 1,
+        count: Math.max(0, prevState.count - 1),
       }
     }
     case 'FAILURE': {
       return {
         ...prevState,
         error: [...prevState.error, action.payload],
-        count: prevState.count - 1,
+        count: Math.max(0, prevState.count - 1),
       }
     }
     case 'ABORTED': {
       return {
         ...prevState,
-        count: prevState.count - 1,
+        count: Math.max(0, prevState.count - 1),
       }
     }
   }

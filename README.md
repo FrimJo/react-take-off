@@ -15,7 +15,7 @@ This README describes the necessary steps to get a local development environment
 - [ ] Remove TS check on compile
 - [ ] Use only `eslint` and not `tslint`
 - [ ] Update Error boundery to use promise
-- [ ] Update `usePromiseManager`s `manage` to take `slient` option (do not trigger isLoading)
+- [x] Update `usePromiseManager`s `manage` to take `slient` option (do not trigger isResolving)
 - [x] Migrate from styled-components to Emotion
 
 ### Prerequisites

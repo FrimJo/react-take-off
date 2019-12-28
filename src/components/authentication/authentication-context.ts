@@ -3,7 +3,13 @@ import React from 'react'
 import { usePromiseManager } from 'utilities/use-promise-manager'
 import { createContext } from 'utilities/create-context'
 
-const logInAsync = async () => true
+const logInAsync = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(true)
+    }, 1000)
+  })
+}
 
 const useAuthentication = () => {
   const [state, manage] = usePromiseManager()

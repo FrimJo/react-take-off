@@ -2,7 +2,10 @@ import React from 'react'
 
 import { managerReducer } from './fetch-data-reducer'
 
-type ManagePromiseFunction = <T>(promise: Promise<T>) => Promise<T>
+type ManagePromiseFunction = <T>(
+  promise: Promise<T>,
+  options?: { silent?: boolean }
+) => Promise<T>
 export type PromiseState = Readonly<{
   hasError: boolean
   isResolving: boolean
@@ -18,27 +21,30 @@ export const usePromiseManager = (): [PromiseState, ManagePromiseFunction] => {
   const isResolving = React.useMemo(() => count > 0, [count])
   const hasError = React.useMemo(() => error.length > 0, [error.length])
 
-  const manage: ManagePromiseFunction = async promise => {
-    dispatch({ type: 'INIT' })
+  const manage: ManagePromiseFunction = React.useCallback(
+    async (promise, options = {}) => {
+      dispatch({ type: 'INIT', payload: options.silent })
 
-    try {
-      const result = await promise
-      dispatch({ type: 'SUCCESS' })
+      try {
+        const result = await promise
+        dispatch({ type: 'SUCCESS' })
 
-      return result
-    } catch (error) {
-      // Aborted has error code 20
-      if (error instanceof DOMException && error.code === 20) {
-        console.error('Request aborted')
-        dispatch({ type: 'ABORTED' })
-      } else {
-        dispatch({ type: 'FAILURE', payload: error })
+        return result
+      } catch (error) {
+        // Aborted has error code 20
+        if (error instanceof DOMException && error.code === 20) {
+          console.error('Request aborted')
+          dispatch({ type: 'ABORTED' })
+        } else {
+          dispatch({ type: 'FAILURE', payload: error })
+        }
+
+        // throw error
+        return Promise.reject(error)
       }
-
-      // throw error
-      return Promise.reject(error)
-    }
-  }
+    },
+    [dispatch]
+  )
 
   return [{ hasError, isResolving, error }, manage]
 }
