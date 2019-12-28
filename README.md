@@ -10,7 +10,7 @@ This README describes the necessary steps to get a local development environment
 - [x] Update name of `usePromise` hook to `usePromiseManager`
 - [ ] Update `usePromiseManager` hook to use `React.suspence`
 - [ ] Update to `Formik` v2
-- [ ] Make usePromiseManager return array
+- [x] Make usePromiseManager return array
 - [ ] Graph QL
 - [ ] Remove TS check on compile
 - [ ] Use only `eslint` and not `tslint`
