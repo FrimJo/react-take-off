@@ -6,13 +6,10 @@ import { useExampleForm } from './utilities/use-example-form'
 import withSpinner from 'utilities/with-spinner'
 
 export const ExampleFormContainer: React.FC = () => {
-  const { initialValues, onSubmit, validationSchema, name } = useExampleForm()
+  const { name, ...formikProps } = useExampleForm()
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}>
+    <Formik {...formikProps}>
       {({ isSubmitting, dirty }) => (
         <Form>
           <Box display="flex" flexDirection="column" width={200}>
