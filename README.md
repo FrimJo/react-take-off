@@ -13,7 +13,7 @@ This README describes the necessary steps to get a local development environment
 - [x] Make usePromiseManager return array
 - [ ] Graph QL
 - [ ] Remove TS check on compile
-- [ ] Use only `eslint` and not `tslint`
+- [x] Use only `eslint` and not `tslint`
 - [ ] Update Error boundery to use promise
 - [x] Update `usePromiseManager`s `manage` to take `slient` option (do not trigger isResolving)
 - [x] Migrate from styled-components to Emotion
