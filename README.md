@@ -8,8 +8,8 @@ This README describes the necessary steps to get a local development environment
 - [ ] Update VSCode to run `tslint --fix` on save without pretteir bug
 - [ ] Look into using `xstate`
 - [x] Update name of `usePromise` hook to `usePromiseManager`
-- [ ] Update `usePromiseManager` hook to use `React.suspence`
-- [ ] Update to `Formik` v2
+- [ ] Update `usePromiseManager` hook to use `React.suspense`
+- [x] Update to `Formik` v2
 - [x] Make usePromiseManager return array
 - [ ] Graph QL
 - [ ] Remove TS check on compile
