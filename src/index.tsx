@@ -2,10 +2,10 @@ import { ApplicationInsights } from '@microsoft/applicationinsights-web'
 import { AI_INSTRUMENTATION_KEY, GA_TRACKING_ID } from 'config/variables'
 import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
-import React from 'react'
 
 import { App } from './components/app'
 import * as serviceWorker from './service-worker'
+import React from 'react'
 
 // Google Analytics
 // Add variable REACT_APP_GA_TRACKING_ID to DevOps build pipeline for cloud environments

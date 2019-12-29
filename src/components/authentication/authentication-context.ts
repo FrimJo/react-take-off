@@ -19,7 +19,7 @@ const useAuthentication = () => {
     // Dummy log in call
     manage(
       logInAsync()
-        .then(_ => setIsLoggedIn(false))
+        .then(() => setIsLoggedIn(false))
         .finally(() => Promise.resolve())
     )
   }
@@ -28,7 +28,7 @@ const useAuthentication = () => {
     // Dummy log out call
     manage(
       logInAsync()
-        .then(_ => setIsLoggedIn(true))
+        .then(() => setIsLoggedIn(true))
         .finally(() => Promise.resolve())
     )
   }
