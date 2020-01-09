@@ -22,24 +22,14 @@ export const usePromiseManager = (): [PromiseState, ManagePromiseFunction] => {
     async (promise, options = {}) => {
       const { silent } = options
       send({ type: 'INIT', silent })
-
-      try {
-        const result = await promise
-        send({ type: 'SUCCESS' })
-
-        return result
-      } catch (error) {
-        // Aborted has error code 20
-        if (error instanceof DOMException && error.code === 20) {
-          console.error('Request aborted')
-          send({ type: 'ABORTED' })
-        } else {
-          send({ type: 'FAILURE', error })
-        }
-
-        // throw error
-        return Promise.reject(error)
-      }
+      return promise
+        .then(() => {
+          send({ type: 'RESOLVE' })
+        })
+        .catch(error => {
+          send({ type: 'REJECT', error })
+          return error
+        })
     },
     [send]
   )

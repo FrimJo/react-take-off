@@ -29,7 +29,7 @@ type WithSpinner = Readonly<{
 }>
 
 const withSpinner = <P extends WithSpinner>(Component: React.ComponentType<P>, options: Options = {}) => {
-  const SpinnerComponent: React.SFC<P & WithSpinnerProps> = React.memo(
+  const SpinnerComponent: React.FC<P & WithSpinnerProps> = React.memo(
     ({ children, showSpinner, disabled, className, color: themeColor = 'primary', ...rest }) => {
       const { color = 'white', size = 16 } = options
       const theme = useTheme()

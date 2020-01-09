@@ -1,3 +1,3 @@
 import React from 'react'
 
-export const PrivatePageView: React.SFC = () => <div>Private</div>
+export const PrivatePageView: React.FC = () => <div>Private</div>

@@ -1,3 +1,3 @@
 import React from 'react'
 
-export const NotFoundPageView: React.SFC = () => <div>404</div>
+export const NotFoundPageView: React.FC = () => <div>404</div>

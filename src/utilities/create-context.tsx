@@ -1,21 +1,17 @@
 import React from 'react'
 
-type Function<State, Actions> = () => { state: State; actions: Actions }
+type HookFunction<State, Actions> = () => { state: State; actions: Actions }
 
-export const createContext = <State extends object, Actions extends object>(
-  func: Function<State, Actions>
-) => {
+export const createContext = <State extends object, Actions extends object>(hookFunction: HookFunction<State, Actions>) => {
   const StateContext = React.createContext<State | undefined>(undefined)
   const ActionsContext = React.createContext<Actions | undefined>(undefined)
 
-  const Provider: React.SFC = ({ children }) => {
-    const { state, actions } = func()
+  const Provider: React.FC = ({ children }) => {
+    const { state, actions } = hookFunction()
 
     return (
       <StateContext.Provider value={state}>
-        <ActionsContext.Provider value={actions}>
-          {children}
-        </ActionsContext.Provider>
+        <ActionsContext.Provider value={actions}>{children}</ActionsContext.Provider>
       </StateContext.Provider>
     )
   }

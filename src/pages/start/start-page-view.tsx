@@ -5,7 +5,7 @@ import { Authentication } from 'components/authentication'
 import withSpinner from 'utilities/with-spinner'
 import { Button } from '@material-ui/core'
 
-export const StartPageView: React.SFC = () => {
+export const StartPageView: React.FC = () => {
   const state = Authentication.useState()
   const actions = Authentication.useActions()
   return (

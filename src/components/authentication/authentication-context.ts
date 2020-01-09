@@ -4,11 +4,10 @@ import { usePromiseManager } from 'utilities/use-promise-manager'
 import { createContext } from 'utilities/create-context'
 
 const logInAsync = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise<boolean>((resolve, reject) => {
     setTimeout(() => {
-      console.log('resolve')
       resolve(true)
-    }, Math.random() * 4000)
+    }, 2000)
   })
 }
 
@@ -16,52 +15,15 @@ const useAuthentication = () => {
   const [state, manage] = usePromiseManager()
   const [isLoggedIn, setIsLoggedIn] = React.useState(false)
 
-  const logOut = () => {
+  const logOut = React.useCallback(() => {
     // Dummy log in call
-    manage(
-      logInAsync()
-        .then(() => setIsLoggedIn(false))
-        .finally(() => Promise.resolve())
-    )
-  }
+    manage(logInAsync()).then(() => setIsLoggedIn(false))
+  }, [manage])
 
-  const logIn = () => {
+  const logIn = React.useCallback(() => {
     // Dummy log out call
-    manage(
-      logInAsync()
-        .then(() => setIsLoggedIn(true))
-        .finally(() => Promise.resolve())
-    )
-    manage(
-      logInAsync()
-        .then(() => setIsLoggedIn(true))
-        .finally(() => Promise.resolve())
-    )
-    manage(
-      logInAsync()
-        .then(() => setIsLoggedIn(true))
-        .finally(() => Promise.resolve())
-    )
-    setTimeout(
-      () =>
-        manage(
-          logInAsync()
-            .then(() => setIsLoggedIn(true))
-            .finally(() => Promise.resolve())
-        ),
-      Math.random() * 4000
-    )
-    setTimeout(
-      () =>
-        manage(
-          logInAsync()
-            .then(() => setIsLoggedIn(true))
-            .finally(() => Promise.resolve())
-        ),
-      Math.random() * 4000
-    )
-  }
-
+    manage(logInAsync()).then(() => setIsLoggedIn(true))
+  }, [manage])
   return { state: { ...state, isLoggedIn }, actions: { logIn, logOut } }
 }
 

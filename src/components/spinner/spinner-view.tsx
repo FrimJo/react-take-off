@@ -3,16 +3,12 @@ import React from 'react'
 import { SpinnerStyle } from './spinner-style'
 
 export type Props = Readonly<{
-  className?: string | null
   color: string
+  className?: string | null
   size?: number
 }>
 
-export const SpinnerView: React.SFC<Props> = ({
-  className,
-  size = 64,
-  ...props
-}) => (
+export const SpinnerView: React.FC<Props> = ({ className, size = 64, ...props }) => (
   <SpinnerStyle size={size} className={className || ''} {...props}>
     <div />
     <div />
