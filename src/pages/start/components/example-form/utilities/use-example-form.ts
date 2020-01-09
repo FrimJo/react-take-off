@@ -2,8 +2,7 @@ import * as yup from 'yup'
 
 import { Name, OnSubmitFunction } from 'types'
 
-const dummyFnc = (field1: string, field2: string, field3: string) =>
-  new Promise<boolean>(resolve => setTimeout(resolve, 2000))
+const dummyFnc = (field1: string, field2: string, field3: string) => new Promise<boolean>(resolve => setTimeout(resolve, 2000))
 
 type ExampleForm = Readonly<{
   field1: string
@@ -19,10 +18,8 @@ export const useExampleForm = () => {
     field3: '',
   }
 
-  const onSubmit: OnSubmitFunction<ExampleForm> = (
-    { field1, field2, field3 },
-    { setSubmitting }
-  ) => dummyFnc(field1, field2, field3).finally(() => setSubmitting(false))
+  const onSubmit: OnSubmitFunction<ExampleForm> = ({ field1, field2, field3 }, { setSubmitting }) =>
+    dummyFnc(field1, field2, field3).finally(() => setSubmitting(false))
 
   const validationSchema = yup.object().shape<ExampleForm>({
     field1: yup.string().required(),

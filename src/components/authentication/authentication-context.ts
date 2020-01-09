@@ -6,8 +6,9 @@ import { createContext } from 'utilities/create-context'
 const logInAsync = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
+      console.log('resolve')
       resolve(true)
-    }, 1000)
+    }, Math.random() * 4000)
   })
 }
 
@@ -30,6 +31,34 @@ const useAuthentication = () => {
       logInAsync()
         .then(() => setIsLoggedIn(true))
         .finally(() => Promise.resolve())
+    )
+    manage(
+      logInAsync()
+        .then(() => setIsLoggedIn(true))
+        .finally(() => Promise.resolve())
+    )
+    manage(
+      logInAsync()
+        .then(() => setIsLoggedIn(true))
+        .finally(() => Promise.resolve())
+    )
+    setTimeout(
+      () =>
+        manage(
+          logInAsync()
+            .then(() => setIsLoggedIn(true))
+            .finally(() => Promise.resolve())
+        ),
+      Math.random() * 4000
+    )
+    setTimeout(
+      () =>
+        manage(
+          logInAsync()
+            .then(() => setIsLoggedIn(true))
+            .finally(() => Promise.resolve())
+        ),
+      Math.random() * 4000
     )
   }
 

@@ -7,6 +7,7 @@ This README describes the necessary steps to get a local development environment
 - [ ] Add `lint-staged` and rule for `no-irregular-whitespace`
 - [ ] Update VSCode to run `tslint --fix` on save without pretteir bug
 - [ ] Look into using `xstate`
+- [ ] Use `xstate` for UI components souch as buttons
 - [x] Update name of `usePromise` hook to `usePromiseManager`
 - [ ] Update `usePromiseManager` hook to use `React.suspense`
 - [x] Update to `Formik` v2
