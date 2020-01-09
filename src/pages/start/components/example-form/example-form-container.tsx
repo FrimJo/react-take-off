@@ -16,12 +16,7 @@ export const ExampleFormContainer: React.FC = () => {
             <Field variant={'outlined'} name={name.field1} />
             <Field variant={'outlined'} name={name.field2} />
             <Field variant={'outlined'} name={name.field3} />
-            <ButtonWithSpinner
-              color="primary"
-              variant="contained"
-              type="submit"
-              disabled={!dirty}
-              showSpinner={isSubmitting}>
+            <ButtonWithSpinner color="primary" variant="contained" type="submit" disabled={!dirty} showSpinner={isSubmitting}>
               Submit
             </ButtonWithSpinner>
           </Box>

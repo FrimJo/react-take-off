@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  Redirect,
-  Route as DomRoute,
-  RouteComponentProps,
-  RouteProps,
-} from 'react-router-dom'
+import { Redirect, Route as DomRoute, RouteComponentProps, RouteProps } from 'react-router-dom'
 
 import { PageRoutes } from 'config/page-routes'
 import { Authentication } from 'components/authentication'
@@ -13,10 +8,7 @@ interface IProps extends RouteProps {
   component: React.ComponentType<RouteComponentProps>
 }
 
-export const PrivateRouteContainer: React.FunctionComponent<IProps> = ({
-  component: Component,
-  ...rest
-}) => {
+export const PrivateRouteContainer: React.FunctionComponent<IProps> = ({ component: Component, ...rest }) => {
   const { isLoggedIn } = Authentication.useState()
   return (
     <DomRoute

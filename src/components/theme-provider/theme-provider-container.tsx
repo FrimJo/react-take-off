@@ -8,10 +8,7 @@ type Props = Readonly<{
   theme: ThemeOptions
 }>
 
-export const ThemeProviderContainer: React.FunctionComponent<Props> = ({
-  theme,
-  children,
-}) => {
+export const ThemeProviderContainer: React.FunctionComponent<Props> = ({ theme, children }) => {
   const themeInstance = React.useMemo(() => createMuiTheme(theme), [theme])
   return (
     <EmotionThemeProvider theme={themeInstance}>
