@@ -13,10 +13,9 @@ type ManagePromiseFunction = <T>(promise: Promise<T>, options?: { silent?: boole
 
 export const usePromiseManager = (): [PromiseState, ManagePromiseFunction] => {
   const [current, send] = useMachine(ManagePromiseMachine)
-  const { count, error } = current.context
+  const { promises, error } = current.context
 
-  const isResolving = React.useMemo(() => count > 0, [count])
-  const hasError = React.useMemo(() => error.length > 0, [error.length])
+  const state = React.useMemo(() => ({ hasError: error.length > 0, isResolving: promises.length > 0, error }), [promises, error])
 
   const manage: ManagePromiseFunction = React.useCallback(
     async (promise, options = {}) => {
@@ -34,5 +33,5 @@ export const usePromiseManager = (): [PromiseState, ManagePromiseFunction] => {
     [send]
   )
 
-  return [{ hasError, isResolving, error }, manage]
+  return [state, manage]
 }

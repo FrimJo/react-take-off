@@ -2,7 +2,7 @@ import { Machine, StateSchema, assign } from 'xstate'
 
 export interface ILightContext {
   error: any[]
-  count: number
+  promises: boolean[]
 }
 
 interface ILightStateSchema extends StateSchema<ILightContext> {
@@ -27,7 +27,7 @@ export const ManagePromiseMachine = Machine<ILightContext, ILightStateSchema, Li
   initial: 'idle',
   context: {
     error: [],
-    count: 0,
+    promises: [],
   },
   states: {
     idle: {
@@ -36,7 +36,7 @@ export const ManagePromiseMachine = Machine<ILightContext, ILightStateSchema, Li
           target: 'pending',
           actions: assign({
             error: (context, event) => [],
-            count: (context, event) => (event.silent ? 0 : 1),
+            promises: (context, event) => [...context.promises, !!event.silent],
           }),
         },
       },
@@ -44,23 +44,23 @@ export const ManagePromiseMachine = Machine<ILightContext, ILightStateSchema, Li
     pending: {
       on: {
         '': {
-          cond: (context, event) => context.count === 0,
+          cond: (context, event) => context.promises.length === 0,
           target: 'idle',
         },
         INIT: {
           actions: assign({
-            count: (context, event) => (event.silent ? context.count : context.count + 1),
+            promises: (context, event) => [...context.promises, !!event.silent],
           }),
         },
         RESOLVE: {
           actions: assign({
-            count: (context, event) => Math.max(0, context.count - 1),
+            promises: (context, event) => context.promises.slice(0, context.promises.length - 1),
           }),
         },
         REJECT: {
           actions: assign({
             error: (context, event) => [...context.error, event.error],
-            count: (context, event) => Math.max(0, context.count - 1),
+            promises: (context, event) => context.promises.slice(0, context.promises.length - 1),
           }),
         },
       },
