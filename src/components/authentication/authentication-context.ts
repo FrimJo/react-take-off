@@ -1,7 +1,6 @@
 import React from 'react'
-
-import { usePromiseManager } from 'utilities/use-promise-manager'
-import { createContext } from 'utilities/create-context'
+import { usePromiseManager } from 'use-promise-manager'
+import buildContext from 'build-context'
 
 const logInAsync = () => {
   return new Promise<boolean>((resolve, reject) => {
@@ -27,4 +26,4 @@ const useAuthentication = () => {
   return { state: { ...state, isLoggedIn }, actions: { logIn, logOut } }
 }
 
-export const AuthenticationContext = createContext(useAuthentication)
+export const AuthenticationContext = buildContext(useAuthentication)

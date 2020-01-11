@@ -1,6 +1,6 @@
-import { createContext } from 'utilities/create-context'
+import buildContext from 'build-context'
 
-export const ComponentNameContext = createContext(() => ({
+export const ComponentNameContext = buildContext(() => ({
   state: {},
   actions: {},
 }))
