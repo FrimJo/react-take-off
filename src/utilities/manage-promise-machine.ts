@@ -1,25 +1,20 @@
 import { Machine, StateSchema, assign } from 'xstate'
 
-export interface ILightContext {
+export interface IContext {
   error: any[]
   count: number
 }
 
-interface ILightStateSchema extends StateSchema<ILightContext> {
+interface IStateSchema extends StateSchema<IContext> {
   states: {
     idle: {}
     pending: {}
   }
 }
 
-type LightEvent =
-  | {
-      type: 'INIT'
-    }
-  | { type: 'RESOLVE' }
-  | { type: 'REJECT'; error: ILightContext['error'][number] }
+type Event = { type: 'INIT' } | { type: 'RESOLVE' } | { type: 'REJECT'; error: IContext['error'][number] }
 
-export const ManagePromiseMachine = Machine<ILightContext, ILightStateSchema, LightEvent>({
+export const ManagePromiseMachine = Machine<IContext, IStateSchema, Event>({
   id: 'managePromise',
   initial: 'idle',
   context: {

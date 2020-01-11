@@ -1,13 +1,12 @@
 import React from 'react'
 import { useMachine } from '@xstate/react'
 
-import { ManagePromiseMachine, ILightContext } from './manage-promise-machine'
-import { promises } from 'dns'
+import { ManagePromiseMachine, IContext } from './manage-promise-machine'
 
 export type PromiseState = Readonly<{
   hasError: boolean
   isResolving: boolean
-  error: ILightContext['error']
+  error: IContext['error']
 }>
 
 type ManagePromiseFunction = <T>(promise: Promise<T>) => Promise<T>
