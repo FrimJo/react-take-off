@@ -9,8 +9,6 @@ interface ILightStateSchema extends StateSchema<ILightContext> {
   states: {
     idle: {}
     pending: {}
-    resolved: {}
-    rejected: {}
   }
 }
 
@@ -65,7 +63,5 @@ export const ManagePromiseMachine = Machine<ILightContext, ILightStateSchema, Li
         },
       },
     },
-    resolved: {},
-    rejected: {},
   },
 })
