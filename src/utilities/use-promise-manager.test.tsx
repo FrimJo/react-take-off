@@ -18,36 +18,42 @@ const dummyRejectFuncAsync = ({ ms }: { ms: number }) => {
 }
 
 describe('', () => {
-  test('multiple simultaneous promises ', async () => {
+  test('single resolve promise', async () => {
     const { result, waitForNextUpdate } = renderHook(() => usePromiseManager())
 
     expect(result.current[0]).toEqual({ hasError: false, isResolving: false, error: [] })
 
     act(() => {
-      result.current[1](dummyRejectFuncAsync({ ms: 100 }), { silent: true }).then(() => {
-        setTimeout(() => {
-          result.current[1](dummyResolveFuncAsync({ ms: 50 }), { silent: true })
-          result.current[1](dummyResolveFuncAsync({ ms: 100 })).then(() => {
-            setTimeout(() => {
-              result.current[1](dummyResolveFuncAsync({ ms: 250 }), { silent: true })
-              result.current[1](dummyRejectFuncAsync({ ms: 200 }))
-              result.current[1](dummyResolveFuncAsync({ ms: 300 })).then(() => {
-                setTimeout(() => {
-                  result.current[1](dummyRejectFuncAsync({ ms: 200 }), { silent: true })
-                  result.current[1](dummyResolveFuncAsync({ ms: 250 })).then(() => {
-                    setTimeout(() => {
-                      result.current[1](dummyResolveFuncAsync({ ms: 400 }), { silent: true })
-                    }, 300)
-                  })
-                  setTimeout(() => {
-                    result.current[1](dummyResolveFuncAsync({ ms: 50 }))
-                  }, 150)
-                }, 300)
-              })
-            }, 300)
-          })
-        }, 300)
-      })
+      result.current[1](dummyResolveFuncAsync({ ms: 100 }))
+    })
+    expect(result.current[0]).toEqual({ hasError: false, isResolving: true, error: [] })
+    await waitForNextUpdate()
+    expect(result.current[0]).toEqual({ hasError: false, isResolving: false, error: [] })
+  })
+
+  test('single reject promise', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => usePromiseManager())
+
+    expect(result.current[0]).toEqual({ hasError: false, isResolving: false, error: [] })
+
+    act(() => {
+      result.current[1](dummyRejectFuncAsync({ ms: 100 }))
+    })
+    expect(result.current[0]).toEqual({ hasError: false, isResolving: true, error: [] })
+    await waitForNextUpdate()
+    expect(result.current[0]).toEqual({ hasError: true, isResolving: false, error: [ERROR_MESSAGE] })
+  })
+
+  test('single reject promise resets when new promise is managed', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => usePromiseManager())
+
+    expect(result.current[0]).toEqual({ hasError: false, isResolving: false, error: [] })
+
+    act(() => {
+      result.current[1](dummyRejectFuncAsync({ ms: 100 }))
+      setTimeout(() => {
+        result.current[1](dummyResolveFuncAsync({ ms: 100 }))
+      }, 110)
     })
     expect(result.current[0]).toEqual({ hasError: false, isResolving: true, error: [] })
     await waitForNextUpdate()
@@ -55,30 +61,66 @@ describe('', () => {
     await waitForNextUpdate()
     expect(result.current[0]).toEqual({ hasError: false, isResolving: true, error: [] })
     await waitForNextUpdate()
-    expect(result.current[0]).toEqual({ hasError: false, isResolving: true, error: [] })
-    await waitForNextUpdate()
     expect(result.current[0]).toEqual({ hasError: false, isResolving: false, error: [] })
-    await waitForNextUpdate()
+  })
+
+  test('paralel resolve promises', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => usePromiseManager())
+
+    expect(result.current[0]).toEqual({ hasError: false, isResolving: false, error: [] })
+
+    act(() => {
+      result.current[1](dummyResolveFuncAsync({ ms: 100 }))
+      setTimeout(() => {
+        result.current[1](dummyResolveFuncAsync({ ms: 100 }))
+      }, 50)
+    })
     expect(result.current[0]).toEqual({ hasError: false, isResolving: true, error: [] })
     await waitForNextUpdate()
-    expect(result.current[0]).toEqual({ hasError: true, isResolving: true, error: [ERROR_MESSAGE] })
-    await waitForNextUpdate()
-    expect(result.current[0]).toEqual({ hasError: true, isResolving: true, error: [ERROR_MESSAGE] })
-    await waitForNextUpdate()
-    expect(result.current[0]).toEqual({ hasError: true, isResolving: false, error: [ERROR_MESSAGE] })
-    await waitForNextUpdate()
     expect(result.current[0]).toEqual({ hasError: false, isResolving: true, error: [] })
-    await waitForNextUpdate()
-    expect(result.current[0]).toEqual({ hasError: false, isResolving: true, error: [] })
-    await waitForNextUpdate()
-    expect(result.current[0]).toEqual({ hasError: true, isResolving: true, error: [ERROR_MESSAGE] })
-    await waitForNextUpdate()
-    expect(result.current[0]).toEqual({ hasError: true, isResolving: true, error: [ERROR_MESSAGE] })
-    await waitForNextUpdate()
-    expect(result.current[0]).toEqual({ hasError: true, isResolving: false, error: [ERROR_MESSAGE] })
     await waitForNextUpdate()
     expect(result.current[0]).toEqual({ hasError: false, isResolving: true, error: [] })
     await waitForNextUpdate()
     expect(result.current[0]).toEqual({ hasError: false, isResolving: false, error: [] })
+  })
+
+  test('paralel reject promises', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => usePromiseManager())
+
+    expect(result.current[0]).toEqual({ hasError: false, isResolving: false, error: [] })
+
+    act(() => {
+      result.current[1](dummyRejectFuncAsync({ ms: 100 }))
+      setTimeout(() => {
+        result.current[1](dummyRejectFuncAsync({ ms: 100 }))
+      }, 50)
+    })
+    expect(result.current[0]).toEqual({ hasError: false, isResolving: true, error: [] })
+    await waitForNextUpdate()
+    expect(result.current[0]).toEqual({ hasError: false, isResolving: true, error: [] })
+    await waitForNextUpdate()
+    expect(result.current[0]).toEqual({ hasError: true, isResolving: true, error: [ERROR_MESSAGE] })
+    await waitForNextUpdate()
+    expect(result.current[0]).toEqual({ hasError: true, isResolving: false, error: [ERROR_MESSAGE, ERROR_MESSAGE] })
+  })
+
+  test('paralel mixed resolve and reject promises', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => usePromiseManager())
+
+    expect(result.current[0]).toEqual({ hasError: false, isResolving: false, error: [] })
+
+    act(() => {
+      result.current[1](dummyRejectFuncAsync({ ms: 100 }))
+      setTimeout(() => {
+        result.current[1](dummyResolveFuncAsync({ ms: 100 }))
+      }, 50)
+    })
+    expect(result.current[0]).toEqual({ hasError: false, isResolving: true, error: [] })
+    await waitForNextUpdate()
+    expect(result.current[0]).toEqual({ hasError: false, isResolving: true, error: [] })
+    await waitForNextUpdate()
+    expect(result.current[0]).toEqual({ hasError: true, isResolving: true, error: [ERROR_MESSAGE] })
+    await waitForNextUpdate()
+    expect(result.current[0]).toEqual({ hasError: true, isResolving: false, error: [ERROR_MESSAGE] })
   })
 })
