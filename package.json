@@ -19,7 +19,7 @@
     "react-intl": "3.4.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
-    "use-promise-manager": "^1.0.0",
+    "use-promise-manager": "^1.0.1",
     "xstate": "^4.7.5",
     "yup": "^0.27.0"
   },

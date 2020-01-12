@@ -35,7 +35,7 @@ export const StartPageView: React.FC = () => {
           login
         </ButtonWithSpinner>
       )}
-      <ExampleForm />
+      {state.isLoggedIn && <ExampleForm />}
     </div>
   )
 }

@@ -11908,13 +11908,10 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-use-promise-manager@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/use-promise-manager/-/use-promise-manager-1.0.0.tgz#c2bd393a757056c43b479dccb3e36c3e1aee4ab0"
-  integrity sha512-y17GXLGGsoOytsxEeLvVbiqHCtdCQTiks3Pg3q2k455AsIcyxMYwPNGVKlZB8krAidXPDjg2AQEuoo+1qVal7Q==
-  dependencies:
-    "@xstate/react" "^0.8.1"
-    xstate "^4.7.6"
+use-promise-manager@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/use-promise-manager/-/use-promise-manager-1.0.1.tgz#55fc8c250bfa5c8ca0dc54deda7ad91a19fb0b61"
+  integrity sha512-9DGrnBfl8hs9VmgdGgywI12zRs15NvhU4NseYJC0HFu85tT2zKcUNnCMbC0LZ/BoCqX4U5qVduybX8ESa1x5Tw==
 
 use@^3.1.0:
   version "3.1.1"
@@ -12464,11 +12461,6 @@ xstate@^4.7.5:
   version "4.7.5"
   resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.7.5.tgz#b684db66f5ce32422dd97de0fbdf188bc07fe169"
   integrity sha512-1QbwTUviBCHSnT3ct+GZZspzbNsftMEzP1lXmeR/zJphA1BHeLh/JV+woCmRdTBHyuGcJ2I7u7pp/+Y9e4qq9A==
-
-xstate@^4.7.6:
-  version "4.7.6"
-  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.7.6.tgz#52907b0232ff78406077ad095eb1ad6bbc6c77cb"
-  integrity sha512-TjBk1/uOxu2yxSQW0eNNasOvKMtg+4KknlkM57Pw9D+jF124nLz+Qo4nEcC98rR6YMw4d9VxunIb5XzOjgLqlQ==
 
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.2"
