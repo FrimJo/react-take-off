@@ -17,6 +17,7 @@ This README describes the necessary steps to get a local development environment
 - [x] Use only `eslint` and not `tslint`
 - [ ] Update Error boundery to use promise
 - [x] Migrate from styled-components to Emotion
+- [ ] Refactor to use Parcel 2 instead of create-react-app
 
 ### Prerequisites
 
@@ -125,7 +126,7 @@ Each component can, but does not need to, contain the following type files:
 
 - `component-name-container.tsx` is your business logic and state management as handled before being sent to the stateless view Component.
 - `component-name-context.tsx` is where the non local stat logic lies.
-- `component-name-styles.ts` is where we store the styled components.
+- `component-name-style.ts` is where we store the styled components.
 - `component-name-view.tsx` is your stateless view Component. For the majority of cases, this Component should be able to be pure functional Component (no hooks!).
 - `index.ts` is your entry point for importing your Component. It contains nothing but an import and export statement that points to the topmost Component at any point in time, because the topmost Component changes often during development.
 - `component-name-test.ts` are created when writing tests.
