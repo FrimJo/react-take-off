@@ -18,6 +18,7 @@ This README describes the necessary steps to get a local development environment
 - [ ] Update Error boundery to use promise
 - [x] Migrate from styled-components to Emotion
 - [ ] Refactor to use Parcel 2 instead of create-react-app
+- [ ] Replace `usePromiseManager` with `react-query`
 
 ### Prerequisites
 
