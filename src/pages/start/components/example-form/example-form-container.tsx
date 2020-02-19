@@ -11,7 +11,6 @@ export const ExampleFormContainer: React.FC = () => {
   return (
     <Formik {...formikProps}>
       {({ isSubmitting, dirty, errors }) => {
-        console.log('errors', JSON.stringify(errors, null, '\t'))
         return (
           <Form>
             <Box display="flex" flexDirection="column" width={200}>
