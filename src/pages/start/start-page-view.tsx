@@ -17,6 +17,8 @@ export const StartPageView: React.FC = () => {
           <ButtonWithSpinner
             color="primary"
             variant="contained"
+            showSpinner={state.userQuery.isLoading}
+            disabled={state.userQuery.isFetching}
             onClick={() => {
               actions.updateUser({ id: 5, name: 'Rolf' })
             }}>
