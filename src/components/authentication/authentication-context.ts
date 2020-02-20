@@ -5,11 +5,13 @@ import buildContext from 'build-context'
 import { api } from 'api/api'
 
 const useAuthentication = () => {
-  const [state, manage] = usePromiseManager()
   const [isLoggedIn, setIsLoggedIn] = React.useState(false)
-  const [updateUserApi] = useMutation(api.updateUserAsync)
-  const { data: user } = useQuery('user', api.getUserAsync, {
-    initialData: { id: 5, name: 'No name' },
+  const [logOutApi, logOutMutation] = useMutation(api.logOutAsync)
+  const [logInApi, logInMutation] = useMutation(api.logInAsync)
+
+  const [updateUserApi, userMutation] = useMutation(api.updateUserAsync)
+  const userQuery = useQuery(isLoggedIn && 'user', api.getUserAsync, {
+    initialData: { id: 5, name: 'Initial data' },
   })
 
   const updateUser = (user: { id: number; name: string }) => {
@@ -19,15 +21,18 @@ const useAuthentication = () => {
 
   const logOut = React.useCallback(() => {
     // Dummy log in call
-    manage(api.logOutAsync()).then(() => setIsLoggedIn(false))
-  }, [manage])
+    logOutApi().then(() => setIsLoggedIn(false))
+  }, [logOutApi])
 
   const logIn = React.useCallback(() => {
     // Dummy log out call
-    manage(api.logInAsync()).then(() => setIsLoggedIn(true))
-  }, [manage])
+    logInApi().then(() => setIsLoggedIn(true))
+  }, [logInApi])
 
-  return { state: { ...state, isLoggedIn, user }, actions: { logIn, logOut, updateUser } }
+  return {
+    state: { isLoggedIn, logOutMutation, logInMutation, userMutation, userQuery },
+    actions: { logIn, logOut, updateUser },
+  }
 }
 
 export const AuthenticationContext = buildContext(useAuthentication)

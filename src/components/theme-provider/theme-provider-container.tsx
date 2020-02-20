@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core'
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles'
 import React from 'react'
@@ -9,7 +9,7 @@ type Props = Readonly<{
 }>
 
 export const ThemeProviderContainer: React.FunctionComponent<Props> = ({ theme, children }) => {
-  const themeInstance = React.useMemo(() => createMuiTheme(theme), [theme])
+  const themeInstance = React.useMemo(() => responsiveFontSizes(createMuiTheme(theme)), [theme])
   return (
     <EmotionThemeProvider theme={themeInstance}>
       <MuiThemeProvider theme={themeInstance}>{children}</MuiThemeProvider>

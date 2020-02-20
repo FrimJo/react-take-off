@@ -1,3 +1,7 @@
+import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
+import 'react-app-polyfill/ie11'
+import 'core-js'
+
 import { ApplicationInsights } from '@microsoft/applicationinsights-web'
 import { AI_INSTRUMENTATION_KEY, GA_TRACKING_ID } from 'config/variables'
 import ReactDOM from 'react-dom'
