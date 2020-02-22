@@ -10,6 +10,7 @@ import { Button, Typography } from '@material-ui/core'
 export const StartPageView: React.FC = () => {
   const state = Authentication.useState()
   const actions = Authentication.useActions()
+
   return (
     <div>
       {state.isLoggedIn && (
@@ -24,15 +25,13 @@ export const StartPageView: React.FC = () => {
             }}>
             Change user
           </ButtonWithSpinner>
-          <Typography variant="body1">Loggedin: {state.isLoggedIn ? state.userQuery.data?.name : 'no'}</Typography>
+          <Typography variant="body1">
+            Loggedin: {state.isLoggedIn ? state.userQuery.data?.name : 'no'}
+          </Typography>
         </React.Fragment>
       )}
       {state.isLoggedIn ? (
-        <ButtonWithSpinner
-          color="primary"
-          variant="contained"
-          showSpinner={state.logOutMutation.isLoading}
-          onClick={actions.logOut}>
+        <ButtonWithSpinner color="primary" variant="contained" onClick={actions.logOut}>
           logout
         </ButtonWithSpinner>
       ) : (
@@ -40,7 +39,7 @@ export const StartPageView: React.FC = () => {
           color="primary"
           variant="contained"
           showSpinner={state.logInMutation.isLoading}
-          onClick={actions.logIn}>
+          onClick={() => actions.logIn({ username: 'usr', password: 'psw' })}>
           login
         </ButtonWithSpinner>
       )}

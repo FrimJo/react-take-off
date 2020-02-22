@@ -4,5 +4,5 @@
   "semi": false,
   "jsxBracketSameLine": true,
   "trailingComma": "es5",
-  "printWidth": 120
+  "printWidth": 100
 }

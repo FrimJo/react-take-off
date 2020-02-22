@@ -1,36 +1,38 @@
 import React from 'react'
-import { usePromiseManager } from 'use-promise-manager'
-import { useMutation, useIsFetching, setQueryData, useQuery } from 'react-query'
+import { useMutation, setQueryData, useQuery } from 'react-query'
 import buildContext from 'build-context'
 import { api } from 'api/api'
 
 const useAuthentication = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false)
-  const [logOutApi, logOutMutation] = useMutation(api.logOutAsync)
-  const [logInApi, logInMutation] = useMutation(api.logInAsync)
+  const [authenticateAsync, authenticateMutation] = useMutation(api.authenticateAsync)
 
-  const [updateUserApi, userMutation] = useMutation(api.updateUserAsync)
+  const [updateUserAsync, updateMutation] = useMutation(api.updateUserAsync)
   const userQuery = useQuery(isLoggedIn && 'user', api.getUserAsync, {
-    initialData: { id: 5, name: 'Initial data' },
+    refetchOnWindowFocus: false,
   })
 
+  // Happy case user update
   const updateUser = (user: { id: number; name: string }) => {
-    updateUserApi(user, { updateQuery: 'user', waitForRefetchQueries: true })
-    setQueryData('user', user)
+    // Set userQuery to new user, and skipp refetch
+    setQueryData('user', user, { shouldRefetch: false })
+
+    // Update DB with new user and on success set userQuery with returned user
+    updateUserAsync(user, { updateQuery: 'user' }).catch(() => {
+      // On fail, reset userQuery to previous value
+      setQueryData('user', userQuery.data, { shouldRefetch: false })
+    })
   }
 
-  const logOut = React.useCallback(() => {
-    // Dummy log in call
-    logOutApi().then(() => setIsLoggedIn(false))
-  }, [logOutApi])
-
-  const logIn = React.useCallback(() => {
-    // Dummy log out call
-    logInApi().then(() => setIsLoggedIn(true))
-  }, [logInApi])
+  const logOut = React.useCallback(() => setIsLoggedIn(false), [])
+  const logIn = React.useCallback(
+    (credentials: { username: string; password: string }) =>
+      authenticateAsync(credentials).then(token => setIsLoggedIn(true)),
+    [authenticateAsync]
+  )
 
   return {
-    state: { isLoggedIn, logOutMutation, logInMutation, userMutation, userQuery },
+    state: { isLoggedIn, logInMutation: authenticateMutation, userQuery, updateMutation },
     actions: { logIn, logOut, updateUser },
   }
 }
