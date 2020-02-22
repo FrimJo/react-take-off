@@ -14,7 +14,7 @@ const useAuthentication = () => {
 
   // Happy case user update
   const updateUser = (user: { id: number; name: string }) => {
-    // Set userQuery to new user, and skipp refetch
+    // Set userQuery to new user, and skip refetch
     setQueryData('user', user, { shouldRefetch: false })
 
     // Update DB with new user and on success set userQuery with returned user

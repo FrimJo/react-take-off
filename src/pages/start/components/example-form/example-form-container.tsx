@@ -10,7 +10,7 @@ export const ExampleFormContainer: React.FC = () => {
 
   return (
     <Formik {...formikProps}>
-      {({ isSubmitting, dirty, errors }) => {
+      {({ isSubmitting, dirty, isValid }) => {
         return (
           <Form>
             <Box display="flex" flexDirection="column" width={200}>
@@ -20,7 +20,12 @@ export const ExampleFormContainer: React.FC = () => {
               <ErrorMessage name={name.field2} />
               <Field variant={'outlined'} name={name.field3} />
               <ErrorMessage name={name.field3} />
-              <ButtonWithSpinner color="primary" variant="contained" type="submit" disabled={!dirty} showSpinner={isSubmitting}>
+              <ButtonWithSpinner
+                color="primary"
+                variant="contained"
+                type="submit"
+                disabled={!dirty || !isValid}
+                showSpinner={isSubmitting}>
                 Submit
               </ButtonWithSpinner>
             </Box>
