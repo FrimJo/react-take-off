@@ -9,7 +9,7 @@ const useAuthentication = () => {
     refetchOnWindowFocus: false,
     manual: true,
   })
-  console.log('userQuery', userQuery)
+
   const isLoggedIn = React.useMemo(() => !!userQuery.data, [userQuery.data])
 
   const logOut = React.useCallback(() => {
