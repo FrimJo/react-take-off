@@ -10,7 +10,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@xstate/react": "^0.8.1",
     "abortcontroller-polyfill": "^1.4.0",
-    "build-context": "^1.0.0",
     "core-js": "^3.6.4",
     "emotion-theming": "^10.0.19",
     "formik": "2.0.8",

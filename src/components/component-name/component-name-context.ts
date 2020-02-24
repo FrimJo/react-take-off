@@ -1,4 +1,4 @@
-import buildContext from 'build-context'
+import buildContext from 'utilities/build-context'
 
 export const ComponentNameContext = buildContext(() => ({
   state: {},

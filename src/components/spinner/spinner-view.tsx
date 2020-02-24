@@ -9,7 +9,7 @@ export type Props = Readonly<{
 }>
 
 export const SpinnerView: React.FC<Props> = ({ className, size = 64, ...props }) => (
-  <SpinnerStyle size={size} className={className || ''} {...props}>
+  <SpinnerStyle size={size} className={className ?? ''} {...props}>
     <div />
     <div />
     <div />

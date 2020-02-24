@@ -28,7 +28,10 @@ type WithSpinner = Readonly<{
   className?: string
 }>
 
-const withSpinner = <P extends WithSpinner>(Component: React.ComponentType<P>, options: Options = {}) => {
+const withSpinner = <P extends WithSpinner>(
+  Component: React.ComponentType<P>,
+  options: Options = {}
+) => {
   const SpinnerComponent: React.FC<P & WithSpinnerProps> = React.memo(
     ({ children, showSpinner, disabled, className, color: themeColor = 'primary', ...rest }) => {
       const { color = 'white', size = 16 } = options
@@ -49,12 +52,19 @@ const withSpinner = <P extends WithSpinner>(Component: React.ComponentType<P>, o
             `
           : ''
       return (
-        <Component css={styling} disabled={disabled || showSpinner || false} className={className} color={themeColor} {...(rest as P)}>
+        <Component
+          css={styling}
+          disabled={disabled || showSpinner || false}
+          className={className}
+          color={themeColor}
+          {...(rest as P)}>
           <Fade in={showSpinner} unmountOnExit={true}>
             <SpinnerContainer color={color} size={size} className="mr-1" />
           </Fade>
-          {/* We use visibility to keep the size of the button whn showing spinner*/}
-          <ChildrenContainer visibility={showSpinner ? 'hidden' : 'visible'}>{children}</ChildrenContainer>
+          {/* We use visibility to keep the size of the button when showing spinner*/}
+          <ChildrenContainer visibility={showSpinner ? 'hidden' : 'visible'}>
+            {children}
+          </ChildrenContainer>
         </Component>
       )
     }

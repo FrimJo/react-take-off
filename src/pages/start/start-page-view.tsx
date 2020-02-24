@@ -1,11 +1,12 @@
 /** @jsx jsx */
 import React from 'react'
-import { css, jsx } from '@emotion/core'
+import { jsx } from '@emotion/core'
+import { Button } from '@material-ui/core'
 
-import { ExampleForm } from './components/example-form'
 import { Authentication } from 'components/authentication'
 import withSpinner from 'utilities/with-spinner'
-import { Button, Typography } from '@material-ui/core'
+import { UserPage } from './components/user-page'
+import { DisplayUserContainer } from 'components/display-user/display-user-container'
 
 export const StartPageView: React.FC = () => {
   const state = Authentication.useState()
@@ -13,40 +14,23 @@ export const StartPageView: React.FC = () => {
 
   return (
     <div>
-      {state.isLoggedIn && (
-        <React.Fragment>
-          <ButtonWithSpinner
-            color="primary"
-            variant="contained"
-            showSpinner={state.userQuery.isLoading}
-            disabled={state.updateMutation.isLoading || state.userQuery.isFetching}
-            onClick={() => {
-              actions.updateUser({ id: 5, name: 'Rolf' })
-            }}>
-            Change user
-          </ButtonWithSpinner>
-          <Typography variant="body1">
-            Loggedin: {state.isLoggedIn ? state.userQuery.data?.name : 'no'}
-          </Typography>
-        </React.Fragment>
-      )}
       {state.isLoggedIn ? (
-        <ButtonWithSpinner color="primary" variant="contained" onClick={actions.logOut}>
-          logout
-        </ButtonWithSpinner>
+        <div>
+          <DisplayUserContainer />
+          <UserPage />
+          <ButtonWithSpinner color="primary" variant="contained" onClick={actions.logOut}>
+            logout
+          </ButtonWithSpinner>
+        </div>
       ) : (
         <ButtonWithSpinner
           color="primary"
           variant="contained"
-          showSpinner={state.logInMutation.isLoading}
+          showSpinner={state.userQuery.isFetching}
           onClick={() => actions.logIn({ username: 'usr', password: 'psw' })}>
           login
         </ButtonWithSpinner>
       )}
-      {state.isLoggedIn && <ExampleForm />}
-      <Typography variant="body1" component="pre">
-        {JSON.stringify(state, null, 4)}
-      </Typography>
     </div>
   )
 }

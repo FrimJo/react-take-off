@@ -1,40 +1,47 @@
 import React from 'react'
-import { useMutation, setQueryData, useQuery } from 'react-query'
-import buildContext from 'build-context'
+import { useQuery, setQueryData, clearQueryCache } from 'react-query'
+
+import buildContext from 'utilities/build-context'
 import { api } from 'api/api'
 
 const useAuthentication = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false)
-  const [authenticateAsync, authenticateMutation] = useMutation(api.authenticateAsync)
-
-  const [updateUserAsync, updateMutation] = useMutation(api.updateUserAsync)
-  const userQuery = useQuery(isLoggedIn && 'user', api.getUserAsync, {
+  const userQuery = useQuery('user', api.authenticateAsync, {
     refetchOnWindowFocus: false,
+    manual: true,
   })
+  console.log('userQuery', userQuery)
+  const isLoggedIn = React.useMemo(() => !!userQuery.data, [userQuery.data])
 
-  // Happy case user update
-  const updateUser = (user: { id: number; name: string }) => {
-    // Set userQuery to new user, and skip refetch
-    setQueryData('user', user, { shouldRefetch: false })
+  const logOut = React.useCallback(() => {
+    setQueryData('user', null, { shouldRefetch: false })
+    clearQueryCache()
+  }, [])
 
-    // Update DB with new user and on success set userQuery with returned user
-    updateUserAsync(user, { updateQuery: 'user' }).catch(() => {
-      // On fail, reset userQuery to previous value
-      setQueryData('user', userQuery.data, { shouldRefetch: false })
-    })
-  }
-
-  const logOut = React.useCallback(() => setIsLoggedIn(false), [])
   const logIn = React.useCallback(
     (credentials: { username: string; password: string }) =>
-      authenticateAsync(credentials).then(token => setIsLoggedIn(true)),
-    [authenticateAsync]
+      userQuery.refetch({ variables: credentials }),
+    [userQuery]
   )
 
   return {
-    state: { isLoggedIn, logInMutation: authenticateMutation, userQuery, updateMutation },
-    actions: { logIn, logOut, updateUser },
+    state: { isLoggedIn, userQuery },
+    actions: { logIn, logOut },
   }
 }
 
-export const AuthenticationContext = buildContext(useAuthentication)
+const Context = buildContext(useAuthentication)
+
+const useAuthenticatedState = () => {
+  const stateContext = React.useContext(Context.StateContext)
+
+  if (!stateContext?.userQuery.data) {
+    throw Error('User is not logged in.')
+  }
+
+  return { ...stateContext, user: stateContext.userQuery.data }
+}
+
+export const AuthenticationContext = {
+  ...Context,
+  useAuthenticatedState,
+}

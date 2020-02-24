@@ -3,28 +3,37 @@ import { Redirect, Route as DomRoute, RouteComponentProps, RouteProps } from 're
 
 import { PageRoutes } from 'config/page-routes'
 import { Authentication } from 'components/authentication'
+import { history } from 'utilities/history'
 
 interface IProps extends RouteProps {
-  component: React.ComponentType<RouteComponentProps>
+  component?: React.ComponentType<RouteComponentProps>
 }
 
-export const PrivateRouteContainer: React.FunctionComponent<IProps> = ({ component: Component, ...rest }) => {
+export const PrivateRouteContainer: React.FunctionComponent<IProps> = ({
+  component: Component,
+  children,
+  ...rest
+}) => {
   const { isLoggedIn } = Authentication.useState()
-  return (
-    <DomRoute
-      {...rest}
-      render={React.useCallback(
-        props => {
-          if (!isLoggedIn) {
-            // not logged in so redirect to login page with the return url
-            return <Redirect to={{ pathname: PageRoutes.Start.path }} />
-          }
+  const renderRoute = React.useCallback(
+    props => {
+      if (!isLoggedIn) {
+        // not authorised so redirect to login page with the return url
 
-          // authorised so return component
-          return <Component {...props} />
-        },
-        [isLoggedIn]
-      )}
-    />
+        return (
+          <Redirect
+            to={{
+              pathname: PageRoutes.Authenticate.path,
+              state: { from: history.location.pathname },
+            }}
+          />
+        )
+      }
+
+      // authorised so return component
+      return Component ? <Component {...props} /> : children
+    },
+    [Component, children, isLoggedIn]
   )
+  return <DomRoute {...rest} render={renderRoute} />
 }

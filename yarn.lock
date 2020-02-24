@@ -2812,11 +2812,6 @@ buffer@^4.3.0:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
-build-context@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/build-context/-/build-context-1.0.0.tgz#bd1a559b36f284552cb5c8ee31d380abe64d8df3"
-  integrity sha512-G4Hmxjf7a/QnIpNpR+++Q+ny5ZbH3yLXvImNBUCtTerQkfgsRuXmgtXgxjZMLBs+2QXv4Us2t7uGKWPu79vTBg==
-
 builtin-status-codes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
