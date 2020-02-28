@@ -1,6 +1,5 @@
 import React from 'react'
 import { useMutation, setQueryData } from 'react-query'
-
 import { api, User } from 'api/api'
 import buildContext from 'utilities/build-context'
 
@@ -23,4 +22,4 @@ const useUserContext = () => {
   return { state: { isEdit, userMutation }, actions: { updateUser, setIsEdit } }
 }
 
-export const UserContext = buildContext(useUserContext)
+export const UserContext = buildContext(useUserContext, 'UserContext')

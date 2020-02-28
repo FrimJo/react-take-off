@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { AuthenticationContext } from 'components/authentication/authentication-context'
+import { AuthenticationContext } from 'contexts/authentication-context'
 
 export const DisplayUserContainer: React.FC = () => {
   const { user } = AuthenticationContext.useAuthenticatedState()

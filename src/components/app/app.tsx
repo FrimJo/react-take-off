@@ -1,7 +1,6 @@
 import { StylesProvider } from '@material-ui/styles'
 import React from 'react'
-
-import { Authentication } from 'components/authentication'
+import { AuthenticationContext } from 'contexts/authentication-context'
 import { Router } from 'components/router'
 import { ThemeProvider } from 'components/theme-provider'
 import { Global } from '@emotion/core'
@@ -13,12 +12,12 @@ export const App = () => {
   return (
     <StylesProvider injectFirst={true}>
       <ThemeProvider theme={THEME}>
-        <Authentication.Provider>
+        <AuthenticationContext.Provider>
           <UserContext.Provider>
             <Global styles={GlobalStyles} />
             <Router />
           </UserContext.Provider>
-        </Authentication.Provider>
+        </AuthenticationContext.Provider>
       </ThemeProvider>
     </StylesProvider>
   )

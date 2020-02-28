@@ -3,14 +3,14 @@ import React from 'react'
 import { jsx } from '@emotion/core'
 import { Button } from '@material-ui/core'
 
-import { Authentication } from 'components/authentication'
+import { AuthenticationContext } from 'contexts/authentication-context'
 import withSpinner from 'utilities/with-spinner'
 import { UserPage } from './components/user-page'
 import { DisplayUserContainer } from 'components/display-user/display-user-container'
 
 export const StartPageView: React.FC = () => {
-  const state = Authentication.useState()
-  const actions = Authentication.useActions()
+  const state = AuthenticationContext.useState()
+  const actions = AuthenticationContext.useActions()
 
   return (
     <div>

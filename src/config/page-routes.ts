@@ -6,7 +6,7 @@ import { StartPage } from 'pages/start'
 
 interface IPageRoute extends Omit<RouteProps, 'path' | 'component'> {
   path: string
-  component: React.ComponentType<RouteComponentProps<any>>
+  component: React.ComponentType<RouteComponentProps>
 }
 
 export const PageRoutes = {

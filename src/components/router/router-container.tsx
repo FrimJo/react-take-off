@@ -1,16 +1,15 @@
 import React from 'react'
 import { Route, Router, Switch } from 'react-router-dom'
-
 import { PageRoutes } from 'config/page-routes'
 import { NotFoundPage } from 'pages/not-found'
 import { history } from 'utilities/history'
 import { PrivateRoute } from './components/private-route'
 import { UserContext } from 'contexts/user-context'
-import { Authentication } from 'components/authentication'
+import { AuthenticationContext } from 'contexts/authentication-context'
 
 export const RouterContainer = () => {
   const userState = UserContext.useState()
-  const state = Authentication.useState()
+  const state = AuthenticationContext.useState()
 
   return (
     <Router history={history}>

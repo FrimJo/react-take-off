@@ -2,6 +2,7 @@ import * as yup from 'yup'
 
 import { Name, OnSubmitFunction } from 'types'
 import { UserContext } from 'contexts/user-context'
+import React from 'react'
 
 type UserFormValues = Readonly<{
   id: number
@@ -12,25 +13,38 @@ type UserFormValues = Readonly<{
 export const useUserForm = (initialValues: UserFormValues) => {
   const actions = UserContext.useActions()
 
-  const onSubmit: OnSubmitFunction<UserFormValues> = user => {
-    actions.updateUser(user)
-    actions.setIsEdit(false)
-  }
+  const onSubmit: OnSubmitFunction<UserFormValues> = React.useCallback(
+    user => {
+      actions.updateUser(user)
+      actions.setIsEdit(false)
+    },
+    [actions]
+  )
 
-  const validationSchema = yup.object().shape<UserFormValues>({
-    id: yup.number().required(),
-    name: yup.string().required(),
-  })
+  const validationSchema = React.useMemo(
+    () =>
+      yup.object().shape<UserFormValues>({
+        id: yup.number().required(),
+        name: yup.string().required(),
+      }),
+    []
+  )
 
-  const name: Name<UserFormValues> = {
-    id: 'id',
-    name: 'name',
-  }
+  const name: Name<UserFormValues> = React.useMemo(
+    () => ({
+      id: 'id',
+      name: 'name',
+    }),
+    []
+  )
 
-  return {
-    initialValues,
-    onSubmit,
-    validationSchema,
-    name,
-  }
+  return React.useMemo(
+    () => ({
+      initialValues,
+      onSubmit,
+      validationSchema,
+      name,
+    }),
+    [initialValues, name, onSubmit, validationSchema]
+  )
 }

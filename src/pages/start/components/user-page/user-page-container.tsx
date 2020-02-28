@@ -2,7 +2,7 @@ import React from 'react'
 import { UserPageView } from './user-page-view'
 import withSpinner from 'utilities/with-spinner'
 import { Button } from '@material-ui/core'
-import { AuthenticationContext } from 'components/authentication/authentication-context'
+import { AuthenticationContext } from 'contexts/authentication-context'
 import { UserContext } from 'contexts/user-context'
 
 export const UserPageContainer: React.FC = () => {

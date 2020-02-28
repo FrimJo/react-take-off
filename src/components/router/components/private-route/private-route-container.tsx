@@ -1,8 +1,7 @@
 import React from 'react'
-import { Redirect, Route as DomRoute, RouteComponentProps, RouteProps } from 'react-router-dom'
-
+import { Redirect, Route, RouteComponentProps, RouteProps } from 'react-router-dom'
 import { PageRoutes } from 'config/page-routes'
-import { Authentication } from 'components/authentication'
+import { AuthenticationContext } from 'contexts/authentication-context'
 import { history } from 'utilities/history'
 
 interface IProps extends RouteProps {
@@ -14,7 +13,7 @@ export const PrivateRouteContainer: React.FunctionComponent<IProps> = ({
   children,
   ...rest
 }) => {
-  const { isLoggedIn } = Authentication.useState()
+  const { isLoggedIn } = AuthenticationContext.useState()
   const renderRoute = React.useCallback(
     props => {
       if (!isLoggedIn) {
@@ -35,5 +34,5 @@ export const PrivateRouteContainer: React.FunctionComponent<IProps> = ({
     },
     [Component, children, isLoggedIn]
   )
-  return <DomRoute {...rest} render={renderRoute} />
+  return <Route {...rest} render={renderRoute} />
 }

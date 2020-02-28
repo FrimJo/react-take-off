@@ -1,6 +1,5 @@
 import React from 'react'
 import { useQuery, setQueryData, clearQueryCache } from 'react-query'
-
 import buildContext from 'utilities/build-context'
 import { api } from 'api/api'
 
@@ -29,7 +28,7 @@ const useAuthentication = () => {
   }
 }
 
-const Context = buildContext(useAuthentication)
+const Context = buildContext(useAuthentication, 'AuthenticationContext')
 
 const useAuthenticatedState = () => {
   const stateContext = React.useContext(Context.StateContext)
