@@ -1,5 +1,6 @@
 import { RouteComponentProps, RouteProps } from 'react-router'
 
+import 'components/navigation/navigation-machine'
 import { AuthenticatePage } from 'pages/authenticate'
 import { PrivatePage } from 'pages/private'
 import { StartPage } from 'pages/start'
@@ -11,7 +12,7 @@ interface IPageRoute extends Omit<RouteProps, 'path' | 'component'> {
 
 export const PageRoutes = {
   Start: {
-    path: '/',
+    path: '/start',
     exact: true,
     component: StartPage,
   } as IPageRoute,
@@ -21,7 +22,7 @@ export const PageRoutes = {
     component: PrivatePage,
   } as IPageRoute,
   Authenticate: {
-    path: '/authenticate',
+    path: '/account/authenticate',
     exact: true,
     component: AuthenticatePage,
   } as IPageRoute,

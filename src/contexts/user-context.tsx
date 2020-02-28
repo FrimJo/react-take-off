@@ -9,7 +9,7 @@ const useUserContext = () => {
   const [updateUserAsync, userMutation] = useMutation(api.updateUserAsync)
 
   // Happy case user update
-  const updateUser = (updateUser: User) => {
+  const updateUser = async (updateUser: User) => {
     // Set userQuery to new user, and skip refetch
     setQueryData('user', updateUser, { shouldRefetch: false })
 
@@ -23,4 +23,4 @@ const useUserContext = () => {
   return { state: { isEdit, userMutation }, actions: { updateUser, setIsEdit } }
 }
 
-export const UserContext = buildContext(useUserContext)
+export const UserContext = buildContext(useUserContext, 'UserContext')

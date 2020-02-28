@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect, Route as DomRoute, RouteComponentProps, RouteProps } from 'react-router-dom'
+import { Redirect, Route, RouteComponentProps, RouteProps } from 'react-router-dom'
 
 import { PageRoutes } from 'config/page-routes'
 import { Authentication } from 'components/authentication'
@@ -35,5 +35,5 @@ export const PrivateRouteContainer: React.FunctionComponent<IProps> = ({
     },
     [Component, children, isLoggedIn]
   )
-  return <DomRoute {...rest} render={renderRoute} />
+  return <Route {...rest} render={renderRoute} />
 }

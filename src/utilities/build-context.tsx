@@ -11,7 +11,6 @@ export default function buildContext<S, A, P extends object>(
 
   const Provider: React.SFC<P> = ({ children, ...props }) => {
     const { state, actions } = useHook(props as P)
-
     return (
       <StateContext.Provider value={state}>
         <ActionsContext.Provider value={actions}>{children}</ActionsContext.Provider>

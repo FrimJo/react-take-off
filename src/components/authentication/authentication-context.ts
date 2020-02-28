@@ -10,18 +10,21 @@ const useAuthentication = () => {
     manual: true,
   })
 
-  const isLoggedIn = React.useMemo(() => !!userQuery.data, [userQuery.data])
+  const isLoggedIn = React.useMemo(() => !!userQuery.data, [userQuery])
+
+  React.useEffect(() => {
+    console.log('useAuthentication isLoggedIn', isLoggedIn)
+  }, [isLoggedIn])
 
   const logOut = React.useCallback(() => {
     setQueryData('user', null, { shouldRefetch: false })
     clearQueryCache()
   }, [])
 
-  const logIn = React.useCallback(
-    (credentials: { username: string; password: string }) =>
-      userQuery.refetch({ variables: credentials }),
-    [userQuery]
-  )
+  const logIn = React.useCallback(async (credentials: { username: string; password: string }) => {
+    return Promise.resolve()
+    // return await userQuery.refetch({ variables: credentials })
+  }, [])
 
   return {
     state: { isLoggedIn, userQuery },
@@ -29,7 +32,7 @@ const useAuthentication = () => {
   }
 }
 
-const Context = buildContext(useAuthentication)
+const Context = buildContext(useAuthentication, 'AuthenticationContext')
 
 const useAuthenticatedState = () => {
   const stateContext = React.useContext(Context.StateContext)

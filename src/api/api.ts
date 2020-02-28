@@ -25,12 +25,12 @@ export const api = {
       }, 2000)
     })
   },
-  getUserAsync: () => {
+  getUserAsync: (id: number) => {
     console.log('getUserAsync POST')
     return new Promise<User>((resolve, reject) => {
       setTimeout(() => {
-        console.log('getUserAsync resolve', DB_USER)
-        resolve(DB_USER)
+        console.log('getUserAsync resolve', { ...DB_USER, id })
+        resolve({ ...DB_USER, id })
       }, 2000)
     })
   },

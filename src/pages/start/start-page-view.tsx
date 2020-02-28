@@ -26,7 +26,7 @@ export const StartPageView: React.FC = () => {
         <ButtonWithSpinner
           color="primary"
           variant="contained"
-          showSpinner={state.userQuery.isFetching}
+          showSpinner={state.userQuery.isLoading}
           onClick={() => actions.logIn({ username: 'usr', password: 'psw' })}>
           login
         </ButtonWithSpinner>
