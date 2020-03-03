@@ -3,21 +3,25 @@ import { Redirect, Route, RouteComponentProps, RouteProps } from 'react-router-d
 import { PageRoutes } from 'config/page-routes'
 import { AuthenticationContext } from 'contexts/authentication-context'
 import { history } from 'utilities/history'
+import { UserContext } from 'contexts/user-context'
 
 interface IProps extends RouteProps {
   component?: React.ComponentType<RouteComponentProps>
 }
 
-export const PrivateRouteContainer: React.FunctionComponent<IProps> = ({
+export const PrivateRouteContainer: React.FC<IProps> = ({
   component: Component,
   children,
   ...rest
 }) => {
   const { isLoggedIn } = AuthenticationContext.useState()
+  const {
+    userQuery: { data: user },
+  } = UserContext.useState()
   console.log('isLoggedIn', isLoggedIn)
   const renderRoute = React.useCallback(
     props => {
-      if (!isLoggedIn) {
+      if (!isLoggedIn || !user) {
         // not authorised so redirect to login page with the return url
 
         return (
