@@ -7,9 +7,11 @@ import { AuthenticationContext } from 'contexts/authentication-context'
 import withSpinner from 'utilities/with-spinner'
 import { UserPage } from './components/user-page'
 import { DisplayUserContainer } from 'components/display-user/display-user-container'
+import { UserContext } from 'contexts/user-context'
 
 export const StartPageView: React.FC = () => {
   const state = AuthenticationContext.useState()
+  const userState = UserContext.useAuthenticatedState()
   const actions = AuthenticationContext.useActions()
 
   return (
@@ -26,7 +28,7 @@ export const StartPageView: React.FC = () => {
         <ButtonWithSpinner
           color="primary"
           variant="contained"
-          showSpinner={state.userQuery.isFetching}
+          showSpinner={userState.userQuery.isFetching}
           onClick={() => actions.logIn({ username: 'usr', password: 'psw' })}>
           login
         </ButtonWithSpinner>

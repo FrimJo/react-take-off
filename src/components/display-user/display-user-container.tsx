@@ -1,8 +1,7 @@
 import React from 'react'
-
-import { AuthenticationContext } from 'contexts/authentication-context'
+import { UserContext } from 'contexts/user-context'
 
 export const DisplayUserContainer: React.FC = () => {
-  const { user } = AuthenticationContext.useAuthenticatedState()
-  return <p>{user.name}</p>
+  const { userQuery } = UserContext.useAuthenticatedState()
+  return <p>{userQuery.data.name}</p>
 }

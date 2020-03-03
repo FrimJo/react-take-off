@@ -1,46 +1,35 @@
+import { UserContext } from 'contexts/user-context'
 import React from 'react'
-import { useQuery, setQueryData, clearQueryCache } from 'react-query'
-import buildContext from 'utilities/build-context'
+import { queryCache, useMutation } from 'react-query'
+import { buildContext } from 'utilities/build-context'
 import { api } from 'api/api'
+import { useTokenData } from 'utilities/token-data'
 
 const useAuthentication = () => {
-  const userQuery = useQuery('user', api.authenticateAsync, {
-    refetchOnWindowFocus: false,
-    manual: true,
-  })
-
-  const isLoggedIn = React.useMemo(() => !!userQuery.data, [userQuery.data])
+  const { getUser, clearUser } = UserContext.useActions()
+  const [tokenData, setTokenData, clearTokenData] = useTokenData()
+  const [authenticate, authenticateMutation] = useMutation(api.authenticateAsync)
+  const isLoggedIn = React.useMemo(() => !!tokenData, [tokenData])
 
   const logOut = React.useCallback(() => {
-    setQueryData('user', null, { shouldRefetch: false })
-    clearQueryCache()
-  }, [])
+    clearUser()
+    queryCache.clear()
+    clearTokenData()
+    authenticateMutation.reset()
+  }, [authenticateMutation, clearTokenData, clearUser])
 
   const logIn = React.useCallback(
     (credentials: { username: string; password: string }) =>
-      userQuery.refetch({ variables: credentials }),
-    [userQuery]
+      authenticate(credentials)
+        .then(setTokenData)
+        .then(() => getUser()),
+    [authenticate, getUser, setTokenData]
   )
 
   return {
-    state: { isLoggedIn, userQuery },
+    state: { isLoggedIn },
     actions: { logIn, logOut },
   }
 }
 
-const Context = buildContext(useAuthentication, 'AuthenticationContext')
-
-const useAuthenticatedState = () => {
-  const stateContext = React.useContext(Context.StateContext)
-
-  if (!stateContext?.userQuery.data) {
-    throw Error('User is not logged in.')
-  }
-
-  return { ...stateContext, user: stateContext.userQuery.data }
-}
-
-export const AuthenticationContext = {
-  ...Context,
-  useAuthenticatedState,
-}
+export const AuthenticationContext = buildContext(useAuthentication, 'AuthenticationContext')

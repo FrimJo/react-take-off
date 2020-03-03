@@ -2,13 +2,11 @@ import React from 'react'
 import { UserPageView } from './user-page-view'
 import withSpinner from 'utilities/with-spinner'
 import { Button } from '@material-ui/core'
-import { AuthenticationContext } from 'contexts/authentication-context'
 import { UserContext } from 'contexts/user-context'
 
 export const UserPageContainer: React.FC = () => {
-  const userState = UserContext.useState()
+  const userState = UserContext.useAuthenticatedState()
   const userActions = UserContext.useActions()
-  const authenticationState = AuthenticationContext.useAuthenticatedState()
 
   return (
     <>
@@ -16,7 +14,7 @@ export const UserPageContainer: React.FC = () => {
         {userState.userMutation.error ? (
           <p>{userState.userMutation.error}</p>
         ) : userState.isEdit ? (
-          <UserPageView initialValues={authenticationState.user} />
+          <UserPageView initialValues={userState.userQuery.data} />
         ) : (
           <ButtonWithSpinner
             color="primary"

@@ -25,6 +25,7 @@ export const useLoginForm = (initialValues: UserFormValues) => {
     (credentials, { setSubmitting }) => {
       logIn(credentials)
         .then(() => {
+          console.log('onSubmit')
           // Navigate user
           if (!state?.from ?? state.from === PageRoutes.Authenticate.path) {
             navigate(PageRoutes.Start.path, { replace: false })

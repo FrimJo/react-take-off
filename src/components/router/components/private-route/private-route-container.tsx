@@ -14,6 +14,7 @@ export const PrivateRouteContainer: React.FunctionComponent<IProps> = ({
   ...rest
 }) => {
   const { isLoggedIn } = AuthenticationContext.useState()
+  console.log('isLoggedIn', isLoggedIn)
   const renderRoute = React.useCallback(
     props => {
       if (!isLoggedIn) {

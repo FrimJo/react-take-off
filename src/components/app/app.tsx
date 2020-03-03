@@ -7,18 +7,22 @@ import { Global } from '@emotion/core'
 import { THEME } from 'styles/theme'
 import { GlobalStyles } from 'styles/global-styles'
 import { UserContext } from 'contexts/user-context'
+import { LocalStorageContext } from 'contexts/local-storage-context'
+import { TOKEN_DATA_KEY } from 'utilities/token-data'
 
 export const App = () => {
   return (
-    <StylesProvider injectFirst={true}>
-      <ThemeProvider theme={THEME}>
-        <AuthenticationContext.Provider>
+    <LocalStorageContext.Provider storageKeys={[TOKEN_DATA_KEY]}>
+      <StylesProvider injectFirst={true}>
+        <ThemeProvider theme={THEME}>
           <UserContext.Provider>
-            <Global styles={GlobalStyles} />
-            <Router />
+            <AuthenticationContext.Provider>
+              <Global styles={GlobalStyles} />
+              <Router />
+            </AuthenticationContext.Provider>
           </UserContext.Provider>
-        </AuthenticationContext.Provider>
-      </ThemeProvider>
-    </StylesProvider>
+        </ThemeProvider>
+      </StylesProvider>
+    </LocalStorageContext.Provider>
   )
 }
