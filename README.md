@@ -140,4 +140,4 @@ In `configs/routes.ts` we define all routes for this project, and the pages refr
 
 ### Using [Material-UI](https://github.com/mui-org/material-ui)
 
-To alter Material-UI components we use [styled-components](https://github.com/styled-components/styled-components), read [here](https://material-ui.com/guides/interoperability/#styled-components) on how it works.
+To alter Material-UI components we use [emotion](https://github.com/emotion-js/emotion), read [here](https://material-ui.com/guides/interoperability/#emotion) on how it works.
