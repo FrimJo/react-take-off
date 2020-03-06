@@ -9196,10 +9196,10 @@ react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.0, react-is@^16.8.1, react-is
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
-react-query@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-1.0.7.tgz#ce73afc125b8857a3b9c7b6cf554cae94311ed18"
-  integrity sha512-m0of9P+vJofHWt2DJSObFKssvsXICOQJOdcjySjrxAS8q6uIH1i8pwgiGIr339iESsEz75fcQH2HZil6yBWEgg==
+react-query@^1.0.22:
+  version "1.0.22"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-1.0.22.tgz#a48f3e616015f7369a3342b350c2b64b9ca6580e"
+  integrity sha512-xJVK/c6lRZR6xi6sZrBnroZDrYAdQVVGSiwNONQdBrV3WEmIAJaSse5D8H+UW1BNdceNN036OnSxq9s3hRtClQ==
 
 react-router-dom@^5.1.2:
   version "5.1.2"

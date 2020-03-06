@@ -37,7 +37,7 @@ export const PrivateRouteContainer: React.FC<IProps> = ({
       // authorised so return component
       return Component ? <Component {...props} /> : children
     },
-    [Component, children, isLoggedIn]
+    [Component, children, isLoggedIn, user]
   )
   return <Route {...rest} render={renderRoute} />
 }
