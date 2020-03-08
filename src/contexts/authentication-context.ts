@@ -8,15 +8,15 @@ import { useTokenData } from 'utilities/token-data'
 const useAuthentication = () => {
   const { getUser, clearUser } = UserContext.useActions()
   const [tokenData, setTokenData, clearTokenData] = useTokenData()
-  const [authenticate, authenticateMutation] = useMutation(api.authenticateAsync)
+  const [authenticate] = useMutation(api.authenticateAsync)
   const isLoggedIn = React.useMemo(() => !!tokenData, [tokenData])
 
   const logOut = React.useCallback(() => {
     clearUser()
     queryCache.clear()
+    queryCache.getQuery('key')
     clearTokenData()
-    authenticateMutation.reset()
-  }, [authenticateMutation, clearTokenData, clearUser])
+  }, [clearTokenData, clearUser])
 
   const logIn = React.useCallback(
     (credentials: { username: string; password: string }) =>

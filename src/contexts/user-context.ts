@@ -10,6 +10,7 @@ const useUserContext = () => {
     refetchOnWindowFocus: false,
     manual: true,
   })
+
   const [updateUserAsync, userMutation] = useOptimisticMutation('user', api.updateUserAsync)
 
   const getUser = React.useCallback(() => userQuery.refetch(), [userQuery])
@@ -19,7 +20,7 @@ const useUserContext = () => {
   ])
 
   const clearUser = React.useCallback(() => {
-    queryCache.setQueryData('user', null, { shouldRefetch: false })
+    queryCache.setQueryData('user', null)
   }, [])
 
   return {
