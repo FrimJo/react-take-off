@@ -4,23 +4,23 @@ This README describes the necessary steps to get a local development environment
 
 ### TODO
 
+- [x] Update name of `usePromise` hook to `usePromiseManager`
+- [x] Update to `Formik` v2
+- [x] Make usePromiseManager return array
+- [x] Use only `eslint` and not `tslint`
+- [x] Migrate from styled-components to Emotion
+- [x] Replace `usePromiseManager` with `react-query`
+- [x] Add react-query-devtools https://github.com/tannerlinsley/react-query-devtools
 - [ ] Add `lint-staged` and rule for `no-irregular-whitespace`
 - [ ] Update VSCode to run `tslint --fix` on save without pretteir bug
 - [ ] Look into using `xstate`
 - [ ] Use `xstate` for UI components souch as buttons
-- [x] Update name of `usePromise` hook to `usePromiseManager`
 - [ ] Update `usePromiseManager` hook to use `React.suspense`
-- [x] Update to `Formik` v2
-- [x] Make usePromiseManager return array
 - [ ] Graph QL
 - [ ] Remove TS check on compile
-- [x] Use only `eslint` and not `tslint`
 - [ ] Update Error boundery to use promise
-- [x] Migrate from styled-components to Emotion
 - [ ] Refactor to use Parcel 2 instead of create-react-app
-- [ ] Replace `usePromiseManager` with `react-query`
 - [ ] Update to react-router v6
-- [ ] Add react-query-devtools https://github.com/tannerlinsley/react-query-devtools
 
 ### Prerequisites
 
