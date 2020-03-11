@@ -68,6 +68,7 @@
     "husky": "^3.0.9",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.0",
+    "react-query-devtools": "^1.0.12",
     "react-test-renderer": "^16.12.0",
     "typescript": "^3.7.4",
     "yarnhook": "^0.4.3"

@@ -19,6 +19,8 @@ This README describes the necessary steps to get a local development environment
 - [x] Migrate from styled-components to Emotion
 - [ ] Refactor to use Parcel 2 instead of create-react-app
 - [ ] Replace `usePromiseManager` with `react-query`
+- [ ] Update to react-router v6
+- [ ] Add react-query-devtools https://github.com/tannerlinsley/react-query-devtools
 
 ### Prerequisites
 

@@ -1,13 +1,10 @@
 import * as yup from 'yup'
-
-import { Name, OnSubmitFunction } from 'types'
+import { Name, OnSubmitFunction, Schema } from 'types'
 import { UserContext } from 'contexts/user-context'
 import React from 'react'
+import { User } from 'api/use-user-api'
 
-type UserFormValues = Readonly<{
-  id: number
-  name: string
-}>
+type UserFormValues = User
 
 // Define the hook to be used to leverage this form
 export const useUserForm = (initialValues: UserFormValues) => {
@@ -15,17 +12,20 @@ export const useUserForm = (initialValues: UserFormValues) => {
 
   const onSubmit: OnSubmitFunction<UserFormValues> = React.useCallback(
     user => {
-      actions.updateUser(user)
+      actions.update(user)
       actions.setIsEdit(false)
     },
     [actions]
   )
 
-  const validationSchema = React.useMemo(
+  const validationSchema: Schema<UserFormValues> = React.useMemo(
     () =>
-      yup.object().shape<UserFormValues>({
+      yup.object().shape({
         id: yup.number().required(),
-        name: yup.string().required(),
+        email: yup.string().required(),
+        firstName: yup.string().required(),
+        lastName: yup.string().required(),
+        avatar: yup.string().required(),
       }),
     []
   )
@@ -33,7 +33,10 @@ export const useUserForm = (initialValues: UserFormValues) => {
   const name: Name<UserFormValues> = React.useMemo(
     () => ({
       id: 'id',
-      name: 'name',
+      email: 'email',
+      firstName: 'firstName',
+      lastName: 'lastName',
+      avatar: 'avatar',
     }),
     []
   )

@@ -1,26 +1,24 @@
 /** @jsx jsx */
 import React from 'react'
 import { jsx } from '@emotion/core'
-import { Button } from '@material-ui/core'
-
 import { AuthenticationContext } from 'contexts/authentication-context'
-import withSpinner from 'utilities/with-spinner'
 import { UserPage } from './components/user-page'
 import { DisplayUserContainer } from 'components/display-user/display-user-container'
 import { UserContext } from 'contexts/user-context'
+import { ButtonWithSpinner } from 'components/button-with-spinner'
 
 export const StartPageView: React.FC = () => {
-  const state = AuthenticationContext.useState()
-  const userState = UserContext.useAuthenticatedState()
+  const authenticationState = AuthenticationContext.useState()
+  const userState = UserContext.useState()
   const actions = AuthenticationContext.useActions()
 
   return (
     <div>
-      {state.isLoggedIn ? (
+      {authenticationState.isLoggedIn ? (
         <div>
           <DisplayUserContainer />
           <UserPage />
-          <ButtonWithSpinner color="primary" variant="contained" onClick={actions.logOut}>
+          <ButtonWithSpinner color="primary" variant="contained" onClick={actions.logout}>
             logout
           </ButtonWithSpinner>
         </div>
@@ -28,13 +26,11 @@ export const StartPageView: React.FC = () => {
         <ButtonWithSpinner
           color="primary"
           variant="contained"
-          showSpinner={userState.userQuery.isFetching}
-          onClick={() => actions.logIn({ username: 'usr', password: 'psw' })}>
+          showSpinner={userState.status.isFetching}
+          onClick={() => actions.login({ username: 'usr', password: 'psw' })}>
           login
         </ButtonWithSpinner>
       )}
     </div>
   )
 }
-
-const ButtonWithSpinner = withSpinner(Button)

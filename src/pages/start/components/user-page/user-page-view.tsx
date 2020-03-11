@@ -1,12 +1,10 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { Button } from '@material-ui/core'
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-
 import { useUserForm } from './utilities/use-user-form'
-import withSpinner from 'utilities/with-spinner'
-import { User } from 'api/api'
+import { User } from 'api/use-user-api'
+import { ButtonWithSpinner } from 'components/button-with-spinner'
 
 type UserPageViewProps = Readonly<{ initialValues: User }>
 export const UserPageView: React.FC<UserPageViewProps> = ({ initialValues }) => {
@@ -24,8 +22,12 @@ export const UserPageView: React.FC<UserPageViewProps> = ({ initialValues }) => 
               `}>
               <Field variant={'outlined'} name={name.id} />
               <ErrorMessage name={name.id} />
-              <Field variant={'outlined'} name={name.name} />
-              <ErrorMessage name={name.name} />
+              <Field variant={'outlined'} name={name.firstName} />
+              <ErrorMessage name={name.firstName} />
+              <Field variant={'outlined'} name={name.lastName} />
+              <ErrorMessage name={name.lastName} />
+              <Field variant={'outlined'} name={name.email} />
+              <ErrorMessage name={name.email} />
               <ButtonWithSpinner
                 color="primary"
                 variant="contained"
@@ -41,5 +43,3 @@ export const UserPageView: React.FC<UserPageViewProps> = ({ initialValues }) => 
     </Formik>
   )
 }
-
-const ButtonWithSpinner = withSpinner(Button)

@@ -25,7 +25,7 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "target": "es5",
-    "types": ["@emotion/core"]
+    "types": ["@emotion/core", "jest", "node"]
   },
   "include": ["src"],
   "exclude": ["types", "node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest"]

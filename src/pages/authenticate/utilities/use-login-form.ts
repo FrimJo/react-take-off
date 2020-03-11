@@ -1,12 +1,10 @@
 import * as yup from 'yup'
-
 import { AuthenticationContext } from 'contexts/authentication-context'
 import { Name, OnSubmitFunction } from 'types'
 import { PageRoutes } from 'config/page-routes'
 import { navigate } from 'utilities/react-router-hooks'
 import { history } from 'utilities/history'
 import React from 'react'
-// import { useLocation } from 'utilities/react-router-hooks'
 
 type UserFormValues = Readonly<{
   username: string
@@ -19,11 +17,11 @@ export const useLoginForm = (initialValues: UserFormValues) => {
     location: { state },
   } = React.useMemo(() => history, [])
 
-  const { logIn } = AuthenticationContext.useActions()
+  const { login } = AuthenticationContext.useActions()
 
   const onSubmit: OnSubmitFunction<UserFormValues> = React.useCallback(
     (credentials, { setSubmitting }) => {
-      logIn(credentials)
+      login(credentials)
         .then(() => {
           console.log('onSubmit')
           // Navigate user
@@ -33,11 +31,12 @@ export const useLoginForm = (initialValues: UserFormValues) => {
             navigate(state.from, { replace: true })
           }
         })
-        .catch(() => setSubmitting(false))
-      // No need to set submitting to false because of navigation
-      //.finally(() => setSubmitting(false))
+        .catch(error => console.log('error in use login form', error))
+        .finally(() => {
+          setSubmitting(false)
+        })
     },
-    [logIn, state]
+    [login, state]
   )
 
   const validationSchema = React.useMemo(
