@@ -1,7 +1,6 @@
 import * as yup from 'yup'
 import { AuthenticationContext } from 'contexts/authentication-context'
 import { Name, OnSubmitFunction } from 'types'
-import { history } from 'utilities/history'
 import React from 'react'
 
 type FormValues = Readonly<{
@@ -12,10 +11,6 @@ type FormValues = Readonly<{
 
 // Define the hook to be used to leverage this form
 export const useRegisterForm = (initialValues: FormValues) => {
-  const {
-    location: { state },
-  } = React.useMemo(() => history, [])
-
   const { register } = AuthenticationContext.useActions()
 
   const onSubmit: OnSubmitFunction<FormValues> = React.useCallback(
