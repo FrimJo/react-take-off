@@ -8,7 +8,7 @@ export type HTTP = Readonly<{
 }>
 
 export function useHttpMiddleware(initOptions: RequestInit = {}): HTTP {
-  const { tokenData } = useTokenData()
+  const { storage } = useTokenData()
 
   return React.useMemo(
     () => ({
@@ -21,7 +21,7 @@ export function useHttpMiddleware(initOptions: RequestInit = {}): HTTP {
             Accept: 'application/json',
             ...initOptions.headers,
             ...fetchInit.headers,
-            Authorization: `Bearer ${tokenData?.token}`,
+            Authorization: `Bearer ${storage?.token}`,
           },
         }
         return window.fetch(url, init).then(result => {
@@ -33,6 +33,6 @@ export function useHttpMiddleware(initOptions: RequestInit = {}): HTTP {
         })
       },
     }),
-    [initOptions, tokenData]
+    [initOptions, storage]
   )
 }

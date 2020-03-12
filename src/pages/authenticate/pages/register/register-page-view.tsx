@@ -7,7 +7,11 @@ import { Typography } from '@material-ui/core'
 
 export const RegisterPageView: React.FC = () => {
   const { register } = AuthenticationContext.useState()
-  const { name, ...formikProps } = useRegisterForm({ email: '', password: '', repeatPassword: '' })
+  const { name, ...formikProps } = useRegisterForm({
+    email: 'george.bluth@reqres.in',
+    password: 'qwerty123!',
+    repeatPassword: '',
+  })
   return (
     <>
       <Typography variant="h1">Register</Typography>

@@ -33,19 +33,19 @@ declare module 'react-query' {
     : never
 
   export function useQuery<TResult, TQueryKey extends QueryKey>(
-    queryKey: TQueryKey | (() => TQueryKey),
+    queryKey: false | TQueryKey | (() => TQueryKey),
     queryFn: (key: string, ...args: QueryKeyVariablesArgs<TQueryKey>) => Promise<TResult>,
     options?: QueryOptions<TResult>
   ): QueryState<TResult, QueryKeyVariables<TQueryKey>>
 
   export function usePaginatedQuery<TResult, TQueryKey extends QueryKey>(
-    queryKey: TQueryKey | (() => TQueryKey),
+    queryKey: false | TQueryKey | (() => TQueryKey),
     queryFn: (key: string, ...args: QueryKeyVariablesArgs<TQueryKey>) => Promise<TResult>,
     options?: QueryOptions<TResult>
   ): PaginatedQueryState<TResult, TQueryKey>
 
   export function useInfiniteQuery<TResult, TQueryKey extends QueryKey>(
-    queryKey: TQueryKey | (() => TQueryKey),
+    queryKey: false | TQueryKey | (() => TQueryKey),
     queryFn: (key: string, ...args: QueryKeyVariablesArgs<TQueryKey>) => Promise<TResult>,
     options?: InfiniteQueryOptions<TResult, QueryKeyVariables<TQueryKey>>
   ): InfiniteQueryState<TResult, QueryKeyVariables<TQueryKey>>

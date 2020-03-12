@@ -2,6 +2,8 @@ import * as yup from 'yup'
 import { AuthenticationContext } from 'contexts/authentication-context'
 import { Name, OnSubmitFunction } from 'types'
 import React from 'react'
+import { navigate } from 'utilities/react-router-hooks'
+import { PageRoutes } from 'config/page-routes'
 
 type FormValues = Readonly<{
   email: string
@@ -17,9 +19,8 @@ export const useRegisterForm = (initialValues: FormValues) => {
     (values, { setSubmitting }) => {
       register({ email: values.email, password: values.password })
         .then(() => {
-          console.log('register onSubmit')
+          navigate(PageRoutes.Start.path, { replace: false })
         })
-        .catch(error => console.log('error in use register form', error))
         .finally(() => {
           setSubmitting(false)
         })

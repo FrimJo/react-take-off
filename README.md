@@ -11,8 +11,8 @@ This README describes the necessary steps to get a local development environment
 - [x] Migrate from styled-components to Emotion
 - [x] Replace `usePromiseManager` with `react-query`
 - [x] Add react-query-devtools https://github.com/tannerlinsley/react-query-devtools
-- [ ] Add `lint-staged` and rule for `no-irregular-whitespace`
-- [ ] Update VSCode to run `tslint --fix` on save without pretteir bug
+- [x] Add `lint-staged` and rule for `no-irregular-whitespace`
+- [x] Update VSCode to run `tslint --fix` on save without pretteir bug
 - [ ] Look into using `xstate`
 - [ ] Use `xstate` for UI components souch as buttons
 - [ ] Update `usePromiseManager` hook to use `React.suspense`

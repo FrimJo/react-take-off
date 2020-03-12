@@ -1,5 +1,6 @@
 import { useHttpMiddleware } from 'utilities/use-http-middleware'
 import React from 'react'
+import { User, mapApiUserToClientUser } from './use-user-api'
 
 const API_BASE_URL = 'https://reqres.in'
 
@@ -47,11 +48,26 @@ export const useAuthenticateApi = () => {
     [http]
   )
 
+  const getLoggedInUser = React.useCallback(
+    (id: number): Promise<User> => {
+      const init: RequestInit = {
+        method: 'GET',
+      }
+      return http
+        .fetch(API_BASE_URL + `/api/users/${id}`, init)
+        .then(response => response.json())
+        .then(result => result.data)
+        .then(mapApiUserToClientUser)
+    },
+    [http]
+  )
+
   return React.useMemo(
     () => ({
       login,
       register,
+      getLoggedInUser,
     }),
-    [login, register]
+    [login, register, getLoggedInUser]
   )
 }

@@ -10,18 +10,21 @@ import { UserContext } from 'contexts/user-context'
 import { LocalStorageContext } from 'contexts/local-storage-context'
 import { TOKEN_DATA_KEY } from 'utilities/token-data'
 import { ReactQueryDevtools } from 'react-query-devtools'
+import { StatusSnackbar } from 'components/status-snackbar'
 
 export const App: React.FC = () => {
   return (
     <LocalStorageContext.Provider storageKeys={[TOKEN_DATA_KEY]}>
       <StylesProvider injectFirst={true}>
         <ThemeProvider theme={THEME}>
-          <UserContext.Provider>
+          <Global styles={GlobalStyles} />
+          <StatusSnackbar>
             <AuthenticationContext.Provider>
-              <Global styles={GlobalStyles} />
-              <Router />
+              <UserContext.Provider>
+                <Router />
+              </UserContext.Provider>
             </AuthenticationContext.Provider>
-          </UserContext.Provider>
+          </StatusSnackbar>
         </ThemeProvider>
       </StylesProvider>
       <ReactQueryDevtools initialIsOpen={false} />

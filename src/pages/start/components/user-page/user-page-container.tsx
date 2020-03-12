@@ -8,14 +8,17 @@ export const UserPageContainer: React.FC = () => {
   const userActions = UserContext.useActions()
 
   if (!userState.user) {
+    if (userState.state.isFetching) {
+      return <>…loading</>
+    }
     throw Error('No user received!')
   }
 
   return (
     <>
       <div>
-        {userState.status.error ? (
-          <p>{userState.status.error}</p>
+        {userState.state.error ? (
+          <p>{userState.state.error}</p>
         ) : userState.isEdit ? (
           <UserPageView initialValues={userState.user} />
         ) : (

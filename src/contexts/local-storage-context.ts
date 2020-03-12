@@ -15,7 +15,6 @@ export function useLocalStorageContext(props: { storageKeys: string[] }) {
 
     return Object.assign({}, ...items)
   })
-  console.log('storedValues', storedValues)
 
   const setValue = React.useCallback(
     (key: string, value: any) => {

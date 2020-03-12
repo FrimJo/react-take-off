@@ -14,7 +14,7 @@ export const PrivateRouteContainer: React.FC<IProps> = ({
   ...rest
 }) => {
   const { isLoggedIn } = AuthenticationContext.useState()
-  console.log('isLoggedin', isLoggedIn)
+
   const renderRoute = React.useCallback(
     props => {
       if (!isLoggedIn) {
@@ -28,10 +28,10 @@ export const PrivateRouteContainer: React.FC<IProps> = ({
             }}
           />
         )
+      } else {
+        // authorised so return component
+        return Component ? <Component {...props} /> : children
       }
-
-      // authorised so return component
-      return Component ? <Component {...props} /> : children
     },
     [Component, children, isLoggedIn]
   )

@@ -20,19 +20,19 @@ export function buildContext<S, A, P extends object>(
   }
 
   const useState = () => {
-    const context = React.useContext(StateContext)
-    if (context === undefined) {
+    const state = React.useContext(StateContext)
+    if (state === undefined) {
       throw Error(`Missing Provider for useState ${identification}`)
     }
-    return context
+    return state
   }
 
   const useActions = () => {
-    const context = React.useContext(ActionsContext)
-    if (context === undefined) {
+    const actions = React.useContext(ActionsContext)
+    if (actions === undefined) {
       throw Error(`Missing Provider for useActions ${identification}`)
     }
-    return context
+    return actions
   }
 
   const StateConsumer: React.SFC<{

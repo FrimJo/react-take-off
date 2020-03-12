@@ -23,7 +23,6 @@ export const useLoginForm = (initialValues: UserFormValues) => {
     (credentials, { setSubmitting }) => {
       login(credentials)
         .then(() => {
-          console.log('onSubmit')
           // Navigate user
           if (!state?.from ?? state.from === PageRoutes.Authenticate.path) {
             navigate(PageRoutes.Start.path, { replace: false })
@@ -31,7 +30,6 @@ export const useLoginForm = (initialValues: UserFormValues) => {
             navigate(state.from, { replace: true })
           }
         })
-        .catch(error => console.log('error in use login form', error))
         .finally(() => {
           setSubmitting(false)
         })

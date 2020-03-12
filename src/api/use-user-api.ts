@@ -19,7 +19,7 @@ export type ApiUser = {
 
 const API_BASE_URL = 'https://reqres.in'
 
-function mapApiUserToClientUser(apiUser: ApiUser): User {
+export function mapApiUserToClientUser(apiUser: ApiUser): User {
   return {
     id: apiUser.id,
     email: apiUser.email,
@@ -28,6 +28,7 @@ function mapApiUserToClientUser(apiUser: ApiUser): User {
     avatar: apiUser.avatar,
   }
 }
+
 function mapClientUserToApiUser(clientUser: Partial<User>): Partial<ApiUser> {
   return {
     id: clientUser.id,
@@ -61,12 +62,11 @@ export const useUserApi = () => {
   const getSingle = React.useCallback(
     (id: number): Promise<User> => {
       const init: RequestInit = {
-        method: 'PATCH',
+        method: 'GET',
       }
       return http
         .fetch(API_BASE_URL + `/api/users/${id}`, init)
         .then(response => response.json())
-        .then(JSON.parse)
         .then(result => result.data)
         .then(mapApiUserToClientUser)
     },
