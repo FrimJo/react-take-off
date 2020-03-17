@@ -1,4 +1,9 @@
-import { Theme, useTheme as useMuiTheme, createMuiTheme } from '@material-ui/core'
+import {
+  Theme,
+  useTheme as useMuiTheme,
+  createMuiTheme,
+  responsiveFontSizes,
+} from '@material-ui/core'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import { cleanup, render } from '@testing-library/react'
 import React from 'react'
@@ -18,7 +23,7 @@ const themeOptions: ThemeOptions = {
 }
 
 // Remove functions by stringify -> parse
-const mockTheme = JSON.parse(JSON.stringify(createMuiTheme(themeOptions)))
+const mockTheme = JSON.parse(JSON.stringify(responsiveFontSizes(createMuiTheme(themeOptions))))
 
 const renderThemeProvider = (component: React.ReactNode) => {
   return render(<ThemeProvider theme={themeOptions}>{component}</ThemeProvider>)
