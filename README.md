@@ -24,6 +24,8 @@ This README describes the necessary steps to get a local development environment
 - [ ] Update to react-router v6
 - [ ] Switch to Dino over Node
 - [ ] Swtich to Parcel 2 over webpack
+- [ ] Implement suport for hot reloading
+- [x] Implement strict mode
 
 ### Prerequisites
 
