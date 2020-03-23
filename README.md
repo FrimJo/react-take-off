@@ -14,6 +14,7 @@ This README describes the necessary steps to get a local development environment
 - [x] Add `lint-staged` and rule for `no-irregular-whitespace`
 - [x] Update VSCode to run `tslint --fix` on save without pretteir bug
 - [x] Rename prject to react-take-off
+- [x] Implement strict mode
 - [ ] Fix emotion to work with JSX and css prop
 - [ ] Look into using `xstate`
 - [ ] Use `xstate` for UI components souch as buttons
@@ -25,7 +26,6 @@ This README describes the necessary steps to get a local development environment
 - [ ] Switch to Dino over Node
 - [ ] Swtich to Parcel 2 over webpack
 - [ ] Implement suport for hot reloading
-- [x] Implement strict mode
 
 ### Prerequisites
 
