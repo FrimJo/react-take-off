@@ -13,14 +13,17 @@ This README describes the necessary steps to get a local development environment
 - [x] Add react-query-devtools https://github.com/tannerlinsley/react-query-devtools
 - [x] Add `lint-staged` and rule for `no-irregular-whitespace`
 - [x] Update VSCode to run `tslint --fix` on save without pretteir bug
+- [x] Rename prject to react-take-off
+- [ ] Fix emotion to work with JSX and css prop
 - [ ] Look into using `xstate`
 - [ ] Use `xstate` for UI components souch as buttons
 - [ ] Update `usePromiseManager` hook to use `React.suspense`
 - [ ] Graph QL
 - [ ] Remove TS check on compile
 - [ ] Update Error boundery to use promise
-- [ ] Refactor to use Parcel 2 instead of create-react-app
 - [ ] Update to react-router v6
+- [ ] Switch to Dino over Node
+- [ ] Swtich to Parcel 2 over webpack
 
 ### Prerequisites
 
