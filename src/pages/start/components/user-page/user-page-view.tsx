@@ -9,7 +9,7 @@ import { UserContext } from 'contexts/user-context'
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 200;
+  width: 200px;
 `
 
 type UserPageViewProps = Readonly<{ initialValues: User }>
