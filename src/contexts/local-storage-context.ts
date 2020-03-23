@@ -1,23 +1,31 @@
 import { buildContext } from 'utilities/build-context'
 import React from 'react'
 
-export function useLocalStorageContext(props: { storageKeys: string[] }) {
-  const { storageKeys } = props
+export function useLocalStorageContext() {
   const [storedValues, setStoredValues] = React.useState(() => {
-    const items = storageKeys.map(k => {
-      try {
-        const item = window.localStorage.getItem(k)
-        return { [k]: item ? JSON.parse(item) : null }
-      } catch (error) {
-        return null
-      }
-    })
+    const items: Array<{ [key in string]: any }> = []
 
+    for (let index = 0; index < window.localStorage.length; index++) {
+      const key = window.localStorage.key(index)
+      if (key == null) {
+        continue
+      }
+      try {
+        const itemJSON = window.localStorage.getItem(key)
+        const value = itemJSON == null ? itemJSON : JSON.parse(itemJSON)
+        items.push({ [key]: value })
+      } catch (error) {
+        continue
+      }
+    }
+
+    console.log('init', items)
     return Object.assign({}, ...items)
   })
 
   const setValue = React.useCallback(
     (key: string, value: any) => {
+      console.log('setValue', key, value)
       // Allow value to be a function so we have same API as useState
       const valueToStore = value instanceof Function ? value(storedValues[key]) : value
       // Save state
@@ -29,6 +37,7 @@ export function useLocalStorageContext(props: { storageKeys: string[] }) {
   )
 
   const clearValue = (key: string) => {
+    console.log('clearValue', key)
     setStoredValues((prevValues: any) => ({ ...prevValues, [key]: null }))
     window.localStorage.removeItem(key)
   }

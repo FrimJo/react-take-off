@@ -45,6 +45,7 @@ export const useUserApi = () => {
 
   const update = React.useCallback(
     (user: Partial<User>): Promise<Partial<User> & { updatedAt: Date }> => {
+      console.log('update', user)
       const content_ = JSON.stringify(mapClientUserToApiUser(user))
 
       const init: RequestInit = {
@@ -53,8 +54,8 @@ export const useUserApi = () => {
       }
       return http
         .fetch(API_BASE_URL + `/api/users/${user.id}`, init)
-        .then(response => response.json())
-        .then(JSON.parse)
+        .then((response) => response.json())
+        .then((result) => result.data)
     },
     [http]
   )
@@ -66,8 +67,8 @@ export const useUserApi = () => {
       }
       return http
         .fetch(API_BASE_URL + `/api/users/${id}`, init)
-        .then(response => response.json())
-        .then(result => result.data)
+        .then((response) => response.json())
+        .then((result) => result.data)
         .then(mapApiUserToClientUser)
     },
     [http]

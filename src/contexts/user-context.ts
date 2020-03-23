@@ -10,13 +10,14 @@ const useUserContext = () => {
   const [isEdit, setIsEdit] = React.useState(false)
   const api = useUserApi()
 
-  console.log('tokenData.storage', tokenData.storage)
   const { data: user, refetch, ...state } = useQuery(
     tokenData.storage !== null && ['user', tokenData.storage.id],
     (key, id) => api.getSingle(id)
   )
-
-  const [update] = useOptimisticMutation('user', api.update)
+  const [update] = useOptimisticMutation(
+    tokenData.storage !== null && ['user', tokenData.storage.id],
+    api.update
+  )
 
   const clear = React.useCallback(() => {
     queryCache.setQueryData('user', null)

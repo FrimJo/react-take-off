@@ -25,14 +25,15 @@ const useAuthentication = () => {
       loginFromApi({
         email: credentials.username,
         password: credentials.password,
-      }).then(tokenData => {
+      }).then((tokenData) => {
+        console.log('registerStore.storage', registerStore.storage)
         if (!registerStore.storage) {
           return Promise.reject('Need to register first.')
         }
         const { id: userId } = registerStore.storage
         return queryCache
           .prefetchQuery(['user', userId], (key, id) => api.getLoggedInUser(id))
-          .then(user => {
+          .then((user) => {
             token.set({ ...tokenData, id: userId })
             return user
           })

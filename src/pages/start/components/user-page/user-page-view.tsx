@@ -1,25 +1,30 @@
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core'
+import styled from '@emotion/styled'
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { useUserForm } from './utilities/use-user-form'
 import { User } from 'api/use-user-api'
 import { ButtonWithSpinner } from 'components/button-with-spinner'
+import { UserContext } from 'contexts/user-context'
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 200;
+`
 
 type UserPageViewProps = Readonly<{ initialValues: User }>
 export const UserPageView: React.FC<UserPageViewProps> = ({ initialValues }) => {
+  const actions = UserContext.useActions()
   const { name, ...formikProps } = useUserForm(initialValues)
+
+  const handleCloseClick = React.useCallback(() => actions.setIsEdit(false), [actions])
+
   return (
     <Formik {...formikProps}>
       {({ isSubmitting, dirty, isValid }) => {
         return (
           <Form>
-            <div
-              css={css`
-                display: flex;
-                flex-direction: column;
-                width: 200;
-              `}>
+            <Wrapper>
               <Field variant={'outlined'} name={name.id} />
               <ErrorMessage name={name.id} />
               <Field variant={'outlined'} name={name.firstName} />
@@ -36,7 +41,14 @@ export const UserPageView: React.FC<UserPageViewProps> = ({ initialValues }) => 
                 showSpinner={isSubmitting}>
                 Save
               </ButtonWithSpinner>
-            </div>
+              <ButtonWithSpinner
+                color="secondary"
+                variant="contained"
+                onClick={handleCloseClick}
+                disabled={isSubmitting}>
+                Close
+              </ButtonWithSpinner>
+            </Wrapper>
           </Form>
         )
       }}
