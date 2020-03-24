@@ -9,8 +9,8 @@ import { ButtonWithSpinner } from 'components/button-with-spinner'
 
 export const StartPageView: React.FC = () => {
   const authenticationState = AuthenticationContext.useState()
-  const userState = UserContext.useState()
   const actions = AuthenticationContext.useActions()
+  const userState = UserContext.useState()
 
   return (
     <div>

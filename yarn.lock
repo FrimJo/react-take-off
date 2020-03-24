@@ -9960,10 +9960,10 @@ react-query-devtools@^1.0.12:
   resolved "https://registry.yarnpkg.com/react-query-devtools/-/react-query-devtools-1.0.12.tgz#64c156efde718f8483fd94fa44108c5c8e0c9568"
   integrity sha512-kjIh9Z2UgZxxrd6TdenpWDofT/2cAaN/9vn+/FEPkdmfWTPmNw1zevEuDqZtE+ZhM70YIPS4RzO9kgEBt3dZcQ==
 
-react-query@^1.0.22:
-  version "1.0.22"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-1.0.22.tgz#a48f3e616015f7369a3342b350c2b64b9ca6580e"
-  integrity sha512-xJVK/c6lRZR6xi6sZrBnroZDrYAdQVVGSiwNONQdBrV3WEmIAJaSse5D8H+UW1BNdceNN036OnSxq9s3hRtClQ==
+react-query@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-1.1.0.tgz#936703877096be0ba71d069e08ec754604e8d8f6"
+  integrity sha512-Zykk6fod57KGLcJZ0TqObizvDBF+H/J/WB2wnEDD6+43WoqKcnxTISmdfikdYxZmEMJnm9ah0DaSIgDyNzLEoQ==
 
 react-router-dom@^5.1.2:
   version "5.1.2"

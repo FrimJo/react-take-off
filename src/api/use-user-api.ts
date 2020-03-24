@@ -55,7 +55,7 @@ export const useUserApi = () => {
       return http
         .fetch(API_BASE_URL + `/api/users/${user.id}`, init)
         .then((response) => response.json())
-        .then((result) => result.data)
+        .then((result) => result)
     },
     [http]
   )

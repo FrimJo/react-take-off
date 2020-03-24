@@ -39,32 +39,35 @@ export function useOptimisticMutation<TResults, TVariables extends object>(
    */
   const optimisticMutation: OptimisticMutateFunction<TResults, TVariables> = React.useCallback(
     (variables, options) => {
-      console.log('optimisticMutation', variables, options)
       if (!queryKey) {
         return Promise.resolve()
       }
+
+      // Store our previous variables if something goes wrong
+      const prevVariables = queryCache.getQueryData<TResults>(queryKey)
+
+      // If qetQueryData returns undefined, query for provided query key does not exist
+      if (prevVariables === undefined) {
+        throw Error(`Query key ${queryKey} does not exist.`)
+      }
+
       const updateQuery: string | [string, object] =
         typeof queryKey === 'string' ? queryKey : [queryKey[0], queryKey[1]]
 
-      // Store our previous variables if something goes wrong
-      const prevVariables = queryCache.getQueryData(queryKey)
-      //string | [string, object]
-      console.log('setQueryData', queryKey, variables)
       // Optimistically set query using our new values
       queryCache.setQueryData(queryKey, variables)
+
       // Mutate query using provided mutation
       return (
         mutate(variables, { ...options, updateQuery })
-          .then(() => {
-            console.log('refetchQueries', queryKey)
-            return queryCache.refetchQueries(queryKey)
-          })
           // If something went wrong
           .catch((error) => {
-            // Set the query back to it's previous value
+            // Set the query back to it's previous value on error
             queryCache.setQueryData(queryKey, prevVariables)
             return error
           })
+          // Always keep the state up to date by refetch no mater what
+          .finally(() => queryCache.refetchQueries(queryKey))
       )
     },
     [mutate, queryKey]
