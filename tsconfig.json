@@ -27,6 +27,6 @@
     "target": "es5",
     "types": ["@emotion/core", "jest", "node"]
   },
-  "include": ["src"],
+  "include": ["src", "config-overrides.js"],
   "exclude": ["types", "node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest"]
 }
