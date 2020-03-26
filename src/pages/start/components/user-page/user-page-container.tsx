@@ -1,31 +1,21 @@
 import React from 'react'
 import { UserPageView } from './user-page-view'
-import { UserContext } from 'contexts/user-context'
 import { ButtonWithSpinner } from 'components/button-with-spinner'
+import { AuthenticationContext } from 'contexts/authentication-context'
 
 export const UserPageContainer: React.FC = () => {
-  const userState = UserContext.useState()
-  const userActions = UserContext.useActions()
-
-  if (!userState.user) {
-    if (userState.state.isFetching) {
-      return <>…loading</>
-    }
-    throw Error('No user received!')
-  }
+  const loggedInUserState = AuthenticationContext.useLoggedInUserState()
+  const [isEdit, setIsEdit] = React.useState(false)
 
   return (
     <>
       <div>
-        {userState.state.error ? (
-          <p>{userState.state.error}</p>
-        ) : userState.isEdit ? (
-          <UserPageView initialValues={userState.user} />
+        {loggedInUserState.error ? (
+          <p>{loggedInUserState.error}</p>
+        ) : isEdit ? (
+          <UserPageView initialValues={loggedInUserState.user} onClose={() => setIsEdit(false)} />
         ) : (
-          <ButtonWithSpinner
-            color="primary"
-            variant="contained"
-            onClick={() => userActions.setIsEdit(true)}>
+          <ButtonWithSpinner color="primary" variant="contained" onClick={() => setIsEdit(true)}>
             Edit
           </ButtonWithSpinner>
         )}

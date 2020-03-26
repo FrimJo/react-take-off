@@ -6,7 +6,6 @@ import { ThemeProvider } from 'components/theme-provider'
 import { Global } from '@emotion/core'
 import { THEME } from 'styles/theme'
 import { GlobalStyles } from 'styles/global-styles'
-import { UserContext } from 'contexts/user-context'
 import { LocalStorageContext } from 'contexts/local-storage-context'
 import { ReactQueryDevtools } from 'react-query-devtools'
 import { StatusSnackbar } from 'components/status-snackbar'
@@ -19,9 +18,7 @@ export const App: React.FC = () => {
           <Global styles={GlobalStyles} />
           <StatusSnackbar>
             <AuthenticationContext.Provider>
-              <UserContext.Provider>
-                <Router />
-              </UserContext.Provider>
+              <Router />
             </AuthenticationContext.Provider>
           </StatusSnackbar>
         </ThemeProvider>

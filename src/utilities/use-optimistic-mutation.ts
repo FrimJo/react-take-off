@@ -7,7 +7,6 @@ import {
   MutationState,
   QueryKey,
 } from 'react-query'
-import React from 'react'
 
 type OptimisticMutateFunction<TResults, TVariables extends object> = MutateFunction<
   TResults,
@@ -23,55 +22,36 @@ type OptimisticMutateFunction<TResults, TVariables extends object> = MutateFunct
  * @param mutationFn  The function to use to mutate the query.
  * @param mutationOptions Options to use in the useMutation hook.
  */
-export function useOptimisticMutation<TResults, TVariables extends object>(
+export default function useOptimisticMutation<TResults, TVariables extends object>(
   queryKey: QueryKey,
   mutationFn: MutationFunction<TResults, TVariables>,
-  mutationOptions: MutationOptions<TResults> = {}
+  mutationOptions: MutationOptions<TResults, TVariables> = {}
 ): [OptimisticMutateFunction<TResults, TVariables>, MutationState<TResults>] {
-  const [mutate, state] = useMutation(mutationFn, {
+  return useMutation(mutationFn, {
     ...mutationOptions,
-    throwOnError: true, // To be able to catch error and reset to previous value
-  })
-
-  /**
-   * Sets provided query to provided value while running the mutation,
-   * if the mutation fails, query is reset to previous value.
-   */
-  const optimisticMutation: OptimisticMutateFunction<TResults, TVariables> = React.useCallback(
-    (variables, options) => {
+    onMutate: (newVariables) => {
       if (!queryKey) {
-        return Promise.resolve()
-      }
-
-      // Store our previous variables if something goes wrong
-      const prevVariables = queryCache.getQueryData<TResults>(queryKey)
-
-      // If qetQueryData returns undefined, query for provided query key does not exist
-      if (prevVariables === undefined) {
-        throw Error(`Query key ${queryKey} does not exist.`)
+        return undefined
       }
 
       const updateQuery: string | [string, object] =
         typeof queryKey === 'string' ? queryKey : [queryKey[0], queryKey[1]]
 
-      // Optimistically set query using our new values
-      queryCache.setQueryData(queryKey, variables)
+      // Snapshot the previous value
+      const previousTodo = queryCache.getQueryData<TResults>(updateQuery)
 
-      // Mutate query using provided mutation
-      return (
-        mutate(variables, { ...options, updateQuery })
-          // If something went wrong
-          .catch((error) => {
-            // Set the query back to it's previous value on error
-            queryCache.setQueryData(queryKey, prevVariables)
-            return error
-          })
-          // Always keep the state up to date by refetch no mater what
-          .finally(() => queryCache.refetchQueries(queryKey))
-      )
+      // Optimistically update to the new value
+      queryCache.setQueryData(queryKey, newVariables)
+
+      // Return the snapshotted value
+      return previousTodo
     },
-    [mutate, queryKey]
-  )
-
-  return [optimisticMutation, state]
+    onError: (error, newVariables, previousVariables) => {
+      queryCache.setQueryData(queryKey, previousVariables)
+      // return error;
+    },
+    onSettled: () => {
+      return queryCache.refetchQueries(queryKey)
+    },
+  })
 }

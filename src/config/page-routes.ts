@@ -1,5 +1,4 @@
-import { RouteComponentProps, RouteProps } from 'react-router'
-
+import { RouteProps } from 'react-router'
 import { AuthenticatePage } from 'pages/authenticate'
 import { PrivatePage } from 'pages/private'
 import { StartPage } from 'pages/start'
@@ -8,33 +7,33 @@ import { RegisterPageView } from 'pages/authenticate/pages/register/register-pag
 
 interface IPageRoute extends Omit<RouteProps, 'path' | 'component'> {
   path: string
-  component: React.ComponentType<RouteComponentProps>
+  component: React.ComponentType
 }
 
-export const PageRoutes = {
+export const PageRoutes: { [Page in string]: IPageRoute } = {
   Start: {
     path: '/',
     exact: true,
     component: StartPage,
-  } as IPageRoute,
+  },
   Private: {
     path: '/private',
     exact: true,
     component: PrivatePage,
-  } as IPageRoute,
+  },
   Authenticate: {
     path: '/authenticate',
     exact: true,
     component: AuthenticatePage,
-  } as IPageRoute,
+  },
   Register: {
     path: '/authenticate/register',
     exact: true,
     component: RegisterPageView,
-  } as IPageRoute,
+  },
   Unauthorized: {
     path: '/unauthorized',
     exact: true,
     component: UnauthorizedPage,
-  } as IPageRoute,
+  },
 }

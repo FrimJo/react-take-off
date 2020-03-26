@@ -171,17 +171,22 @@ declare module 'react-query' {
 
   export function useMutation<TResults, TVariables extends object>(
     mutationFn: MutationFunction<TResults, TVariables>,
-    mutationOptions?: MutationOptions<TResults>
+    mutationOptions?: MutationOptions<TResults, TVariables>
   ): [MutateFunction<TResults, TVariables>, MutationState<TResults>]
 
   export type MutationFunction<TResults, TVariables extends object> = (
     variables: TVariables
   ) => Promise<TResults>
 
-  export interface MutationOptions<TResult> {
-    onSuccess?: (data: TResult) => Promise<any> | undefined
-    onSettled?: (data: TResult, error: any) => Promise<any> | undefined
-    onError?: (error: any) => Promise<any> | undefined
+  export interface MutationOptions<TResult, TVariables> {
+    onMutate?: (variables: TVariables) => TResult | undefined
+    onSuccess?: (data: TResult | undefined) => Promise<any> | undefined
+    onSettled?: (data: TResult | undefined, error: any) => Promise<any> | undefined
+    onError?: (
+      error: any,
+      newValues: TResult | undefined,
+      previousValues: TResult | undefined
+    ) => void
     throwOnError?: boolean
     useErrorBoundary?: boolean
   }

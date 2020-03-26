@@ -45,7 +45,6 @@ export const useUserApi = () => {
 
   const update = React.useCallback(
     (user: Partial<User>): Promise<Partial<User> & { updatedAt: Date }> => {
-      console.log('update', user)
       const content_ = JSON.stringify(mapClientUserToApiUser(user))
 
       const init: RequestInit = {

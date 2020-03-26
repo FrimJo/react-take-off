@@ -6,6 +6,6 @@ interface IRegisterData {
   id: number
 }
 
-export function useRegisterStore() {
+export function useStoredRegister() {
   return useLocalStorage<IRegisterData>(REGISTER_DATA_KEY)
 }

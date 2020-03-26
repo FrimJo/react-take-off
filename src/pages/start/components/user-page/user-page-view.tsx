@@ -4,7 +4,6 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { useUserForm } from './utilities/use-user-form'
 import { User } from 'api/use-user-api'
 import { ButtonWithSpinner } from 'components/button-with-spinner'
-import { UserContext } from 'contexts/user-context'
 
 const Wrapper = styled.div`
   display: flex;
@@ -12,15 +11,21 @@ const Wrapper = styled.div`
   width: 200px;
 `
 
-type UserPageViewProps = Readonly<{ initialValues: User }>
-export const UserPageView: React.FC<UserPageViewProps> = ({ initialValues }) => {
-  const actions = UserContext.useActions()
-  const { name, ...formikProps } = useUserForm(initialValues)
+type UserPageViewProps = Readonly<{ initialValues: User; onClose?: () => void }>
+export const UserPageView: React.FC<UserPageViewProps> = ({ initialValues, onClose }) => {
+  const { name, onSubmit, ...formikProps } = useUserForm(initialValues)
 
-  const handleCloseClick = React.useCallback(() => actions.setIsEdit(false), [actions])
+  // Highjack to close edit view
+  const handleSubmit = React.useCallback<typeof onSubmit>(
+    (...args) => {
+      onSubmit(...args)
+      if (onClose !== undefined) onClose()
+    },
+    [onClose, onSubmit]
+  )
 
   return (
-    <Formik {...formikProps}>
+    <Formik {...formikProps} onSubmit={handleSubmit}>
       {({ isSubmitting, dirty, isValid }) => {
         return (
           <Form>
@@ -44,7 +49,7 @@ export const UserPageView: React.FC<UserPageViewProps> = ({ initialValues }) => 
               <ButtonWithSpinner
                 color="secondary"
                 variant="contained"
-                onClick={handleCloseClick}
+                onClick={onClose}
                 disabled={isSubmitting}>
                 Close
               </ButtonWithSpinner>

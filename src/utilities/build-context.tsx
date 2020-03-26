@@ -40,7 +40,7 @@ export function buildContext<S, A, P extends object>(
   }> = ({ children }) => {
     return (
       <StateContext.Consumer>
-        {state => {
+        {(state) => {
           if (state === undefined) {
             throw Error(`Missing Provider for StateConsumer ${identification}`)
           }
@@ -54,7 +54,7 @@ export function buildContext<S, A, P extends object>(
   }> = ({ children }) => {
     return (
       <ActionsContext.Consumer>
-        {actions => {
+        {(actions) => {
           if (actions === undefined) {
             throw Error(`Missing Provider for ActionsConsumer ${identification}`)
           }

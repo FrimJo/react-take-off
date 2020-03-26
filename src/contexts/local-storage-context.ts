@@ -19,13 +19,11 @@ export function useLocalStorageContext() {
       }
     }
 
-    console.log('init', items)
     return Object.assign({}, ...items)
   })
 
   const setValue = React.useCallback(
     (key: string, value: any) => {
-      console.log('setValue', key, value)
       // Allow value to be a function so we have same API as useState
       const valueToStore = value instanceof Function ? value(storedValues[key]) : value
       // Save state
@@ -37,7 +35,6 @@ export function useLocalStorageContext() {
   )
 
   const clearValue = (key: string) => {
-    console.log('clearValue', key)
     setStoredValues((prevValues: any) => ({ ...prevValues, [key]: null }))
     window.localStorage.removeItem(key)
   }

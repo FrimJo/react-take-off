@@ -6,7 +6,7 @@ import { ButtonWithSpinner } from 'components/button-with-spinner'
 import { Typography } from '@material-ui/core'
 
 export const RegisterPageView: React.FC = () => {
-  const { register } = AuthenticationContext.useState()
+  const registerState = AuthenticationContext.useRegisterState()
   const { name, ...formikProps } = useRegisterForm({
     email: 'george.bluth@reqres.in',
     password: 'qwerty123!',
@@ -32,7 +32,9 @@ export const RegisterPageView: React.FC = () => {
               disabled={!dirty || !isValid}>
               register
             </ButtonWithSpinner>
-            {register.status === 'error' && <pre>{JSON.stringify(register.error, null, '\t')}</pre>}
+            {registerState.status === 'error' && (
+              <pre>{JSON.stringify(registerState.error, null, '\t')}</pre>
+            )}
           </Form>
         )}
       </Formik>

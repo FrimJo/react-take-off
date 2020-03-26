@@ -1,19 +1,18 @@
 import * as yup from 'yup'
 import { Name, OnSubmitFunction, Schema } from 'types'
-import { UserContext } from 'contexts/user-context'
 import React from 'react'
 import { User } from 'api/use-user-api'
+import { AuthenticationContext } from 'contexts/authentication-context'
 
 type UserFormValues = User
 
 // Define the hook to be used to leverage this form
 export const useUserForm = (initialValues: UserFormValues) => {
-  const actions = UserContext.useActions()
+  const actions = AuthenticationContext.useActions()
 
   const onSubmit: OnSubmitFunction<UserFormValues> = React.useCallback(
-    user => {
-      actions.update(user)
-      actions.setIsEdit(false)
+    (user) => {
+      actions.updateLoggedInUser(user)
     },
     [actions]
   )

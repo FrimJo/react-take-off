@@ -17,11 +17,12 @@ export const useLoginForm = (initialValues: UserFormValues) => {
     location: { state },
   } = React.useMemo(() => history, [])
 
-  const { login } = AuthenticationContext.useActions()
+  const actions = AuthenticationContext.useActions()
 
   const onSubmit: OnSubmitFunction<UserFormValues> = React.useCallback(
     (credentials, { setSubmitting }) => {
-      login(credentials)
+      actions
+        .login(credentials)
         .then(() => {
           // Navigate user
           if (!state?.from ?? state.from === PageRoutes.Authenticate.path) {
@@ -34,7 +35,7 @@ export const useLoginForm = (initialValues: UserFormValues) => {
           setSubmitting(false)
         })
     },
-    [login, state]
+    [actions, state]
   )
 
   const validationSchema = React.useMemo(

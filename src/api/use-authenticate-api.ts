@@ -17,7 +17,7 @@ export const useAuthenticateApi = () => {
         method: 'POST',
       }
 
-      return http.fetch(API_BASE_URL + '/api/register', init).then(async response => {
+      return http.fetch(API_BASE_URL + '/api/register', init).then(async (response) => {
         const json = response.json()
         if (response.status === 400) {
           throw await json
@@ -37,7 +37,7 @@ export const useAuthenticateApi = () => {
         method: 'POST',
       }
 
-      return http.fetch(API_BASE_URL + '/api/login', init).then(async response => {
+      return http.fetch(API_BASE_URL + '/api/login', init).then(async (response) => {
         const json = response.json()
         if (response.status === 400) {
           throw await json
@@ -55,8 +55,8 @@ export const useAuthenticateApi = () => {
       }
       return http
         .fetch(API_BASE_URL + `/api/users/${id}`, init)
-        .then(response => response.json())
-        .then(result => result.data)
+        .then((response) => response.json())
+        .then((result) => result.data)
         .then(mapApiUserToClientUser)
     },
     [http]

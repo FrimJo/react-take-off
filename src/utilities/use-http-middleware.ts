@@ -1,4 +1,4 @@
-import { useTokenData } from './token-data'
+import { useStoredToken } from './use-stored-token'
 import { navigate } from 'utilities/react-router-hooks'
 import { PageRoutes } from 'config/page-routes'
 import React from 'react'
@@ -8,7 +8,7 @@ export type HTTP = Readonly<{
 }>
 
 export function useHttpMiddleware(initOptions: RequestInit = {}): HTTP {
-  const { storage } = useTokenData()
+  const storedToken = useStoredToken()
 
   return React.useMemo(
     () => ({
@@ -21,10 +21,10 @@ export function useHttpMiddleware(initOptions: RequestInit = {}): HTTP {
             Accept: 'application/json',
             ...initOptions.headers,
             ...fetchInit.headers,
-            Authorization: `Bearer ${storage?.token}`,
+            Authorization: `Bearer ${storedToken.storage?.token}`,
           },
         }
-        return window.fetch(url, init).then(result => {
+        return window.fetch(url, init).then((result) => {
           // If Unauthorized
           if (result.status === 401) {
             navigate(PageRoutes.Unauthorized.path)
@@ -33,6 +33,6 @@ export function useHttpMiddleware(initOptions: RequestInit = {}): HTTP {
         })
       },
     }),
-    [initOptions, storage]
+    [initOptions, storedToken.storage]
   )
 }

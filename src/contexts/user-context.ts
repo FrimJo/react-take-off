@@ -1,31 +1,27 @@
-import { useUserApi } from './../api/use-user-api'
+import { useUserApi } from '../api/use-user-api'
 import React from 'react'
 import { queryCache, useQuery } from 'react-query'
 import { buildContext } from 'utilities/build-context'
-import { useOptimisticMutation } from 'utilities/use-optimistic-mutation'
-import { useTokenData } from 'utilities/token-data'
+import useOptimisticMutation from 'utilities/use-optimistic-mutation'
 
-const useUserContext = () => {
-  const tokenData = useTokenData()
-  const [isEdit, setIsEdit] = React.useState(false)
+export const useUser = (props: { id?: number }) => {
+  const { id } = props
   const api = useUserApi()
 
-  const { data: user, refetch, ...state } = useQuery(
-    tokenData.storage !== null && ['user', tokenData.storage.id],
-    (key, id) => api.getSingle(id)
+  const { data: user, refetch, ...state } = useQuery(id !== undefined && ['user', id], (key, id) =>
+    api.getSingle(id)
   )
-  const [update] = useOptimisticMutation(
-    tokenData.storage !== null && ['user', tokenData.storage.id],
-    api.update
-  )
+
+  const [update] = useOptimisticMutation(['user', id], api.update)
 
   const clear = React.useCallback(() => {
     queryCache.setQueryData('user', null)
   }, [])
 
   return {
-    state: { isEdit, state, user },
-    actions: { update, refetch, setIsEdit, clear },
+    state: { ...state, user },
+    actions: { update, refetch, clear },
   }
 }
-export const UserContext = buildContext(useUserContext, 'UserContext')
+
+export const UserContext = buildContext(useUser, 'UserContext')

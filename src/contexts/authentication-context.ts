@@ -1,24 +1,27 @@
 import React from 'react'
-import { queryCache, useMutation } from 'react-query'
+import { useMutation, queryCache } from 'react-query'
 import { buildContext } from 'utilities/build-context'
 import { useAuthenticateApi } from 'api/use-authenticate-api'
-import { useTokenData } from 'utilities/token-data'
-import { useRegisterStore } from 'utilities/use-register-store'
+import { useStoredToken } from 'utilities/use-stored-token'
+import { useStoredRegister } from 'utilities/use-stored-register'
+import { useUser } from './user-context'
 
 const useAuthentication = () => {
-  const token = useTokenData()
-  const registerStore = useRegisterStore()
+  const storedToken = useStoredToken()
+  const loggedInUser = useUser({ id: storedToken.storage?.id })
+
+  const registerStore = useStoredRegister()
   const api = useAuthenticateApi()
 
   const [loginFromApi, loginState] = useMutation(api.login, { throwOnError: true })
   const [registerFromApi, registerState] = useMutation(api.register, { throwOnError: true })
 
-  const isLoggedIn = React.useMemo(() => !!token.storage, [token.storage])
+  const isLoggedIn = React.useMemo(() => storedToken.storage !== null, [storedToken.storage])
 
   const logout = React.useCallback(() => {
     queryCache.clear()
-    token.clear()
-  }, [token])
+    storedToken.clear()
+  }, [storedToken])
 
   const login = React.useCallback(
     (credentials: { username: string; password: string }) =>
@@ -26,19 +29,18 @@ const useAuthentication = () => {
         email: credentials.username,
         password: credentials.password,
       }).then((tokenData) => {
-        console.log('registerStore.storage', registerStore.storage)
         if (!registerStore.storage) {
           return Promise.reject('Need to register first.')
         }
-        const { id: userId } = registerStore.storage
+        const { id } = registerStore.storage
         return queryCache
-          .prefetchQuery(['user', userId], (key, id) => api.getLoggedInUser(id))
+          .prefetchQuery(['user', id], (key, id) => api.getLoggedInUser(id))
           .then((user) => {
-            token.set({ ...tokenData, id: userId })
+            storedToken.set({ ...tokenData, id })
             return user
           })
       }),
-    [api, loginFromApi, registerStore.storage, token]
+    [api, loginFromApi, registerStore.storage, storedToken]
   )
 
   const register = React.useCallback(
@@ -48,32 +50,46 @@ const useAuthentication = () => {
   )
 
   return {
-    state: { isLoggedIn, login: loginState, register: registerState },
-    actions: { login, logout, register },
+    state: {
+      userStatus: loggedInUser.state.status, // Used for verifying if we are fetching a user or already have one outside of PriateRoute
+      loginState: { ...loginState, isLoggedIn },
+      registerState,
+      loggedInUserState: loggedInUser.state,
+    },
+    actions: {
+      login,
+      logout,
+      register,
+      updateLoggedInUser: loggedInUser.actions.update,
+      refetchLoggedInUser: loggedInUser.actions.refetch,
+      clearLoggedInUser: loggedInUser.actions.clear,
+    },
   }
 }
 
 const Context = buildContext(useAuthentication, 'AuthenticationContext')
 
-const useAuthenticatedState = () => {
-  return React.useContext(Context.StateContext)
-  // const state = React.useContext(Context.StateContext)
-  // if (state === undefined) {
-  //   throw Error('Missing AuthenticationProvider for useAuthenticationState')
-  // }
-
-  // if (!state.isLoggedIn) {
-  //   throw Error('User not logged in')
-  // }
-
-  // if (!state.loggedInUser) {
-  //   throw Error('Missing user id in AuthenticationContext.provider')
-  // }
-
-  // return {
-  //   ...state,
-  //   loggedInUser: state.loggedInUser,
-  // }
+const useLoginState = () => {
+  const baseState = Context.useState()
+  return baseState.loginState
 }
 
-export const AuthenticationContext = { ...Context, useAuthenticatedState }
+const useRegisterState = () => {
+  const baseState = Context.useState()
+  return baseState.registerState
+}
+
+const useLoggedInUserState = () => {
+  const baseState = Context.useState()
+  if (baseState.loggedInUserState.user === undefined) {
+    throw Error('Logged in user is only accessible within a PrivateRoute')
+  }
+  return { ...baseState.loggedInUserState, user: baseState.loggedInUserState.user }
+}
+
+export const AuthenticationContext = {
+  ...Context,
+  useLoginState,
+  useRegisterState,
+  useLoggedInUserState,
+}

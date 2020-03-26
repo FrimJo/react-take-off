@@ -6,8 +6,11 @@ import { AuthenticationContext } from 'contexts/authentication-context'
 import { ButtonWithSpinner } from 'components/button-with-spinner'
 
 export const AuthenticatePageView: React.FC = () => {
-  const { login } = AuthenticationContext.useState()
-  const { name, ...formikProps } = useLoginForm({ username: '', password: '' })
+  const loginState = AuthenticationContext.useLoginState()
+  const { name, ...formikProps } = useLoginForm({
+    username: 'george.bluth@reqres.in',
+    password: '',
+  })
   return (
     <>
       <Typography variant="h1">Authenticate</Typography>
@@ -26,7 +29,9 @@ export const AuthenticatePageView: React.FC = () => {
               disabled={!dirty || !isValid}>
               login
             </ButtonWithSpinner>
-            {login.status === 'error' && <pre>{JSON.stringify(login.error, null, '\t')}</pre>}
+            {loginState.status === 'error' && (
+              <pre>{JSON.stringify(loginState.error, null, '\t')}</pre>
+            )}
           </Form>
         )}
       </Formik>

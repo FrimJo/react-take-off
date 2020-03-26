@@ -1,11 +1,11 @@
 import React from 'react'
-import { Redirect, Route, RouteComponentProps, RouteProps } from 'react-router-dom'
+import { Redirect, Route, RouteProps } from 'react-router-dom'
 import { PageRoutes } from 'config/page-routes'
-import { AuthenticationContext } from 'contexts/authentication-context'
 import { history } from 'utilities/history'
+import { AuthenticationContext } from 'contexts/authentication-context'
 
 interface IProps extends RouteProps {
-  component?: React.ComponentType<RouteComponentProps>
+  component?: React.ComponentType
 }
 
 export const PrivateRouteContainer: React.FC<IProps> = ({
@@ -13,27 +13,37 @@ export const PrivateRouteContainer: React.FC<IProps> = ({
   children,
   ...rest
 }) => {
-  const { isLoggedIn } = AuthenticationContext.useState()
+  const logginState = AuthenticationContext.useLoginState()
+  const { userStatus } = AuthenticationContext.useState()
 
-  const renderRoute = React.useCallback(
-    props => {
-      if (!isLoggedIn) {
-        // not authorised so redirect to login page with the return url
+  const renderRoute = React.useCallback(() => {
+    if (!logginState.isLoggedIn) {
+      // Not authorized redirect to login page with the return url
+      return (
+        <Redirect
+          to={{
+            pathname: PageRoutes.Authenticate.path,
+            state: { from: history.location.pathname },
+          }}
+        />
+      )
+    }
 
-        return (
-          <Redirect
-            to={{
-              pathname: PageRoutes.Authenticate.path,
-              state: { from: history.location.pathname },
-            }}
-          />
-        )
-      } else {
-        // authorised so return component
-        return Component ? <Component {...props} /> : children
-      }
-    },
-    [Component, children, isLoggedIn]
-  )
+    if (userStatus === 'success') {
+      // authorized so return component
+      return Component ? <Component /> : children
+    }
+
+    if (userStatus === 'loading') {
+      return <span>Is fetching user</span>
+    }
+    if (userStatus === 'error') {
+      return <span>Could not fetch user</span>
+    }
+
+    throw Error(
+      'No user fetched, please make sure that user is fetching or has been fetch beforer navigating using private route.'
+    )
+  }, [Component, children, logginState.isLoggedIn, userStatus])
   return <Route {...rest} render={renderRoute} />
 }
