@@ -2,11 +2,11 @@ import React from 'react'
 import { Typography } from '@material-ui/core'
 import { useLoginForm } from './utilities/use-login-form'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-import { AuthenticationContext } from 'contexts/authentication-context'
 import { ButtonWithSpinner } from 'components/button-with-spinner'
+import { useAuthentication } from 'utilities/use-authentication'
 
 export const AuthenticatePageView: React.FC = () => {
-  const loginState = AuthenticationContext.useLoginState()
+  const { status, error } = useAuthentication()
   const { name, ...formikProps } = useLoginForm({
     username: 'george.bluth@reqres.in',
     password: '',
@@ -29,9 +29,7 @@ export const AuthenticatePageView: React.FC = () => {
               disabled={!dirty || !isValid}>
               login
             </ButtonWithSpinner>
-            {loginState.status === 'error' && (
-              <pre>{JSON.stringify(loginState.error, null, '\t')}</pre>
-            )}
+            {status === 'error' && <pre>{JSON.stringify(error, null, '\t')}</pre>}
           </Form>
         )}
       </Formik>

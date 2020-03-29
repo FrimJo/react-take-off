@@ -1,5 +1,5 @@
+import { useAuthentication } from '../../../utilities/use-authentication'
 import * as yup from 'yup'
-import { AuthenticationContext } from 'contexts/authentication-context'
 import { Name, OnSubmitFunction } from 'types'
 import { PageRoutes } from 'config/page-routes'
 import { navigate } from 'utilities/react-router-hooks'
@@ -17,12 +17,11 @@ export const useLoginForm = (initialValues: UserFormValues) => {
     location: { state },
   } = React.useMemo(() => history, [])
 
-  const actions = AuthenticationContext.useActions()
+  const { login } = useAuthentication()
 
   const onSubmit: OnSubmitFunction<UserFormValues> = React.useCallback(
     (credentials, { setSubmitting }) => {
-      actions
-        .login(credentials)
+      login(credentials)
         .then(() => {
           // Navigate user
           if (!state?.from ?? state.from === PageRoutes.Authenticate.path) {
@@ -35,7 +34,7 @@ export const useLoginForm = (initialValues: UserFormValues) => {
           setSubmitting(false)
         })
     },
-    [actions, state]
+    [login, state]
   )
 
   const validationSchema = React.useMemo(

@@ -1,7 +1,7 @@
 import React from 'react'
-import { AuthenticationContext } from 'contexts/authentication-context'
+import { useLoggedInUser } from 'utilities/use-logged-in-user'
 
 export const DisplayUserContainer: React.FC = () => {
-  const loggedInUserState = AuthenticationContext.useLoggedInUserState()
-  return <p>{loggedInUserState.user.firstName}</p>
+  const { user } = useLoggedInUser()
+  return <p>{user.firstName}</p>
 }

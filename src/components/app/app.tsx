@@ -1,6 +1,5 @@
 import { StylesProvider } from '@material-ui/styles'
 import React from 'react'
-import { AuthenticationContext } from 'contexts/authentication-context'
 import { Router } from 'components/router'
 import { ThemeProvider } from 'components/theme-provider'
 import { Global } from '@emotion/core'
@@ -17,9 +16,7 @@ export const App: React.FC = () => {
         <ThemeProvider theme={THEME}>
           <Global styles={GlobalStyles} />
           <StatusSnackbar>
-            <AuthenticationContext.Provider>
-              <Router />
-            </AuthenticationContext.Provider>
+            <Router />
           </StatusSnackbar>
         </ThemeProvider>
       </StylesProvider>

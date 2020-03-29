@@ -2,7 +2,9 @@ import React from 'react'
 import { Redirect, Route, RouteProps } from 'react-router-dom'
 import { PageRoutes } from 'config/page-routes'
 import { history } from 'utilities/history'
-import { AuthenticationContext } from 'contexts/authentication-context'
+import { useAuthentication } from 'utilities/use-authentication'
+import { useStoredToken } from 'utilities/use-stored-token'
+import { useUser } from 'utilities/use-user'
 
 interface IProps extends RouteProps {
   component?: React.ComponentType
@@ -13,11 +15,14 @@ export const PrivateRouteContainer: React.FC<IProps> = ({
   children,
   ...rest
 }) => {
-  const logginState = AuthenticationContext.useLoginState()
-  const { userStatus } = AuthenticationContext.useState()
+  const { isLoggedIn } = useAuthentication()
+
+  // Fetch status of logged in user
+  const storedToken = useStoredToken()
+  const { status } = useUser({ id: storedToken.storage?.id })
 
   const renderRoute = React.useCallback(() => {
-    if (!logginState.isLoggedIn) {
+    if (!isLoggedIn) {
       // Not authorized redirect to login page with the return url
       return (
         <Redirect
@@ -29,21 +34,21 @@ export const PrivateRouteContainer: React.FC<IProps> = ({
       )
     }
 
-    if (userStatus === 'success') {
-      // authorized so return component
+    if (status === 'success') {
+      // authorized and user received so return component
       return Component ? <Component /> : children
     }
 
-    if (userStatus === 'loading') {
+    if (status === 'loading') {
       return <span>Is fetching user</span>
     }
-    if (userStatus === 'error') {
+    if (status === 'error') {
       return <span>Could not fetch user</span>
     }
 
     throw Error(
       'No user fetched, please make sure that user is fetching or has been fetch beforer navigating using private route.'
     )
-  }, [Component, children, logginState.isLoggedIn, userStatus])
+  }, [Component, children, isLoggedIn, status])
   return <Route {...rest} render={renderRoute} />
 }

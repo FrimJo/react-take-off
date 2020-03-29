@@ -1,5 +1,5 @@
+import { useRegister } from './use-register'
 import * as yup from 'yup'
-import { AuthenticationContext } from 'contexts/authentication-context'
 import { Name, OnSubmitFunction } from 'types'
 import React from 'react'
 import { navigate } from 'utilities/react-router-hooks'
@@ -13,7 +13,7 @@ type FormValues = Readonly<{
 
 // Define the hook to be used to leverage this form
 export const useRegisterForm = (initialValues: FormValues) => {
-  const { register } = AuthenticationContext.useActions()
+  const { register } = useRegister()
 
   const onSubmit: OnSubmitFunction<FormValues> = React.useCallback(
     (values, { setSubmitting }) => {

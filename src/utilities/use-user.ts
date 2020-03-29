@@ -1,8 +1,7 @@
-import { useUserApi } from '../api/use-user-api'
 import React from 'react'
-import { queryCache, useQuery } from 'react-query'
-import { buildContext } from 'utilities/build-context'
-import useOptimisticMutation from 'utilities/use-optimistic-mutation'
+import { useUserApi } from 'api/use-user-api'
+import { useQuery, queryCache } from 'react-query'
+import useOptimisticMutation from './use-optimistic-mutation'
 
 export const useUser = (props: { id?: number }) => {
   const { id } = props
@@ -18,10 +17,5 @@ export const useUser = (props: { id?: number }) => {
     queryCache.setQueryData('user', null)
   }, [])
 
-  return {
-    state: { ...state, user },
-    actions: { update, refetch, clear },
-  }
+  return { ...state, user, update, refetch, clear }
 }
-
-export const UserContext = buildContext(useUser, 'UserContext')

@@ -2,19 +2,19 @@ import * as yup from 'yup'
 import { Name, OnSubmitFunction, Schema } from 'types'
 import React from 'react'
 import { User } from 'api/use-user-api'
-import { AuthenticationContext } from 'contexts/authentication-context'
+import { useLoggedInUser } from 'utilities/use-logged-in-user'
 
 type UserFormValues = User
 
 // Define the hook to be used to leverage this form
 export const useUserForm = (initialValues: UserFormValues) => {
-  const actions = AuthenticationContext.useActions()
+  const { update } = useLoggedInUser()
 
   const onSubmit: OnSubmitFunction<UserFormValues> = React.useCallback(
     (user) => {
-      actions.updateLoggedInUser(user)
+      update(user)
     },
-    [actions]
+    [update]
   )
 
   const validationSchema: Schema<UserFormValues> = React.useMemo(

@@ -1,12 +1,12 @@
 import React from 'react'
 import { useRegisterForm } from './utilities/use-register-form'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-import { AuthenticationContext } from 'contexts/authentication-context'
 import { ButtonWithSpinner } from 'components/button-with-spinner'
 import { Typography } from '@material-ui/core'
+import { useRegister } from './utilities/use-register'
 
 export const RegisterPageView: React.FC = () => {
-  const registerState = AuthenticationContext.useRegisterState()
+  const { status, error } = useRegister()
   const { name, ...formikProps } = useRegisterForm({
     email: 'george.bluth@reqres.in',
     password: 'qwerty123!',
@@ -32,9 +32,7 @@ export const RegisterPageView: React.FC = () => {
               disabled={!dirty || !isValid}>
               register
             </ButtonWithSpinner>
-            {registerState.status === 'error' && (
-              <pre>{JSON.stringify(registerState.error, null, '\t')}</pre>
-            )}
+            {status === 'error' && <pre>{JSON.stringify(error, null, '\t')}</pre>}
           </Form>
         )}
       </Formik>
