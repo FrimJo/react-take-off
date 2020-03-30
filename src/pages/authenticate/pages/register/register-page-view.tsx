@@ -2,8 +2,9 @@ import React from 'react'
 import { useRegisterForm } from './utilities/use-register-form'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { ButtonWithSpinner } from 'components/button-with-spinner'
-import { Typography } from '@material-ui/core'
+import { Typography, Button } from '@material-ui/core'
 import { useRegister } from './utilities/use-register'
+import { Link } from 'react-router-dom'
 
 export const RegisterPageView: React.FC = () => {
   const { status, error } = useRegister()
@@ -36,6 +37,9 @@ export const RegisterPageView: React.FC = () => {
           </Form>
         )}
       </Formik>
+      <Button color="primary" variant="text" component={Link} to="/authenticate/login">
+        Logg In
+      </Button>
     </>
   )
 }

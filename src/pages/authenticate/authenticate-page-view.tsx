@@ -1,9 +1,10 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
+import { Typography, Button } from '@material-ui/core'
 import { useLoginForm } from './utilities/use-login-form'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { ButtonWithSpinner } from 'components/button-with-spinner'
 import { useAuthentication } from 'utilities/use-authentication'
+import { Link } from 'react-router-dom'
 
 export const AuthenticatePageView: React.FC = () => {
   const { status, error } = useAuthentication()
@@ -33,6 +34,9 @@ export const AuthenticatePageView: React.FC = () => {
           </Form>
         )}
       </Formik>
+      <Button color="primary" variant="text" component={Link} to="/authenticate/register">
+        Register
+      </Button>
     </>
   )
 }

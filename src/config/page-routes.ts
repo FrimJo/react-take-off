@@ -5,9 +5,8 @@ import { StartPage } from 'pages/start'
 import { UnauthorizedPage } from 'pages/unauthorized-page'
 import { RegisterPageView } from 'pages/authenticate/pages/register/register-page-view'
 
-interface IPageRoute extends Omit<RouteProps, 'path' | 'component'> {
+interface IPageRoute extends Omit<RouteProps, 'path'> {
   path: string
-  component: React.ComponentType
 }
 
 export const PageRoutes: { [Page in string]: IPageRoute } = {
@@ -22,7 +21,7 @@ export const PageRoutes: { [Page in string]: IPageRoute } = {
     component: PrivatePage,
   },
   Authenticate: {
-    path: '/authenticate',
+    path: '/authenticate/login',
     exact: true,
     component: AuthenticatePage,
   },
