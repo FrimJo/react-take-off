@@ -41,18 +41,14 @@ export class StatusSnackbarErrorBoundary extends React.Component<{}, State> {
   }
 
   public render() {
-    return (
-      <>
-        {this.state.hasError && (
-          <StatusSnackbarView
-            hasError={this.state.hasError}
-            error={this.state.error}
-            onClose={this.handleToggle}
-          />
-        )}
-        {/* {this.props.children} */}
-        {!this.state.hasError && this.props.children}
-      </>
-    )
+    if (this.state.hasError) {
+      const message =
+        this.state.error instanceof Error
+          ? this.state.error.message
+          : 'Unknown error occurred, see console for details'
+      return <StatusSnackbarView open={true} message={message} onClose={this.handleToggle} />
+    }
+
+    return this.props.children
   }
 }

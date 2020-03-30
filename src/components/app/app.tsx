@@ -8,6 +8,7 @@ import { GlobalStyles } from 'styles/global-styles'
 import { LocalStorageContext } from 'contexts/local-storage-context'
 import { ReactQueryDevtools } from 'react-query-devtools'
 import { StatusSnackbar } from 'components/status-snackbar'
+import { IsFetchingSnackbar } from 'components/status-snackbar/is-fetching-snackbar'
 
 export const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ export const App: React.FC = () => {
           <StatusSnackbar>
             <Router />
           </StatusSnackbar>
+          <IsFetchingSnackbar />
         </ThemeProvider>
       </StylesProvider>
       <ReactQueryDevtools initialIsOpen={false} />

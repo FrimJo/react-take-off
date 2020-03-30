@@ -15,7 +15,7 @@ This README describes the necessary steps to get a local development environment
 - [x] Update VSCode to run `tslint --fix` on save without pretteir bug
 - [x] Rename prject to react-take-off
 - [x] Implement strict mode
-- [ ] Fix emotion to work with JSX and css prop
+- [x] Fix emotion to work with JSX and css prop
 - [ ] Add blue "is fetching" "error boundary" for queryCache.isFetching
 - [ ] Look into using `xstate`
 - [ ] Use `xstate` for UI components souch as buttons
