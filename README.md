@@ -1,4 +1,4 @@
-# React boilerplate with hooks
+# React Take-off boilerplate
 
 This README describes the necessary steps to get a local development environment of the web app up and running.
 
@@ -16,7 +16,8 @@ This README describes the necessary steps to get a local development environment
 - [x] Rename prject to react-take-off
 - [x] Implement strict mode
 - [x] Fix emotion to work with JSX and css prop
-- [ ] Add blue "is fetching" "error boundary" for queryCache.isFetching
+- [x] Implement support for hot reloading (now know as )
+- [x] Add snackbar for general loading
 - [ ] Look into using `xstate`
 - [ ] Use `xstate` for UI components souch as buttons
 - [ ] Update `usePromiseManager` hook to use `React.suspense`
@@ -26,17 +27,16 @@ This README describes the necessary steps to get a local development environment
 - [ ] Update to react-router v6
 - [ ] Switch to Dino over Node
 - [ ] Swtich to Parcel 2 over webpack
-- [ ] Implement support for hot reloading
 
 ### Prerequisites
 
 - A git client
   - See their [homepage](https://git-scm.com) for installation
   - If you want a gui, take a look at [Sourcetree](https://www.sourcetreeapp.com/)
-- Node (their LTS version has been used, currently 10.16.0)
+- Node (their LTS version has been used, currently 13.7.1)
   - See their [homepage](https://nodejs.org) for installation
   - Run `node --version` to see wich version you've got
-- Yarn (their stable version has been used, currently 1.16.0)
+- Yarn (their stable version has been used, currently 1.21.1)
   - See their [homepage](https://yarnpkg.com/en) for installation
   - Run `yarn -v` to see wich version you've got
 - A code editor - Visual Studio Code is recommended
@@ -48,10 +48,10 @@ Install dependencies with `yarn install`
 
 Dublicate the file called `.env.sample` and rename it to `.env`. Then, open `.env` and remove the optional variables and set the `REACT_APP_API_URL` variable to your desired backend url.
 
-Example for using remote backend
+For running the project as is
 
 ```
-REACT_APP_API_URL=https://api-test.site.com
+REACT_APP_API_URL=https://reqres.in
 ```
 
 Example for using local backend (replace PPPP with port)

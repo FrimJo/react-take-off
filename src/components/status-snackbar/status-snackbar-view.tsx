@@ -2,42 +2,20 @@
 import React from 'react'
 import { Snackbar, IconButton, SnackbarContent, Theme } from '@material-ui/core'
 import { AlertCircle, Close } from 'mdi-material-ui'
-import { jsx, css, SerializedStyles } from '@emotion/core'
+import { jsx, css } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-
-function useSnackbarContentStyle(type: 'succes' | 'error' | 'default'): SerializedStyles {
-  const theme = useTheme<Theme>()
-  switch (type) {
-    case 'succes':
-      return css`
-        background-color: ${theme.palette.success.main};
-      `
-    case 'error':
-      return css`
-        background-color: ${theme.palette.error.main};
-      `
-    case 'default':
-      return css`
-        background-color: ${theme.palette.primary.main};
-      `
-  }
-}
 
 type StatusSnackbarViewProps = Readonly<{
   open: boolean
   message: React.ReactNode
   onClose?: () => void
-  type?: 'succes' | 'error' | 'default'
-  autoHide?: boolean
 }>
 export const StatusSnackbarView: React.FC<StatusSnackbarViewProps> = ({
   open,
   message,
   onClose,
-  type = 'default',
-  autoHide = false,
 }) => {
-  const contentSnackbarStyle = useSnackbarContentStyle(type)
+  const theme = useTheme<Theme>()
   const onCloseRef = React.useRef(onClose)
 
   return (
@@ -47,11 +25,10 @@ export const StatusSnackbarView: React.FC<StatusSnackbarViewProps> = ({
         horizontal: 'center',
       }}
       open={open}
-      autoHideDuration={autoHide ? 8000 : undefined}
       onClose={onCloseRef.current}>
       <SnackbarContent
         css={css`
-          ${contentSnackbarStyle}
+          background-color: ${theme.palette.error.main};
           display: flex;
           justify-content: space-between;
           flex-wrap: nowrap;

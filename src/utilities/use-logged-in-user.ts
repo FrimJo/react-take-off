@@ -1,9 +1,9 @@
-import { useStoredToken } from './use-stored-token'
+import { useTokenStorage } from './use-token-storage'
 import { useUser } from './use-user'
 
 export const useLoggedInUser = () => {
-  const storedToken = useStoredToken()
-  const loggedInUser = useUser({ id: storedToken.storage?.id })
+  const tokenStorage = useTokenStorage()
+  const loggedInUser = useUser({ id: tokenStorage.value?.id })
   if (loggedInUser.user === undefined) {
     throw Error('Logged in user is only accessible within a PrivateRoute')
   }

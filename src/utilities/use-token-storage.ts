@@ -7,6 +7,6 @@ export interface ITokenData {
   id: number
 }
 
-export function useStoredToken() {
+export function useTokenStorage() {
   return useLocalStorage<ITokenData>(TOKEN_DATA_KEY)
 }

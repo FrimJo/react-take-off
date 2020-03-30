@@ -5,10 +5,7 @@ export function useLocalStorage<IStorage>(key: string) {
   const { storedValues } = LocalStorageContext.useState()
   const { setValue, clearValue } = LocalStorageContext.useActions()
 
-  const storage: IStorage | null = React.useMemo(() => storedValues[key] ?? null, [
-    key,
-    storedValues,
-  ])
+  const value: IStorage | null = React.useMemo(() => storedValues[key] ?? null, [key, storedValues])
 
   const set = React.useCallback(
     (value: IStorage) => {
@@ -24,5 +21,5 @@ export function useLocalStorage<IStorage>(key: string) {
 
   const clear = React.useCallback(() => clearValue(key), [clearValue, key])
 
-  return { storage, set, clear }
+  return { value, set, clear }
 }

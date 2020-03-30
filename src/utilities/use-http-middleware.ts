@@ -1,4 +1,4 @@
-import { useStoredToken } from './use-stored-token'
+import { useTokenStorage } from './use-token-storage'
 import { navigate } from 'utilities/react-router-hooks'
 import { PageRoutes } from 'config/page-routes'
 import React from 'react'
@@ -8,7 +8,7 @@ export type HTTP = Readonly<{
 }>
 
 export function useHttpMiddleware(initOptions: RequestInit = {}): HTTP {
-  const storedToken = useStoredToken()
+  const tokenStorage = useTokenStorage()
 
   return React.useMemo(
     () => ({
@@ -21,7 +21,7 @@ export function useHttpMiddleware(initOptions: RequestInit = {}): HTTP {
             Accept: 'application/json',
             ...initOptions.headers,
             ...fetchInit.headers,
-            Authorization: `Bearer ${storedToken.storage?.token}`,
+            Authorization: `Bearer ${tokenStorage.value?.token}`,
           },
         }
         return window.fetch(url, init).then((result) => {
@@ -33,6 +33,6 @@ export function useHttpMiddleware(initOptions: RequestInit = {}): HTTP {
         })
       },
     }),
-    [initOptions, storedToken.storage]
+    [initOptions, tokenStorage.value]
   )
 }

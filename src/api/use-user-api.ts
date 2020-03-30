@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { useHttpMiddleware } from 'utilities/use-http-middleware'
 import React from 'react'
+import { API_URL } from 'config/variables'
 
 export type User = {
   id: number
@@ -16,8 +17,6 @@ export type ApiUser = {
   last_name: string
   avatar?: string
 }
-
-const API_BASE_URL = 'https://reqres.in'
 
 export function mapApiUserToClientUser(apiUser: ApiUser): User {
   return {
@@ -52,7 +51,7 @@ export const useUserApi = () => {
         method: 'PATCH',
       }
       return http
-        .fetch(API_BASE_URL + `/api/users/${user.id}`, init)
+        .fetch(API_URL + `/api/users/${user.id}`, init)
         .then((response) => response.json())
         .then((result) => result)
     },
@@ -65,7 +64,7 @@ export const useUserApi = () => {
         method: 'GET',
       }
       return http
-        .fetch(API_BASE_URL + `/api/users/${id}`, init)
+        .fetch(API_URL + `/api/users/${id}`, init)
         .then((response) => response.json())
         .then((result) => result.data)
         .then(mapApiUserToClientUser)

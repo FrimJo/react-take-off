@@ -3,7 +3,7 @@ import { Redirect, Route, RouteProps } from 'react-router-dom'
 import { PageRoutes } from 'config/page-routes'
 import { history } from 'utilities/history'
 import { useAuthentication } from 'utilities/use-authentication'
-import { useStoredToken } from 'utilities/use-stored-token'
+import { useTokenStorage } from 'utilities/use-token-storage'
 import { useUser } from 'utilities/use-user'
 
 interface IProps extends RouteProps {
@@ -18,8 +18,8 @@ export const PrivateRouteContainer: React.FC<IProps> = ({
   const { isLoggedIn } = useAuthentication()
 
   // Fetch status of logged in user
-  const storedToken = useStoredToken()
-  const { status } = useUser({ id: storedToken.storage?.id })
+  const tokenStorage = useTokenStorage()
+  const { status } = useUser({ id: tokenStorage.value?.id })
 
   const renderRoute = React.useCallback(() => {
     if (!isLoggedIn) {

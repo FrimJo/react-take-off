@@ -1,41 +1,45 @@
 import React from 'react'
 import { useMutation, queryCache } from 'react-query'
 import { useAuthenticateApi } from 'api/use-authenticate-api'
-import { useStoredToken } from 'utilities/use-stored-token'
-import { useStoredRegister } from 'utilities/use-stored-register'
+import { useTokenStorage } from 'utilities/use-token-storage'
+import { useRegisterStorage } from 'utilities/use-register-storage'
 
 export const useAuthentication = () => {
-  const storedToken = useStoredToken()
-  const registerStore = useStoredRegister()
+  const tokenStorage = useTokenStorage()
+  const registerStorage = useRegisterStorage()
   const api = useAuthenticateApi()
 
   const [loginFromApi, { error, status }] = useMutation(api.login, { throwOnError: true })
 
-  const isLoggedIn = React.useMemo(() => storedToken.storage !== null, [storedToken.storage])
+  const isLoggedIn = React.useMemo(() => tokenStorage.value !== null, [tokenStorage.value])
 
   const logout = React.useCallback(() => {
     queryCache.clear()
-    storedToken.clear()
-  }, [storedToken])
+    tokenStorage.clear()
+  }, [tokenStorage])
 
   const login = React.useCallback(
-    (credentials: { username: string; password: string }) =>
-      loginFromApi({
+    async (credentials: { username: string; password: string }) => {
+      if (!registerStorage.value) {
+        throw Error('Need to register first.')
+      }
+      const { id } = registerStorage.value
+
+      const tokenData = await loginFromApi({
         email: credentials.username,
         password: credentials.password,
-      }).then((tokenData) => {
-        if (!registerStore.storage) {
-          return Promise.reject('Need to register first.')
-        }
-        const { id } = registerStore.storage
-        return queryCache
-          .prefetchQuery(['user', id], (key, id) => api.getLoggedInUser(id))
-          .then((user) => {
-            storedToken.set({ ...tokenData, id })
-            return user
-          })
-      }),
-    [api, loginFromApi, registerStore.storage, storedToken]
+      })
+
+      // Prefetch the user before setting loggin token
+      const user = await queryCache.prefetchQuery(['user', id], (key, id) =>
+        api.getLoggedInUser(id)
+      )
+
+      // We have logged in and we have logged in user, proceed to set token
+      tokenStorage.set({ ...tokenData, id })
+      return user
+    },
+    [api, loginFromApi, registerStorage.value, tokenStorage]
   )
 
   return {
