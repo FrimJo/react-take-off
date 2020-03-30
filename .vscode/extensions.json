@@ -3,7 +3,6 @@
     "msjsdiag.debugger-for-chrome",
     "ms-vscode.vscode-typescript-tslint-plugin",
     "esbenp.prettier-vscode",
-    "editorconfig.editorconfig",
-    "jpoissonnier.vscode-styled-components"
+    "editorconfig.editorconfig"
   ]
 }
