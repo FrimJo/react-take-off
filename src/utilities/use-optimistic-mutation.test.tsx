@@ -1,7 +1,7 @@
 import { cleanup, render } from '@testing-library/react'
 import { renderHook, act } from '@testing-library/react-hooks'
-import { useOptimisticMutation } from './use-optimistic-mutation'
-import { useQuery, useMutation } from 'react-query'
+import useOptimisticMutation from './use-optimistic-mutation'
+import { useQuery } from 'react-query'
 // import {act} from react-dom/test-utils
 import React from 'react'
 // import TestRenderer from 'react-test-renderer'

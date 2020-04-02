@@ -6,7 +6,6 @@ declare module 'react-query' {
   //                 Matteo Frana <https://github.com/matteofrana>
   // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
   // Minimum TypeScript Version: 3.0
-  import { ComponentType } from 'react'
 
   export type QueryKey = string | [string, ...any[]] | false | null
 
@@ -239,7 +238,7 @@ declare module 'react-query' {
     // TODO: type returned QueryObject
     function getQuery(queryKey: QueryKey): any
 
-    const isFetching: boolean
+    const isFetching: number
 
     function subscribe(
       callback: (queryCache: any) => void
@@ -248,7 +247,7 @@ declare module 'react-query' {
     function clear(): void
   }
 
-  export function useIsFetching(): boolean
+  export function useIsFetching(): number
 
   export const ReactQueryConfigProvider: React.ComponentType<{
     config?: ReactQueryProviderConfig

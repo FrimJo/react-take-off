@@ -24,15 +24,20 @@ export function useHttpMiddleware(initOptions: RequestInit = {}): HTTP {
             Authorization: `Bearer ${tokenStorage.value?.token}`,
           },
         }
-        return window.fetch(url, init).then((result) => {
-          // If Unauthorized
-          if (result.status === 401) {
-            navigate(PageRoutes.Unauthorized.path)
+        return window.fetch(url, init).then((response) => {
+          if (!response.ok) {
+            return Promise.reject(response)
           }
-          return Promise.resolve(result)
+          // If Unauthorized
+          if (response.status === 401) {
+            tokenStorage.clear()
+            navigate(PageRoutes.Unauthorized.path)
+            return Promise.reject('Not authorized, redirecting to login page.')
+          }
+          return Promise.resolve(response)
         })
       },
     }),
-    [initOptions, tokenStorage.value]
+    [initOptions, tokenStorage]
   )
 }

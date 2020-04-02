@@ -1,24 +1,18 @@
 /** @jsx jsx */
-import React from 'react'
+import { css, jsx } from '@emotion/core'
 import { Snackbar, SnackbarContent, Theme } from '@material-ui/core'
-import { jsx, css } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
-import { queryCache } from 'react-query'
-import { useDebounce } from 'utilities/use-debounce'
 import { Spinner } from 'components/spinner'
+import { useTheme } from 'emotion-theming'
+import React from 'react'
+import { useIsFetching } from 'react-query'
+import { useDebounce } from 'utilities/use-debounce'
 
 export const IsFetchingSnackbar: React.FC = () => {
   const theme = useTheme<Theme>()
-  const [isFetching, setIsFetching] = React.useState(queryCache.isFetching)
+  const fetchCount = useIsFetching()
+  const isFetching = React.useMemo(() => fetchCount > 0, [fetchCount])
   const debouncedIsFetching = useDebounce(isFetching, 1000)
 
-  React.useEffect(() => {
-    const subscriptionCallback = (cache: { isFetching: boolean }) => {
-      setIsFetching(cache.isFetching)
-    }
-    const unsubscribe = queryCache.subscribe(subscriptionCallback)
-    return () => unsubscribe(subscriptionCallback)
-  }, [])
   return (
     <Snackbar
       anchorOrigin={{

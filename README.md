@@ -26,7 +26,8 @@ This README describes the necessary steps to get a local development environment
 - [ ] Update Error boundery to use promise
 - [ ] Update to react-router v6
 - [ ] Switch to Dino over Node
-- [ ] Swtich to Parcel 2 over webpack
+- [ ] Swtich to Parcel 2 over webpack (when in stable, still in alpha as per 2020-04-02)
+- [ ] Auto fix lint errors on save (eg. deepth rule for hooks)
 
 ### Prerequisites
 

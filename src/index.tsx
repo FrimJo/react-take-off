@@ -1,32 +1,38 @@
 import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
-import 'react-app-polyfill/ie11'
-import 'core-js'
-
-import { ApplicationInsights } from '@microsoft/applicationinsights-web'
 import { AI_INSTRUMENTATION_KEY, GA_TRACKING_ID } from 'config/variables'
+import 'core-js'
+import React from 'react'
+import 'react-app-polyfill/ie11'
 import ReactDOM from 'react-dom'
-import ReactGA from 'react-ga'
-
 import { App } from './components/app'
 import * as serviceWorker from './service-worker'
-import React from 'react'
 
-// Google Analytics
-// Add variable REACT_APP_GA_TRACKING_ID to DevOps build pipeline for cloud environments
-if (GA_TRACKING_ID) {
-  ReactGA.initialize(GA_TRACKING_ID)
-  ReactGA.pageview(window.location.pathname + window.location.search)
-}
+if (process.env.NODE_ENV !== 'production') {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const axe = require('react-axe')
+  axe(React, ReactDOM, 1000)
+} else if (process.env.NODE_ENV === 'production') {
+  // Google Analytics
+  // Add variable REACT_APP_GA_TRACKING_ID to DevOps build pipeline for cloud environments
+  if (GA_TRACKING_ID) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const ReactGA = require('react-ga')
+    ReactGA.initialize(GA_TRACKING_ID)
+    ReactGA.pageview(window.location.pathname + window.location.search)
+  }
 
-// Application Insights
-// Add variable REACT_APP_AI_INSTRUMENTATION_KEY to DevOps build pipeline for cloud environments
-if (AI_INSTRUMENTATION_KEY) {
-  const appInsights = new ApplicationInsights({
-    config: {
-      instrumentationKey: AI_INSTRUMENTATION_KEY,
-    },
-  })
-  appInsights.loadAppInsights()
+  // Application Insights
+  // Add variable REACT_APP_AI_INSTRUMENTATION_KEY to DevOps build pipeline for cloud environments
+  if (AI_INSTRUMENTATION_KEY) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const ApplicationInsights = require('@microsoft/applicationinsights-web')
+    const appInsights = new ApplicationInsights({
+      config: {
+        instrumentationKey: AI_INSTRUMENTATION_KEY,
+      },
+    })
+    appInsights.loadAppInsights()
+  }
 }
 
 ReactDOM.render(

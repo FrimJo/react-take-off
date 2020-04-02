@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { useHttpMiddleware } from 'utilities/use-http-middleware'
-import React from 'react'
 import { API_URL } from 'config/variables'
+import React from 'react'
+import { useHttpMiddleware } from 'utilities/use-http-middleware'
 
 export type User = {
   id: number

@@ -1,9 +1,9 @@
 import styled from '@emotion/styled'
-import React from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import { useUserForm } from './utilities/use-user-form'
 import { User } from 'api/use-user-api'
 import { ButtonWithSpinner } from 'components/button-with-spinner'
+import { ErrorMessage, Field, Form, Formik } from 'formik'
+import React from 'react'
+import { useUserForm } from './utilities/use-user-form'
 
 const Wrapper = styled.div`
   display: flex;
