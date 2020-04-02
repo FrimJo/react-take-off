@@ -1,9 +1,9 @@
 import { cleanup, render } from '@testing-library/react'
-import { renderHook, act } from '@testing-library/react-hooks'
-import useOptimisticMutation from './use-optimistic-mutation'
-import { useQuery } from 'react-query'
+import { act, renderHook } from '@testing-library/react-hooks'
 // import {act} from react-dom/test-utils
 import React from 'react'
+import { useQuery } from 'react-query'
+import useOptimisticMutation from './use-optimistic-mutation'
 // import TestRenderer from 'react-test-renderer'
 
 // const { act } = TestRenderer
@@ -11,22 +11,14 @@ import React from 'react'
 afterEach(cleanup)
 
 const fetchTest = (): Promise<string> =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     setTimeout(() => resolve('test'), 1000)
   })
 
 const mutateTest = (): Promise<string> =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     setTimeout(() => resolve('test'), 1000)
   })
-
-function useCounter() {
-  const [count, setCount] = React.useState(0)
-
-  const increment = React.useCallback(() => setCount((x) => x + 1), [])
-
-  return { count, increment }
-}
 
 describe('', () => {
   test('', async () => {
@@ -45,7 +37,7 @@ describe('', () => {
     const { result, waitForNextUpdate } = renderHook(() =>
       useOptimisticMutation('hookTest', mutateTest)
     )
-    const [mutate, data] = result.current
+    const [mutate] = result.current
     await act(async () => {
       await mutate()
     })
