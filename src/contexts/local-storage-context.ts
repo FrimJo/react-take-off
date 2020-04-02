@@ -1,5 +1,6 @@
-import { buildContext } from 'utilities/build-context'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
+import { buildContext } from 'utilities/build-context'
 
 export function useLocalStorageContext() {
   const [storedValues, setStoredValues] = React.useState(() => {
