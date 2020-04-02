@@ -27,7 +27,7 @@ This README describes the necessary steps to get a local development environment
 - [ ] Update to react-router v6
 - [ ] Switch to Dino over Node
 - [ ] Swtich to Parcel 2 over webpack (when in stable, still in alpha as per 2020-04-02)
-- [ ] Auto fix lint errors on save (eg. deepth rule for hooks)
+- [ ] Fix lint warnings for deepth rule for hooks is not fixed on save
 
 ### Prerequisites
 
