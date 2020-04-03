@@ -4,7 +4,7 @@ import { Colors } from './colors'
 export const THEME: Readonly<ThemeOptions> = {
   palette: {
     primary: {
-      main: Colors.AzureRadiance,
+      main: Colors.FuchsiaBlue,
     },
   },
   typography: {
