@@ -1,7 +1,7 @@
+import { Button } from 'components/button'
 import React from 'react'
-import { UserPageView } from './user-page-view'
-import { ButtonWithSpinner } from 'components/button-with-spinner'
 import { useLoggedInUser } from 'utilities/use-logged-in-user'
+import { UserPageView } from './user-page-view'
 
 export const UserPageContainer: React.FC = () => {
   const { error, user } = useLoggedInUser()
@@ -14,9 +14,9 @@ export const UserPageContainer: React.FC = () => {
       ) : isEdit ? (
         <UserPageView initialValues={user} onClose={() => setIsEdit(false)} />
       ) : (
-        <ButtonWithSpinner color="primary" variant="contained" onClick={() => setIsEdit(true)}>
+        <Button color="primary" variant="contained" onClick={() => setIsEdit(true)}>
           Edit
-        </ButtonWithSpinner>
+        </Button>
       )}
     </div>
   )

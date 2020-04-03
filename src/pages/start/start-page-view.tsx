@@ -1,5 +1,5 @@
 import { Typography } from '@material-ui/core'
-import { ButtonWithSpinner } from 'components/button-with-spinner'
+import { Button } from 'components/button'
 import { DisplayUser } from 'components/display-user'
 import React from 'react'
 import { useAuthentication } from 'utilities/use-authentication'
@@ -13,9 +13,9 @@ export const StartPageView: React.FC = () => {
       <Typography variant="h1">Start page</Typography>
       <DisplayUser />
       <UserPage />
-      <ButtonWithSpinner color="primary" variant="contained" onClick={logout}>
+      <Button color="primary" variant="contained" onClick={logout}>
         logout
-      </ButtonWithSpinner>
+      </Button>
     </div>
   )
 }

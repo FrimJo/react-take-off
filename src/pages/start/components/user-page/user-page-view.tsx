@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { User } from 'api/use-user-api'
-import { ButtonWithSpinner } from 'components/button-with-spinner'
+import { Button } from 'components/button'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
 import { useUserForm } from './utilities/use-user-form'
@@ -38,21 +38,17 @@ export const UserPageView: React.FC<UserPageViewProps> = ({ initialValues, onClo
               <ErrorMessage name={name.lastName} />
               <Field variant={'outlined'} name={name.email} />
               <ErrorMessage name={name.email} />
-              <ButtonWithSpinner
-                color="primary"
+              <Button
+                color="success"
                 variant="contained"
                 type="submit"
                 disabled={!dirty || !isValid}
                 showSpinner={isSubmitting}>
                 Save
-              </ButtonWithSpinner>
-              <ButtonWithSpinner
-                color="secondary"
-                variant="contained"
-                onClick={onClose}
-                disabled={isSubmitting}>
+              </Button>
+              <Button color="error" variant="contained" onClick={onClose} disabled={isSubmitting}>
                 Close
-              </ButtonWithSpinner>
+              </Button>
             </Wrapper>
           </Form>
         )

@@ -6,6 +6,12 @@ export const THEME: Readonly<ThemeOptions> = {
     primary: {
       main: Colors.FuchsiaBlue,
     },
+    error: {
+      main: Colors.PersianRed,
+    },
+    success: {
+      main: Colors.SeaGreen,
+    },
   },
   typography: {
     fontFamily:

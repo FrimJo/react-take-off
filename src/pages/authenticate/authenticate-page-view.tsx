@@ -1,10 +1,10 @@
+import { Button as MuiButton, Typography } from '@material-ui/core'
+import { Button } from 'components/button'
+import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
-import { Typography, Button } from '@material-ui/core'
-import { useLoginForm } from './utilities/use-login-form'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import { ButtonWithSpinner } from 'components/button-with-spinner'
-import { useAuthentication } from 'utilities/use-authentication'
 import { Link } from 'react-router-dom'
+import { useAuthentication } from 'utilities/use-authentication'
+import { useLoginForm } from './utilities/use-login-form'
 
 export const AuthenticatePageView: React.FC = () => {
   const { status, error } = useAuthentication()
@@ -22,21 +22,21 @@ export const AuthenticatePageView: React.FC = () => {
             <ErrorMessage name={name.username} />
             <Field name={name.password} type="password" />
             <ErrorMessage name={name.password} />
-            <ButtonWithSpinner
+            <Button
               type="submit"
               color="primary"
               variant="contained"
               showSpinner={isSubmitting}
               disabled={!dirty || !isValid}>
               login
-            </ButtonWithSpinner>
+            </Button>
             {status === 'error' && <pre>{JSON.stringify(error, null, '\t')}</pre>}
           </Form>
         )}
       </Formik>
-      <Button color="primary" variant="text" component={Link} to="/authenticate/register">
+      <MuiButton color="primary" variant="text" component={Link} to="/authenticate/register">
         Register
-      </Button>
+      </MuiButton>
     </>
   )
 }
