@@ -7,22 +7,9 @@ import { useTokenStorage } from 'utilities/use-token-storage'
 import { useUser } from 'utilities/use-user'
 
 const PrivateComponent: React.FC = ({ children }) => {
-  const { isLoggedIn } = useAuthentication()
-
   // Fetch status of logged in user
   const tokenStorage = useTokenStorage()
   const { status } = useUser({ id: tokenStorage.value?.id })
-  if (!isLoggedIn) {
-    // Not authorized redirect to login page with the return url
-    return (
-      <Redirect
-        to={{
-          pathname: PageRoutes.Authenticate.path,
-          state: { from: history.location.pathname },
-        }}
-      />
-    )
-  }
 
   if (status === 'success') {
     // authorized and user received so return component
@@ -50,6 +37,18 @@ export const PrivateRouteContainer: React.FC<IProps> = ({
   children,
   ...rest
 }) => {
+  const { isLoggedIn } = useAuthentication()
+  if (!isLoggedIn) {
+    // Not authorized redirect to login page with the return url
+    return (
+      <Redirect
+        to={{
+          pathname: PageRoutes.Authenticate.path,
+          state: { from: history.location.pathname },
+        }}
+      />
+    )
+  }
   return (
     <Route {...rest}>
       <PrivateComponent>{Component ? <Component /> : children}</PrivateComponent>
