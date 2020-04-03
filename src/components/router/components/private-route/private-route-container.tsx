@@ -1,13 +1,48 @@
+import { PageRoutes } from 'config/page-routes'
 import React from 'react'
 import { Redirect, Route, RouteProps } from 'react-router-dom'
-import { PageRoutes } from 'config/page-routes'
 import { history } from 'utilities/history'
 import { useAuthentication } from 'utilities/use-authentication'
 import { useTokenStorage } from 'utilities/use-token-storage'
 import { useUser } from 'utilities/use-user'
 
+const PrivateComponent: React.FC = ({ children }) => {
+  const { isLoggedIn } = useAuthentication()
+
+  // Fetch status of logged in user
+  const tokenStorage = useTokenStorage()
+  const { status } = useUser({ id: tokenStorage.value?.id })
+  if (!isLoggedIn) {
+    // Not authorized redirect to login page with the return url
+    return (
+      <Redirect
+        to={{
+          pathname: PageRoutes.Authenticate.path,
+          state: { from: history.location.pathname },
+        }}
+      />
+    )
+  }
+
+  if (status === 'success') {
+    // authorized and user received so return component
+    return <React.Fragment>{children}</React.Fragment>
+  }
+
+  if (status === 'loading') {
+    return <span>Is fetching user</span>
+  }
+  if (status === 'error') {
+    return <span>Could not fetch user</span>
+  }
+
+  throw Error(
+    'No user fetched, please make sure that user is fetching or has been fetch beforer navigating using private route.'
+  )
+}
+
 interface IProps extends RouteProps {
-  component?: React.ComponentType
+  component?: React.ComponentType<any>
 }
 
 export const PrivateRouteContainer: React.FC<IProps> = ({
@@ -15,40 +50,9 @@ export const PrivateRouteContainer: React.FC<IProps> = ({
   children,
   ...rest
 }) => {
-  const { isLoggedIn } = useAuthentication()
-
-  // Fetch status of logged in user
-  const tokenStorage = useTokenStorage()
-  const { status } = useUser({ id: tokenStorage.value?.id })
-
-  const renderRoute = React.useCallback(() => {
-    if (!isLoggedIn) {
-      // Not authorized redirect to login page with the return url
-      return (
-        <Redirect
-          to={{
-            pathname: PageRoutes.Authenticate.path,
-            state: { from: history.location.pathname },
-          }}
-        />
-      )
-    }
-
-    if (status === 'success') {
-      // authorized and user received so return component
-      return Component ? <Component /> : children
-    }
-
-    if (status === 'loading') {
-      return <span>Is fetching user</span>
-    }
-    if (status === 'error') {
-      return <span>Could not fetch user</span>
-    }
-
-    throw Error(
-      'No user fetched, please make sure that user is fetching or has been fetch beforer navigating using private route.'
-    )
-  }, [Component, children, isLoggedIn, status])
-  return <Route {...rest} render={renderRoute} />
+  return (
+    <Route {...rest}>
+      <PrivateComponent>{Component ? <Component /> : children}</PrivateComponent>
+    </Route>
+  )
 }
