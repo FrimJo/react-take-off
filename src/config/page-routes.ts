@@ -1,9 +1,9 @@
-import { RouteProps } from 'react-router'
-import { AuthenticatePage } from 'pages/authenticate'
-import { PrivatePage } from 'pages/private'
-import { StartPage } from 'pages/start'
+import { LoginPage } from 'pages/account/pages/login-page'
+import { RegisterPage } from 'pages/account/pages/register-page'
+import { PrivatePage } from 'pages/private-page'
+import { StartPage } from 'pages/start-page'
 import { UnauthorizedPage } from 'pages/unauthorized-page'
-import { RegisterPageView } from 'pages/authenticate/pages/register/register-page-view'
+import { RouteProps } from 'react-router'
 
 interface IPageRoute extends Omit<RouteProps, 'path'> {
   path: string
@@ -21,14 +21,14 @@ export const PageRoutes: { [Page in string]: IPageRoute } = {
     component: PrivatePage,
   },
   Authenticate: {
-    path: '/authenticate/login',
+    path: '/account/login',
     exact: true,
-    component: AuthenticatePage,
+    component: LoginPage,
   },
   Register: {
-    path: '/authenticate/register',
+    path: '/account/register',
     exact: true,
-    component: RegisterPageView,
+    component: RegisterPage,
   },
   Unauthorized: {
     path: '/unauthorized',

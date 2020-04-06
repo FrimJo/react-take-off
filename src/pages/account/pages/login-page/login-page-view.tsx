@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { useAuthentication } from 'utilities/use-authentication'
 import { useLoginForm } from './utilities/use-login-form'
 
-export const AuthenticatePageView: React.FC = () => {
+export const LoginPageView: React.FC = () => {
   const { status, error } = useAuthentication()
   const { name, ...formikProps } = useLoginForm({
     username: 'george.bluth@reqres.in',

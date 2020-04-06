@@ -4,7 +4,7 @@ import { Name, OnSubmitFunction } from 'types'
 import { history } from 'utilities/history'
 import { navigate } from 'utilities/react-router-hooks'
 import * as yup from 'yup'
-import { useAuthentication } from '../../../utilities/use-authentication'
+import { useAuthentication } from '../../../../../utilities/use-authentication'
 
 type UserFormValues = Readonly<{
   username: string

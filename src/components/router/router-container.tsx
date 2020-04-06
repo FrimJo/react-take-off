@@ -1,5 +1,5 @@
 import { PageRoutes } from 'config/page-routes'
-import { NotFoundPage } from 'pages/not-found'
+import { NotFoundPage } from 'pages/not-found-page'
 import React from 'react'
 import { Route, Router, Switch } from 'react-router-dom'
 import { history } from 'utilities/history'
