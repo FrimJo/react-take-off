@@ -18,18 +18,14 @@ This README describes the necessary steps to get a local development environment
 - [x] Fix emotion to work with JSX and css prop
 - [x] Implement support for hot reloading (now know as )
 - [x] Add snackbar for general loading
-- [ ] Look into using `xstate`
-- [ ] Use `xstate` for UI components souch as buttons
-- [ ] Update `usePromiseManager` hook to use `React.suspense`
+- [x] Update url for login from `/authentication` to `/account/login`
+- [x] Update url for register from `/authentication/register` to `/account/register`
 - [ ] Graph QL
 - [ ] Remove TS check on compile
 - [ ] Update Error boundery to use promise
 - [ ] Update to react-router v6
-- [ ] Switch to Dino over Node
 - [ ] Swtich to Parcel 2 over webpack (when in stable, still in alpha as per 2020-04-02)
 - [ ] Lint warnings for deepth rule for hooks are not auto fixed on save
-- [ ] Update url for login from `/authentication` to `/account/login`
-- [ ] Update url for register from `/authentication/register` to `/account/register`
 - [ ] Add page to change password at `/account/change-password`
 - [ ] Add page for forgot password at `/account/forgot-password`
 

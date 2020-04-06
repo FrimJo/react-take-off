@@ -39,7 +39,7 @@ export const PrivateRouteContainer: React.FC<IProps> = ({
 }) => {
   const { isLoggedIn } = useAuthentication()
   if (!isLoggedIn) {
-    // Not authorized redirect to login page with the return url
+    // Not authorized, redirect to login page with the return url
     return (
       <Redirect
         to={{
