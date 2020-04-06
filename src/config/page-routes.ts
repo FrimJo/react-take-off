@@ -5,7 +5,8 @@ import { StartPage } from 'pages/start-page'
 import { UnauthorizedPage } from 'pages/unauthorized-page'
 import { RouteProps } from 'react-router'
 
-interface IPageRoute extends Omit<RouteProps, 'path'> {
+interface IPageRoute extends Omit<RouteProps, 'path' | 'component'> {
+  component: React.ComponentType
   path: string
 }
 

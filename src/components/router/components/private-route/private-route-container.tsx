@@ -29,7 +29,7 @@ const PrivateComponent: React.FC = ({ children }) => {
 }
 
 interface IProps extends RouteProps {
-  component?: React.ComponentType<any>
+  component?: React.ComponentType
 }
 
 export const PrivateRouteContainer: React.FC<IProps> = ({
