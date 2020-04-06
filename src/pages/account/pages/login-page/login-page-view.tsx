@@ -1,5 +1,6 @@
 import { Button as MuiButton, Typography } from '@material-ui/core'
 import { Button } from 'components/button'
+import { PageRoutes } from 'config/page-routes'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -34,7 +35,7 @@ export const LoginPageView: React.FC = () => {
           </Form>
         )}
       </Formik>
-      <MuiButton color="primary" variant="text" component={Link} to="/authenticate/register">
+      <MuiButton color="primary" variant="text" component={Link} to={PageRoutes.Register.path}>
         Register
       </MuiButton>
     </>

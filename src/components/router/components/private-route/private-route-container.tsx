@@ -43,7 +43,7 @@ export const PrivateRouteContainer: React.FC<IProps> = ({
     return (
       <Redirect
         to={{
-          pathname: PageRoutes.Authenticate.path,
+          pathname: PageRoutes.Login.path,
           state: { from: history.location.pathname },
         }}
       />

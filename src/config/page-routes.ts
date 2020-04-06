@@ -20,7 +20,7 @@ export const PageRoutes: { [Page in string]: IPageRoute } = {
     exact: true,
     component: PrivatePage,
   },
-  Authenticate: {
+  Login: {
     path: '/account/login',
     exact: true,
     component: LoginPage,

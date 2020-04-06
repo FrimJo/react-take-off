@@ -24,7 +24,7 @@ export const useLoginForm = (initialValues: UserFormValues) => {
       login(credentials)
         .then(() => {
           // Navigate user
-          if (!state?.from ?? state.from === PageRoutes.Authenticate.path) {
+          if (!state?.from ?? state.from === PageRoutes.Login.path) {
             navigate(PageRoutes.Start.path, { replace: false })
           } else {
             navigate(state.from, { replace: true })

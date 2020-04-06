@@ -9,7 +9,7 @@ export const RouterContainer: React.FC = () => {
   return (
     <Router history={history}>
       <Switch>
-        <Route {...PageRoutes.Authenticate} />
+        <Route {...PageRoutes.Login} />
         <Route {...PageRoutes.Register} />
         <PrivateRoute {...PageRoutes.Start} />
         <PrivateRoute {...PageRoutes.Private} />
