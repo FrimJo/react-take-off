@@ -1,7 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "react", "prettier", "react-hooks", "jsx-a11y"],
+  "plugins": ["@typescript-eslint", "react", "prettier", "react-hooks", "jsx-a11y", "import"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -27,6 +27,12 @@
     "project": "./tsconfig.json"
   },
   "rules": {
+    "import/order": [1, {
+      "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+      "alphabetize": { "order": "asc", "caseInsensitive": true },
+      "newlines-between": "never"
+    }],
+    "import/newline-after-import": [1, { "count": 1 }],
     "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
