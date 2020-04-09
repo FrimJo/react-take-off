@@ -3,8 +3,8 @@ import React from 'react'
 import { Name, OnSubmitFunction } from 'types'
 import { history } from 'utilities/history'
 import { navigate } from 'utilities/react-router-hooks'
+import { useAuthentication } from 'utilities/use-authentication'
 import * as yup from 'yup'
-import { useAuthentication } from '../../../../../utilities/use-authentication'
 
 type UserFormValues = Readonly<{
   username: string
@@ -30,7 +30,7 @@ export const useLoginForm = (initialValues: UserFormValues) => {
             navigate(state.from, { replace: true })
           }
         })
-        // Do not use finally to prevent "Can't perform a React state update on an unmounted component" warning
+        // Not using finally to prevent "Can't perform a React state update on an unmounted component" warning
         .catch(() => {
           setSubmitting(false)
         })

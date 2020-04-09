@@ -1,8 +1,8 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles'
-import React from 'react'
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming'
+import React from 'react'
 
 type Props = Readonly<{
   theme: ThemeOptions

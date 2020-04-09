@@ -1,6 +1,6 @@
+import { SerializedStyles } from '@emotion/core'
 import React from 'react'
 import { SpinnerStyle } from './spinner-style'
-import { SerializedStyles } from '@emotion/core'
 
 export type Props = Readonly<{
   color: string

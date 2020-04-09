@@ -1,7 +1,7 @@
-import { useTokenStorage } from './use-token-storage'
-import { navigate } from 'utilities/react-router-hooks'
 import { PageRoutes } from 'config/page-routes'
 import React from 'react'
+import { navigate } from 'utilities/react-router-hooks'
+import { useTokenStorage } from './use-token-storage'
 
 export type HTTP = Readonly<{
   fetch(url: RequestInfo, init?: RequestInit): Promise<Response>

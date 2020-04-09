@@ -1,8 +1,8 @@
-import * as yup from 'yup'
-import { Name, OnSubmitFunction, Schema } from 'types'
-import React from 'react'
 import { User } from 'api/use-user-api'
+import React from 'react'
+import { Name, OnSubmitFunction, Schema } from 'types'
 import { useLoggedInUser } from 'utilities/use-logged-in-user'
+import * as yup from 'yup'
 
 type UserFormValues = User
 

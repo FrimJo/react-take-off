@@ -1,5 +1,5 @@
-import React from 'react'
 import { useUserApi } from 'api/use-user-api'
+import React from 'react'
 import { useQuery, queryCache } from 'react-query'
 import useOptimisticMutation from './use-optimistic-mutation'
 

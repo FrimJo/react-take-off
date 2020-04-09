@@ -1,11 +1,10 @@
 // this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
 /** @jsx jsx */
-import { Fade, PropTypes, useTheme } from '@material-ui/core'
-import React from 'react'
 import { css, jsx } from '@emotion/core'
 import styled from '@emotion/styled'
-
+import { Fade, PropTypes, useTheme } from '@material-ui/core'
 import { Spinner } from 'components/spinner'
+import React from 'react'
 
 type Options = Readonly<{
   color?: string

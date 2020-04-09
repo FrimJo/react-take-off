@@ -1,5 +1,5 @@
-import { useHttpMiddleware } from 'utilities/use-http-middleware'
 import React from 'react'
+import { useHttpMiddleware } from 'utilities/use-http-middleware'
 import { User, mapApiUserToClientUser } from './use-user-api'
 
 const API_BASE_URL = 'https://reqres.in'

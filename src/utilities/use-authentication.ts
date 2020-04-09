@@ -1,8 +1,8 @@
+import { useAuthenticateApi } from 'api/use-authenticate-api'
 import React from 'react'
 import { useMutation, queryCache } from 'react-query'
-import { useAuthenticateApi } from 'api/use-authenticate-api'
-import { useTokenStorage } from 'utilities/use-token-storage'
 import { useRegisterStorage } from 'utilities/use-register-storage'
+import { useTokenStorage } from 'utilities/use-token-storage'
 
 export const useAuthentication = () => {
   const tokenStorage = useTokenStorage()

@@ -2,8 +2,8 @@
 
 import * as H from 'history'
 import { useContext } from 'react'
-import { history } from 'utilities/history'
 import { __RouterContext as RouterContext, RouteComponentProps, StaticContext } from 'react-router'
+import { history } from 'utilities/history'
 
 export type Path = H.Path
 export type LocationDescriptorObject = H.LocationDescriptorObject

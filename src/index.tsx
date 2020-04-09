@@ -1,8 +1,10 @@
-import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
-import { AI_INSTRUMENTATION_KEY, GA_TRACKING_ID } from 'config/variables'
+import 'react-app-polyfill/ie11' // This must be the first line
+import 'react-app-polyfill/stable'
 import 'core-js'
+import 'abortcontroller-polyfill/dist/abortcontroller-polyfill-only'
+
+import { AI_INSTRUMENTATION_KEY, GA_TRACKING_ID } from 'config/variables'
 import React from 'react'
-import 'react-app-polyfill/ie11'
 import ReactDOM from 'react-dom'
 import { App } from './components/app'
 import * as serviceWorker from './service-worker'
