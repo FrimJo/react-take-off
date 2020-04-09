@@ -23,7 +23,7 @@ This README describes the necessary steps to get a local development environment
 - [ ] Graph QL
 - [ ] Remove TS check on compile
 - [ ] Update Error boundery to use promise
-- [ ] Update to react-router v6
+- [ ] Update to react-router v6 (when in stable, still in alpha as per 2020-04-07)
 - [ ] Swtich to Parcel 2 over webpack (when in stable, still in alpha as per 2020-04-02)
 - [ ] Lint warnings for deepth rule for hooks are not auto fixed on save
 - [ ] Add page to change password at `/account/change-password`
