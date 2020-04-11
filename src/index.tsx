@@ -2,6 +2,7 @@ import 'react-app-polyfill/ie11' // This must be the first line
 import 'react-app-polyfill/stable'
 import 'core-js'
 import 'abortcontroller-polyfill/dist/abortcontroller-polyfill-only'
+import 'styles/index.css'
 
 import { AI_INSTRUMENTATION_KEY, GA_TRACKING_ID } from 'config/variables'
 import React from 'react'

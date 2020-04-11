@@ -13,7 +13,8 @@ import { THEME } from 'styles/theme'
 export const App: React.FC = () => {
   return (
     <LocalStorageContext.Provider>
-      <StylesProvider injectFirst={true}>
+      {/* Set injectFirst to false to have index.css load first (contains PostCSS Normalize)*/}
+      <StylesProvider injectFirst={false}>
         <ThemeProvider theme={THEME}>
           <Global styles={GlobalStyles} />
           <StatusSnackbar>
