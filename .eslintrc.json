@@ -5,6 +5,11 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:import/recommended",
+    "plugin:import/react",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended", // Uses the recommended rules from @typescript-eslint/eslint-plugin
     "plugin:jsx-a11y/recommended", // Uses the recommended rules from eslint-plugin-jsx-a11y
@@ -33,6 +38,7 @@
       "newlines-between": "never"
     }],
     "import/newline-after-import": [1, { "count": 1 }],
+    "import/no-unresolved": 0,
     "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
