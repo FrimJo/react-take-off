@@ -5,7 +5,7 @@ import { buildContext } from 'utilities/build-context'
 type LocalStorgateType = { [key in string]: any }
 const LOCAL_STORAGE_KEY = 'reactTakeOff'
 
-export function useLocalStorageContext() {
+function useLocalStorageContext() {
   const [storedValues, setStoredValues] = React.useState<LocalStorgateType>(() => {
     const itemJSON = window.localStorage.getItem(LOCAL_STORAGE_KEY)
     return itemJSON == null ? {} : JSON.parse(itemJSON)
