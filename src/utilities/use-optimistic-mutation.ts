@@ -36,7 +36,6 @@ export default function useOptimisticMutation<TResults, TVariables extends objec
 
       const updateQuery: string | [string, object] =
         typeof queryKey === 'string' ? queryKey : [queryKey[0], queryKey[1]]
-
       // Snapshot the previous value
       const previousTodo = queryCache.getQueryData<TResults>(updateQuery)
 
@@ -48,7 +47,6 @@ export default function useOptimisticMutation<TResults, TVariables extends objec
     },
     onError: (error, newVariables, previousVariables) => {
       queryCache.setQueryData(queryKey, previousVariables)
-      // return error;
     },
     onSettled: () => {
       return queryCache.refetchQueries(queryKey)

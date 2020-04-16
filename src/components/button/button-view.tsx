@@ -2,14 +2,13 @@
 import { css, jsx, SerializedStyles } from '@emotion/core'
 import { Button as MuiButton, useTheme } from '@material-ui/core'
 import { PaletteColor } from '@material-ui/core/styles/createPalette'
-import React from 'react'
+import * as React from 'react'
 import withSpinner from 'utilities/with-spinner'
 
 type MuiButtonProps = React.ComponentProps<typeof MuiButton>
 type Color = MuiButtonProps['color'] | 'error' | 'success'
 
 const createSerializedStyles = (paletteColor: PaletteColor): SerializedStyles => {
-  console.log('paletteColor', paletteColor)
   return css`
     color: ${paletteColor.contrastText};
     background-color: ${paletteColor.main};
@@ -40,7 +39,8 @@ type ButtonViewProps = Omit<MuiButtonProps, 'color'> & {
   color: Color
 }
 
-const ButtonView: React.FC<ButtonViewProps> = ({ color, ...rest }) => {
+const ButtonView: React.FC<ButtonViewProps> = (props) => {
+  const { color, ...rest } = props
   const style = useStateColor(color)
   return <MuiButton {...style} {...rest} />
 }

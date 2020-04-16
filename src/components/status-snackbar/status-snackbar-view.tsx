@@ -3,18 +3,15 @@ import { jsx, css } from '@emotion/core'
 import { Snackbar, IconButton, SnackbarContent, Theme } from '@material-ui/core'
 import { useTheme } from 'emotion-theming'
 import { AlertCircle, Close } from 'mdi-material-ui'
-import React from 'react'
+import * as React from 'react'
 
 type StatusSnackbarViewProps = Readonly<{
   open: boolean
   message: React.ReactNode
   onClose?: () => void
 }>
-export const StatusSnackbarView: React.FC<StatusSnackbarViewProps> = ({
-  open,
-  message,
-  onClose,
-}) => {
+export const StatusSnackbarView: React.FC<StatusSnackbarViewProps> = (props) => {
+  const { open, message, onClose } = props
   const theme = useTheme<Theme>()
   const onCloseRef = React.useRef(onClose)
 

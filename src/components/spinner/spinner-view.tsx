@@ -1,5 +1,5 @@
 import { SerializedStyles } from '@emotion/core'
-import React from 'react'
+import * as React from 'react'
 import { SpinnerStyle } from './spinner-style'
 
 export type Props = Readonly<{
@@ -9,8 +9,8 @@ export type Props = Readonly<{
   css?: SerializedStyles
 }>
 
-export const SpinnerView: React.FC<Props> = ({ className, size = 64, ...props }) => (
-  <SpinnerStyle size={size} className={className ?? ''} {...props}>
+export const SpinnerView: React.FC<Props> = ({ className, size = 64, ...rest }) => (
+  <SpinnerStyle size={size} className={className ?? ''} {...rest}>
     <div />
     <div />
     <div />

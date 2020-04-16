@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react'
+import * as React from 'react'
 import { buildContext } from 'utilities/build-context'
 
 type LocalStorgateType = { [key in string]: any }

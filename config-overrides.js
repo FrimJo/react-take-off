@@ -1,6 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { override } = require('customize-cra')
+const path = require('path')
+const { override, useEslintRc } = require('customize-cra')
 const { addReactRefresh } = require('customize-cra-react-refresh')
 
-/* config-overrides.js */
-module.exports = override(addReactRefresh({ disableRefreshCheck: true }))
+module.exports = override(
+  useEslintRc(path.resolve(__dirname, '.eslintrc.json')),
+  addReactRefresh({ disableRefreshCheck: true })
+)

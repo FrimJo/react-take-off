@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core'
+import * as React from 'react'
 import { Button } from 'components/button'
 import { DisplayUser } from 'components/display-user'
-import React from 'react'
 import { useAuthentication } from 'utilities/use-authentication'
 import { UserPage } from './components/user-page'
 

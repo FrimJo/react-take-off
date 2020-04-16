@@ -1,9 +1,9 @@
 import { Button as MuiButton, Typography } from '@material-ui/core'
+import { ErrorMessage, Field, Form, Formik } from 'formik'
+import * as React from 'react'
+import { Link } from 'react-router-dom'
 import { Button } from 'components/button'
 import { PageRoutes } from 'config/page-routes'
-import { ErrorMessage, Field, Form, Formik } from 'formik'
-import React from 'react'
-import { Link } from 'react-router-dom'
 import { useRegister } from './utilities/use-register'
 import { useRegisterForm } from './utilities/use-register-form'
 

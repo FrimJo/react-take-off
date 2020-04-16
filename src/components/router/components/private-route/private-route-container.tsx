@@ -1,6 +1,6 @@
-import { PageRoutes } from 'config/page-routes'
-import React from 'react'
+import * as React from 'react'
 import { Redirect, Route, RouteProps } from 'react-router-dom'
+import { PageRoutes } from 'config/page-routes'
 import { history } from 'utilities/history'
 import { useAuthentication } from 'utilities/use-authentication'
 import { useTokenStorage } from 'utilities/use-token-storage'

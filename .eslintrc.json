@@ -1,7 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "react", "prettier", "react-hooks", "jsx-a11y", "import"],
+  "plugins": ["@typescript-eslint", "react", "prettier", "react-hooks", "import"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -38,15 +38,23 @@
       "newlines-between": "never"
     }],
     "import/newline-after-import": [1, { "count": 1 }],
-    "import/no-unresolved": 0,
-    "react/prop-types": "off",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "prettier/prettier": "warn",
-    "@typescript-eslint/explicit-function-return-type": "off",
+    "react/prop-types": 0,
+    "react-hooks/rules-of-hooks": 2,
+    "react-hooks/exhaustive-deps": 1,
+    "prettier/prettier": 1,
+    "@typescript-eslint/explicit-function-return-type": ["off"],
     "@typescript-eslint/interface-name-prefix": [1, { "prefixWithI": "always" }]
   },
   "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      // use <root>/tsconfig.json
+      "typescript": {
+        "alwaysTryTypes": true // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+      }
+    },
     "react": {
       "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
     },

@@ -1,9 +1,9 @@
+import { RouteProps } from 'react-router'
 import { LoginPage } from 'pages/account/pages/login-page'
 import { RegisterPage } from 'pages/account/pages/register-page'
 import { PrivatePage } from 'pages/private-page'
 import { StartPage } from 'pages/start-page'
 import { UnauthorizedPage } from 'pages/unauthorized-page'
-import { RouteProps } from 'react-router'
 
 interface IPageRoute extends Omit<RouteProps, 'path' | 'component'> {
   component: React.ComponentType

@@ -1,8 +1,8 @@
+import * as React from 'react'
+import * as yup from 'yup'
 import { PageRoutes } from 'config/page-routes'
-import React from 'react'
 import { Name, OnSubmitFunction } from 'types'
 import { navigate } from 'utilities/react-router-hooks'
-import * as yup from 'yup'
 import { useRegister } from './use-register'
 
 type FormValues = Readonly<{

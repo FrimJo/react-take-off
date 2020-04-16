@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import * as React from 'react'
 import { API_URL } from 'config/variables'
-import React from 'react'
 import { useHttpMiddleware } from 'utilities/use-http-middleware'
 
 export type User = {

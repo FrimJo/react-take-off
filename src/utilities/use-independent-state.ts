@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import * as React from 'react'
+import { Dispatch, SetStateAction } from 'react'
 
 /**
  * This hook is similar to React.useState, but is not required as dependecy when

@@ -1,6 +1,6 @@
-import { useUserApi } from 'api/use-user-api'
-import React from 'react'
+import * as React from 'react'
 import { useQuery, queryCache } from 'react-query'
+import { useUserApi } from 'api/use-user-api'
 import useOptimisticMutation from './use-optimistic-mutation'
 
 export const useUser = (props: { id?: number }) => {

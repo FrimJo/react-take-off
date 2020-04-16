@@ -3,8 +3,8 @@
 import { css, jsx } from '@emotion/core'
 import styled from '@emotion/styled'
 import { Fade, PropTypes, useTheme } from '@material-ui/core'
+import * as React from 'react'
 import { Spinner } from 'components/spinner'
-import React from 'react'
 
 type Options = Readonly<{
   color?: string

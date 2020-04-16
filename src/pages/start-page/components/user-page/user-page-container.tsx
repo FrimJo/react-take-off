@@ -1,5 +1,5 @@
+import * as React from 'react'
 import { Button } from 'components/button'
-import React from 'react'
 import { useLoggedInUser } from 'utilities/use-logged-in-user'
 import { UserPageView } from './user-page-view'
 

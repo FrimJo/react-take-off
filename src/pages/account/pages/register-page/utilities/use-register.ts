@@ -1,6 +1,6 @@
-import { useAuthenticateApi } from 'api/use-authenticate-api'
-import React from 'react'
+import * as React from 'react'
 import { useMutation } from 'react-query'
+import { useAuthenticateApi } from 'api/use-authenticate-api'
 import { useRegisterStorage } from 'utilities/use-register-storage'
 
 export const useRegister = () => {

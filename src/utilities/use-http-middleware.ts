@@ -1,5 +1,5 @@
+import * as React from 'react'
 import { PageRoutes } from 'config/page-routes'
-import React from 'react'
 import { navigate } from 'utilities/react-router-hooks'
 import { useTokenStorage } from './use-token-storage'
 

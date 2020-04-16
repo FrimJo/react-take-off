@@ -1,5 +1,5 @@
+import * as React from 'react'
 import { LocalStorageContext } from 'contexts/local-storage-context'
-import React from 'react'
 
 export function useLocalStorage<IStorage>(key: string) {
   const { storedValues } = LocalStorageContext.useState()

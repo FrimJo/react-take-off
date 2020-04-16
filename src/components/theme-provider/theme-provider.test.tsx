@@ -7,7 +7,7 @@ import {
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import { cleanup, render } from '@testing-library/react'
 import { useTheme as useEmotionTheme } from 'emotion-theming'
-import React from 'react'
+import * as React from 'react'
 import { ThemeProvider } from '.'
 
 afterEach(cleanup)

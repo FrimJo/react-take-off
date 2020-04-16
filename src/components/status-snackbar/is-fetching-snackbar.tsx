@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import { Snackbar, SnackbarContent, Theme } from '@material-ui/core'
-import { Spinner } from 'components/spinner'
 import { useTheme } from 'emotion-theming'
-import React from 'react'
+import * as React from 'react'
 import { useIsFetching } from 'react-query'
+import { Spinner } from 'components/spinner'
 import { useDebounce } from 'utilities/use-debounce'
 
 export const IsFetchingSnackbar: React.FC = () => {

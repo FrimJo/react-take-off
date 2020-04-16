@@ -1,10 +1,10 @@
+import * as React from 'react'
+import * as yup from 'yup'
 import { PageRoutes } from 'config/page-routes'
-import React from 'react'
 import { Name, OnSubmitFunction } from 'types'
 import { history } from 'utilities/history'
 import { navigate } from 'utilities/react-router-hooks'
 import { useAuthentication } from 'utilities/use-authentication'
-import * as yup from 'yup'
 
 type UserFormValues = Readonly<{
   username: string

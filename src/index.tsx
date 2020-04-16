@@ -4,9 +4,9 @@ import 'core-js'
 import 'abortcontroller-polyfill/dist/abortcontroller-polyfill-only'
 import 'styles/index.css'
 
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 import { AI_INSTRUMENTATION_KEY, GA_TRACKING_ID } from 'config/variables'
-import React from 'react'
-import ReactDOM from 'react-dom'
 import { App } from './components/app'
 import * as serviceWorker from './service-worker'
 
