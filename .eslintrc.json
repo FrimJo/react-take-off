@@ -42,7 +42,7 @@
     "react-hooks/rules-of-hooks": 2,
     "react-hooks/exhaustive-deps": 1,
     "prettier/prettier": 1,
-    "@typescript-eslint/explicit-function-return-type": ["off"],
+    "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/interface-name-prefix": [1, { "prefixWithI": "always" }]
   },
   "settings": {
