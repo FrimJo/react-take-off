@@ -11,6 +11,7 @@ export const useLoggedInUser = () => {
   if (loggedInUser.user === undefined) {
     throw Error('Logged in user is only accessible within a <PrivateRoute> component')
   }
+
   return {
     ...loggedInUser,
     user: loggedInUser.user,

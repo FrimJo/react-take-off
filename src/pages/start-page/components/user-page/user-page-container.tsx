@@ -4,12 +4,12 @@ import { useLoggedInUser } from 'utilities/use-logged-in-user'
 import { UserPageView } from './user-page-view'
 
 export const UserPageContainer: React.FC = () => {
-  const { error, user } = useLoggedInUser()
+  const { error, user, status } = useLoggedInUser()
   const [isEdit, setIsEdit] = React.useState(false)
 
   return (
     <div>
-      {error ? (
+      {status === 'error' && typeof error === 'string' ? (
         <p>{error}</p>
       ) : isEdit ? (
         <UserPageView initialValues={user} onClose={() => setIsEdit(false)} />
