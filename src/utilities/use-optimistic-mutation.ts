@@ -4,8 +4,8 @@ import {
   MutationFunction,
   MutationOptions,
   MutateFunction,
-  MutationState,
-  QueryKey,
+  MutationResult,
+  AnyQueryKey,
 } from 'react-query'
 
 type OptimisticMutateFunction<TResults, TVariables extends object> = MutateFunction<
@@ -23,10 +23,10 @@ type OptimisticMutateFunction<TResults, TVariables extends object> = MutateFunct
  * @param mutationOptions Options to use in the useMutation hook.
  */
 export default function useOptimisticMutation<TResults, TVariables extends object>(
-  queryKey: QueryKey,
+  queryKey: AnyQueryKey | string,
   mutationFn: MutationFunction<TResults, TVariables>,
   mutationOptions: MutationOptions<TResults, TVariables> = {}
-): [OptimisticMutateFunction<TResults, TVariables>, MutationState<TResults>] {
+): [OptimisticMutateFunction<TResults, TVariables>, MutationResult<TResults>] {
   return useMutation(mutationFn, {
     ...mutationOptions,
     onMutate: (newVariables) => {
@@ -34,10 +34,8 @@ export default function useOptimisticMutation<TResults, TVariables extends objec
         return undefined
       }
 
-      const updateQuery: string | [string, object] =
-        typeof queryKey === 'string' ? queryKey : [queryKey[0], queryKey[1]]
       // Snapshot the previous value
-      const previousTodo = queryCache.getQueryData<TResults>(updateQuery)
+      const previousTodo = queryCache.getQueryData(queryKey) as TResults
 
       // Optimistically update to the new value
       queryCache.setQueryData(queryKey, newVariables)
