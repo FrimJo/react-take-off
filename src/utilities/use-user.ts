@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useQuery, queryCache } from 'react-query'
+import useOptimisticMutation from 'use-optimistic-mutation'
 import { useUserApi } from 'api/use-user-api'
-import useOptimisticMutation from './use-optimistic-mutation'
 
 export const useUser = (props: { id?: number }) => {
   const { id } = props

@@ -11670,6 +11670,11 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
+use-optimistic-mutation@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/use-optimistic-mutation/-/use-optimistic-mutation-0.2.0.tgz#f27ed43dd3144e827b00a2706b7fc2a4eed89bf0"
+  integrity sha512-mIOnQqwVnH4OJKfoOmqGkbUxA4dbXbTTUHnNU/LlqGA3NP12gBsfZ14LuJ8fViSqOO7Uf7S7ZZDVBjqLAzyXKA==
+
 use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
