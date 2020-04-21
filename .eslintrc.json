@@ -43,7 +43,8 @@
     "react-hooks/exhaustive-deps": 1,
     "prettier/prettier": 1,
     "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/interface-name-prefix": [1, { "prefixWithI": "always" }]
+    "@typescript-eslint/interface-name-prefix": [1, { "prefixWithI": "always" }],
+    "no-irregular-whitespace": 1
   },
   "settings": {
     "import/parsers": {
