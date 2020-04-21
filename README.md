@@ -28,6 +28,7 @@ This README describes the necessary steps to get a local development environment
 - [ ] Lint warnings for deepth rule for hooks are not auto fixed on save
 - [ ] Add page to change password at `/account/change-password`
 - [ ] Add page for forgot password at `/account/forgot-password`
+- [ ] To get a more generic boilerplate, switch from Materialdesign to Reach UI
 
 ### Prerequisites
 
