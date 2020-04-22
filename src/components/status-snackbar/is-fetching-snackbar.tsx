@@ -7,11 +7,13 @@ import { useIsFetching } from 'react-query'
 import { Spinner } from 'components/spinner'
 import { useDebounce } from 'utilities/use-debounce'
 
+const DEBOUNCE_DELAY_IN_MILLISECONDS = 400
+
 export const IsFetchingSnackbar: React.FC = () => {
   const theme = useTheme<Theme>()
   const fetchCount = useIsFetching()
   const isFetching = React.useMemo(() => fetchCount > 0, [fetchCount])
-  const debouncedIsFetching = useDebounce(isFetching, 1000)
+  const debouncedIsFetching = useDebounce(isFetching, DEBOUNCE_DELAY_IN_MILLISECONDS)
 
   return (
     <Snackbar

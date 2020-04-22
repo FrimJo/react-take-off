@@ -9,13 +9,9 @@ type UserFormValues = User
 // Define the hook to be used to leverage this form
 export const useUserForm = (initialValues: UserFormValues) => {
   const { update } = useLoggedInUser()
-
-  const onSubmit: OnSubmitFunction<UserFormValues> = React.useCallback(
-    (user) => {
-      update(user)
-    },
-    [update]
-  )
+  const onSubmit: OnSubmitFunction<UserFormValues> = React.useCallback((user) => update(user), [
+    update,
+  ])
 
   const validationSchema: Schema<UserFormValues> = React.useMemo(
     () =>

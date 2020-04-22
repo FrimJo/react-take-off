@@ -1,6 +1,7 @@
 import { Global } from '@emotion/core'
 import { StylesProvider } from '@material-ui/styles'
 import * as React from 'react'
+import { ReactQueryConfigProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query-devtools'
 import { Router } from 'components/router'
 import { StatusSnackbar } from 'components/status-snackbar'
@@ -10,6 +11,8 @@ import { LocalStorageContext } from 'contexts/local-storage-context'
 import { GlobalStyles } from 'styles/global-styles'
 import { THEME } from 'styles/theme'
 
+const queryConfig = {}
+
 export const App: React.FC = () => {
   return (
     <LocalStorageContext.Provider>
@@ -17,10 +20,12 @@ export const App: React.FC = () => {
       <StylesProvider injectFirst={false}>
         <ThemeProvider theme={THEME}>
           <Global styles={GlobalStyles} />
-          <StatusSnackbar>
-            <Router />
-          </StatusSnackbar>
-          <IsFetchingSnackbar />
+          <ReactQueryConfigProvider config={queryConfig}>
+            <StatusSnackbar>
+              <Router />
+            </StatusSnackbar>
+            <IsFetchingSnackbar />
+          </ReactQueryConfigProvider>
         </ThemeProvider>
       </StylesProvider>
       <ReactQueryDevtools initialIsOpen={false} />

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { ErrorMessage, Field, Form, Formik, FormikConfig } from 'formik'
 import * as React from 'react'
 import { User } from 'api/use-user-api'
 import { Button } from 'components/button'
@@ -11,15 +11,18 @@ const Wrapper = styled.div`
   width: 200px;
 `
 
-type UserPageViewProps = Readonly<{ initialValues: User; onClose?: () => void }>
+type UserPageViewProps = Readonly<{
+  initialValues: User
+  onClose?: () => void
+}>
 export const UserPageView: React.FC<UserPageViewProps> = ({ initialValues, onClose }) => {
   const { name, onSubmit, ...formikProps } = useUserForm(initialValues)
 
   // Highjack to close edit view
-  const handleSubmit = React.useCallback<typeof onSubmit>(
+  const handleSubmit = React.useCallback<FormikConfig<User>['onSubmit']>(
     (...args) => {
       onSubmit(...args)
-      if (onClose !== undefined) onClose()
+      onClose?.()
     },
     [onClose, onSubmit]
   )

@@ -1,14 +1,15 @@
 import * as React from 'react'
-import { useQuery, queryCache } from 'react-query'
+import { useQuery, queryCache, BaseQueryOptions } from 'react-query'
 import useOptimisticMutation from 'use-optimistic-mutation'
 import { useUserApi } from 'api/use-user-api'
 
-export const useUser = (props: { id?: number }) => {
-  const { id } = props
+export const useUser = (id?: number, config?: BaseQueryOptions) => {
   const api = useUserApi()
 
-  const { data: user, refetch, ...state } = useQuery(id !== undefined && ['user', id], (key, id) =>
-    api.getSingle(id)
+  const { data: user, refetch, ...state } = useQuery(
+    id !== undefined && ['user', id],
+    (key, id) => api.getSingle(id),
+    config
   )
 
   const [update] = useOptimisticMutation(['user', id], api.update)

@@ -9,7 +9,7 @@ import { useUser } from 'utilities/use-user'
 const PrivateComponent: React.FC = ({ children }) => {
   // Fetch status of logged in user
   const tokenStorage = useTokenStorage()
-  const { status } = useUser({ id: tokenStorage.value?.id })
+  const { status } = useUser(tokenStorage.value?.id)
 
   if (status === 'success') {
     // authorized and user received so return component

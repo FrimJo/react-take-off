@@ -4,7 +4,7 @@ import { useLoggedInUser } from 'utilities/use-logged-in-user'
 import { UserPageView } from './user-page-view'
 
 export const UserPageContainer: React.FC = () => {
-  const { error, user, status } = useLoggedInUser()
+  const { error, user, status } = useLoggedInUser({ staleTime: 1000 * 60 * 5 })
   const [isEdit, setIsEdit] = React.useState(false)
 
   return (
