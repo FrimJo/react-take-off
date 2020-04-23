@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react'
-import { StatusSnackbarView } from './status-snackbar-view'
+import { StatusSnackbarErrorView } from './status-snackbar-error-view'
 
 type State = Readonly<
   | {
@@ -47,7 +47,7 @@ export class StatusSnackbarErrorBoundary extends React.Component<{}, State> {
         this.state.error instanceof Error
           ? this.state.error.message
           : 'Unknown error occurred, see console for details'
-      return <StatusSnackbarView open={true} message={message} onClose={this.handleToggle} />
+      return <StatusSnackbarErrorView open={true} message={message} onClose={this.handleToggle} />
     }
 
     return this.props.children

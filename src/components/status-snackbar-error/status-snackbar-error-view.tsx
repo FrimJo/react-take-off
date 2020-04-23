@@ -1,19 +1,19 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core'
-import { Snackbar, SnackbarContent, Theme } from '@material-ui/core'
+import { jsx, css } from '@emotion/core'
+import { Snackbar, IconButton, SnackbarContent, Theme } from '@material-ui/core'
 import { useTheme } from 'emotion-theming'
+import { AlertCircle, Close } from 'mdi-material-ui'
 import * as React from 'react'
-import { useIsFetching } from 'react-query'
-import { Spinner } from 'components/spinner'
-import { useDebounce } from 'utilities/use-debounce'
 
-const DEBOUNCE_DELAY_IN_MILLISECONDS = 400
-
-export const IsFetchingSnackbar: React.FC = () => {
+type StatusSnackbarErrorViewProps = Readonly<{
+  open: boolean
+  message: React.ReactNode
+  onClose?: () => void
+}>
+export const StatusSnackbarErrorView: React.FC<StatusSnackbarErrorViewProps> = (props) => {
+  const { open, message, onClose } = props
   const theme = useTheme<Theme>()
-  const fetchCount = useIsFetching()
-  const isFetching = React.useMemo(() => fetchCount > 0, [fetchCount])
-  const debouncedIsFetching = useDebounce(isFetching, DEBOUNCE_DELAY_IN_MILLISECONDS)
+  const onCloseRef = React.useRef(onClose)
 
   return (
     <Snackbar
@@ -21,10 +21,11 @@ export const IsFetchingSnackbar: React.FC = () => {
         vertical: 'bottom',
         horizontal: 'center',
       }}
-      open={isFetching && debouncedIsFetching}>
+      open={open}
+      onClose={onCloseRef.current}>
       <SnackbarContent
         css={css`
-          background-color: ${theme.palette.primary.main};
+          background-color: ${theme.palette.error.main};
           display: flex;
           justify-content: space-between;
           flex-wrap: nowrap;
@@ -47,16 +48,15 @@ export const IsFetchingSnackbar: React.FC = () => {
               }
             `}
             id="client-snackbar">
-            <Spinner
-              color="white"
-              size={20}
-              css={css`
-                margin-right: 8px;
-              `}
-            />
-            {'Loading...'}
+            <AlertCircle fontSize="small" />
+            {message}
           </span>
         }
+        action={[
+          <IconButton key="close" aria-label="close" onClick={onCloseRef.current}>
+            <Close />
+          </IconButton>,
+        ]}
       />
     </Snackbar>
   )

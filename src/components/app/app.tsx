@@ -3,9 +3,9 @@ import { StylesProvider } from '@material-ui/styles'
 import * as React from 'react'
 import { ReactQueryConfigProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query-devtools'
+import { IsFetchingSnackbarView } from 'components/is-fetching-snackbar/is-fetching-snackbar-view'
 import { Router } from 'components/router'
-import { StatusSnackbar } from 'components/status-snackbar'
-import { IsFetchingSnackbar } from 'components/status-snackbar/is-fetching-snackbar'
+import { StatusSnackbar } from 'components/status-snackbar-error'
 import { ThemeProvider } from 'components/theme-provider'
 import { LocalStorageContext } from 'contexts/local-storage-context'
 import { GlobalStyles } from 'styles/global-styles'
@@ -24,7 +24,7 @@ export const App: React.FC = () => {
             <StatusSnackbar>
               <Router />
             </StatusSnackbar>
-            <IsFetchingSnackbar />
+            <IsFetchingSnackbarView />
           </ReactQueryConfigProvider>
         </ThemeProvider>
       </StylesProvider>

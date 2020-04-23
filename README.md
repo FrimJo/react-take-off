@@ -29,6 +29,7 @@ This README describes the necessary steps to get a local development environment
 - [ ] Add page to change password at `/account/change-password`
 - [ ] Add page for forgot password at `/account/forgot-password`
 - [ ] To get a more generic boilerplate, switch from Materialdesign to Reach UI
+- [ ] Keep an eye out for [Remix](https://remix.run/)
 
 ### Prerequisites
 

@@ -1,19 +1,19 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { Snackbar, IconButton, SnackbarContent, Theme } from '@material-ui/core'
+import { css, jsx } from '@emotion/core'
+import { Snackbar, SnackbarContent, Theme } from '@material-ui/core'
 import { useTheme } from 'emotion-theming'
-import { AlertCircle, Close } from 'mdi-material-ui'
 import * as React from 'react'
+import { useIsFetching } from 'react-query'
+import { Spinner } from 'components/spinner'
+import { useDebounce } from 'utilities/use-debounce'
 
-type StatusSnackbarViewProps = Readonly<{
-  open: boolean
-  message: React.ReactNode
-  onClose?: () => void
-}>
-export const StatusSnackbarView: React.FC<StatusSnackbarViewProps> = (props) => {
-  const { open, message, onClose } = props
+const DEBOUNCE_DELAY_IN_MILLISECONDS = 400
+
+export const IsFetchingSnackbarView: React.FC = () => {
   const theme = useTheme<Theme>()
-  const onCloseRef = React.useRef(onClose)
+  const fetchCount = useIsFetching()
+  const isFetching = React.useMemo(() => fetchCount > 0, [fetchCount])
+  const debouncedIsFetching = useDebounce(isFetching, DEBOUNCE_DELAY_IN_MILLISECONDS)
 
   return (
     <Snackbar
@@ -21,11 +21,10 @@ export const StatusSnackbarView: React.FC<StatusSnackbarViewProps> = (props) => 
         vertical: 'bottom',
         horizontal: 'center',
       }}
-      open={open}
-      onClose={onCloseRef.current}>
+      open={isFetching && debouncedIsFetching}>
       <SnackbarContent
         css={css`
-          background-color: ${theme.palette.error.main};
+          background-color: ${theme.palette.primary.main};
           display: flex;
           justify-content: space-between;
           flex-wrap: nowrap;
@@ -48,15 +47,16 @@ export const StatusSnackbarView: React.FC<StatusSnackbarViewProps> = (props) => 
               }
             `}
             id="client-snackbar">
-            <AlertCircle fontSize="small" />
-            {message}
+            <Spinner
+              color="white"
+              size={20}
+              css={css`
+                margin-right: 8px;
+              `}
+            />
+            {'Loading...'}
           </span>
         }
-        action={[
-          <IconButton key="close" aria-label="close" onClick={onCloseRef.current}>
-            <Close />
-          </IconButton>,
-        ]}
       />
     </Snackbar>
   )
