@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core'
+import { css, jsx } from '@emotion/core'
 import { Snackbar, IconButton, SnackbarContent, Theme } from '@material-ui/core'
 import { useTheme } from 'emotion-theming'
 import { AlertCircle, Close } from 'mdi-material-ui'

@@ -20,7 +20,7 @@ export const useLoginForm = (initialValues: UserFormValues) => {
   const { login } = useAuthentication()
 
   const onSubmit: OnSubmitFunction<UserFormValues> = React.useCallback(
-    (credentials, { setSubmitting }) => {
+    (credentials, { setSubmitting, setStatus }) => {
       login(credentials)
         .then(() => {
           // Navigate user
@@ -31,7 +31,8 @@ export const useLoginForm = (initialValues: UserFormValues) => {
           }
         })
         // Not using finally to prevent "Can't perform a React state update on an unmounted component" warning
-        .catch(() => {
+        .catch((error) => {
+          setStatus({ error })
           setSubmitting(false)
         })
     },

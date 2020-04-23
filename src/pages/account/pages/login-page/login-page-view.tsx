@@ -17,7 +17,7 @@ export const LoginPageView: React.FC = () => {
     <>
       <Typography variant="h1">Authenticate</Typography>
       <Formik {...formikProps}>
-        {({ isSubmitting, dirty, isValid }) => (
+        {({ isSubmitting, dirty, isValid, status: formikStatus }) => (
           <Form>
             <Field name={name.username} />
             <ErrorMessage name={name.username} />
@@ -32,6 +32,7 @@ export const LoginPageView: React.FC = () => {
               login
             </Button>
             {status === 'error' && <pre>{JSON.stringify(error, null, '\t')}</pre>}
+            {!!formikStatus?.error && formikStatus?.error.message}
           </Form>
         )}
       </Formik>

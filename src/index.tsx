@@ -12,8 +12,8 @@ import * as serviceWorker from './service-worker'
 
 if (process.env.NODE_ENV !== 'production') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const axe = require('react-axe')
-  axe(React, ReactDOM, 1000)
+  // const axe = require('react-axe')
+  // axe(React, ReactDOM, 1000)
 } else if (process.env.NODE_ENV === 'production') {
   // Google Analytics
   // Add variable REACT_APP_GA_TRACKING_ID to DevOps build pipeline for cloud environments
