@@ -32,11 +32,14 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "import/order": [1, {
-      "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
-      "alphabetize": { "order": "asc", "caseInsensitive": true },
-      "newlines-between": "never"
-    }],
+    "import/order": [
+      1,
+      {
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "alphabetize": { "order": "asc", "caseInsensitive": true },
+        "newlines-between": "never"
+      }
+    ],
     "import/newline-after-import": [1, { "count": 1 }],
     "react/prop-types": 0,
     "react-hooks/rules-of-hooks": 2,
@@ -62,7 +65,7 @@
     "linkComponents": [
       // Components used as alternatives to <a> for linking, eg. <Link to={ url } />
       "Hyperlink",
-      {"name": "Link", "linkAttribute": "to"}
+      { "name": "Link", "linkAttribute": "to" }
     ]
   },
   "globals": {
