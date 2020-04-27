@@ -4,13 +4,13 @@ import { SpinnerStyle } from './spinner-style'
 
 export type Props = Readonly<{
   color: string
-  className?: string | null
+  className?: string
   size?: number
   css?: SerializedStyles
 }>
 
 export const SpinnerView: React.FC<Props> = ({ className, size = 64, ...rest }) => (
-  <SpinnerStyle size={size} className={className ?? ''} {...rest}>
+  <SpinnerStyle size={size} className={className} {...rest}>
     <div />
     <div />
     <div />

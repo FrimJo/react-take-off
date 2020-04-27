@@ -21,5 +21,5 @@ export function useLocalStorage<IStorage>(key: string) {
 
   const clear = React.useCallback(() => clearValue(key), [clearValue, key])
 
-  return { value, set, clear }
+  return React.useMemo(() => ({ value, set, clear }), [clear, set, value])
 }

@@ -5,7 +5,7 @@ import { ReactQueryConfigProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query-devtools'
 import { IsFetchingSnackbarView } from 'components/is-fetching-snackbar/is-fetching-snackbar-view'
 import { Router } from 'components/router'
-import { StatusSnackbar } from 'components/status-snackbar-error'
+import { StatusSnackbarError } from 'components/status-snackbar-error'
 import { ThemeProvider } from 'components/theme-provider'
 import { LocalStorageContext } from 'contexts/local-storage-context'
 import { GlobalStyles } from 'styles/global-styles'
@@ -21,9 +21,9 @@ export const App: React.FC = () => {
         <ThemeProvider theme={THEME}>
           <Global styles={GlobalStyles} />
           <ReactQueryConfigProvider config={queryConfig}>
-            <StatusSnackbar>
+            <StatusSnackbarError>
               <Router />
-            </StatusSnackbar>
+            </StatusSnackbarError>
             <IsFetchingSnackbarView />
           </ReactQueryConfigProvider>
         </ThemeProvider>

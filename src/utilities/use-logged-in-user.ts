@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { BaseQueryOptions } from 'react-query/types'
 import { useTokenStorage } from './use-token-storage'
 import { useUser } from './use-user'
@@ -9,12 +10,15 @@ export const useLoggedInUser = (config?: BaseQueryOptions) => {
   }
 
   const loggedInUser = useUser(tokenStorage.value.id, config)
-  if (loggedInUser.user === undefined) {
+  const { user } = loggedInUser
+  if (user === undefined) {
     throw Error('Logged in user is only accessible within a <PrivateRoute> component')
   }
-
-  return {
-    ...loggedInUser,
-    user: loggedInUser.user,
-  }
+  return React.useMemo(
+    () => ({
+      ...loggedInUser,
+      user,
+    }),
+    [loggedInUser, user]
+  )
 }

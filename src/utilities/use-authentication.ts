@@ -42,11 +42,14 @@ export const useAuthentication = () => {
     [api, loginFromApi, registerStorage.value, tokenStorage]
   )
 
-  return {
-    error,
-    status,
-    isLoggedIn,
-    login,
-    logout,
-  }
+  return React.useMemo(
+    () => ({
+      error,
+      status,
+      isLoggedIn,
+      login,
+      logout,
+    }),
+    [error, isLoggedIn, login, logout, status]
+  )
 }

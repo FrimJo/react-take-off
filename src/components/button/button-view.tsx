@@ -18,21 +18,23 @@ const createSerializedStyles = (paletteColor: PaletteColor): SerializedStyles =>
   `
 }
 
-const useStateColor = (
+export const useStateColor = (
   color: Color
 ): { css?: SerializedStyles; color?: MuiButtonProps['color'] } => {
   const theme = useTheme()
-  switch (color) {
-    case 'error':
-    case 'success':
-      return {
-        css: createSerializedStyles(theme.palette[color]),
-      }
-    default:
-      return {
-        color,
-      }
-  }
+  return React.useMemo(() => {
+    switch (color) {
+      case 'error':
+      case 'success':
+        return {
+          css: createSerializedStyles(theme.palette[color]),
+        }
+      default:
+        return {
+          color,
+        }
+    }
+  }, [color, theme.palette])
 }
 
 type ButtonViewProps = Omit<MuiButtonProps, 'color'> & {

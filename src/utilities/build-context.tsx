@@ -49,6 +49,7 @@ export function buildContext<S, A, P extends object>(
       </StateContext.Consumer>
     )
   }
+
   const ActionsConsumer: React.SFC<{
     children: (actions: A) => React.ReactNode
   }> = ({ children }) => {

@@ -13,7 +13,6 @@ type StatusSnackbarErrorViewProps = Readonly<{
 export const StatusSnackbarErrorView: React.FC<StatusSnackbarErrorViewProps> = (props) => {
   const { open, message, onClose } = props
   const theme = useTheme<Theme>()
-  const onCloseRef = React.useRef(onClose)
 
   return (
     <Snackbar
@@ -22,7 +21,7 @@ export const StatusSnackbarErrorView: React.FC<StatusSnackbarErrorViewProps> = (
         horizontal: 'center',
       }}
       open={open}
-      onClose={onCloseRef.current}>
+      onClose={onClose}>
       <SnackbarContent
         css={css`
           background-color: ${theme.palette.error.main};
@@ -53,7 +52,7 @@ export const StatusSnackbarErrorView: React.FC<StatusSnackbarErrorViewProps> = (
           </span>
         }
         action={[
-          <IconButton key="close" aria-label="close" onClick={onCloseRef.current}>
+          <IconButton key="close" aria-label="close" onClick={onClose}>
             <Close />
           </IconButton>,
         ]}

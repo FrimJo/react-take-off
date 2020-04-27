@@ -27,16 +27,20 @@ function useLocalStorageContext() {
     [storedValues]
   )
 
-  const clearValue = (key: string) => {
+  const clearValue = React.useCallback((key: string) => {
     setStoredValues((prevValues: any) => {
       const values = { ...prevValues }
       delete values[key]
       window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(values))
       return values
     })
-  }
+  }, [])
 
-  return { state: { storedValues }, actions: { setValue, clearValue } }
+  return React.useMemo(() => ({ state: { storedValues }, actions: { setValue, clearValue } }), [
+    clearValue,
+    setValue,
+    storedValues,
+  ])
 }
 
 export const LocalStorageContext = buildContext(useLocalStorageContext, 'LocalStorageContext')

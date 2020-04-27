@@ -7,13 +7,15 @@ import { PageRoutes } from 'config/page-routes'
 import { useRegister } from './utilities/use-register'
 import { useRegisterForm } from './utilities/use-register-form'
 
+const initialValues = {
+  email: 'george.bluth@reqres.in',
+  password: 'qwerty123!',
+  repeatPassword: '',
+}
+
 export const RegisterPageView: React.FC = () => {
   const { status, error } = useRegister()
-  const { name, ...formikProps } = useRegisterForm({
-    email: 'george.bluth@reqres.in',
-    password: 'qwerty123!',
-    repeatPassword: '',
-  })
+  const { name, ...formikProps } = useRegisterForm(initialValues)
   return (
     <>
       <Typography variant="h1">Register</Typography>
