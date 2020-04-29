@@ -21,14 +21,12 @@ This README describes the necessary steps to get a local development environment
 - [x] Update url for login from `/authentication` to `/account/login`
 - [x] Update url for register from `/authentication/register` to `/account/register`
 - [ ] Graph QL
-- [ ] Remove TS check on compile
 - [ ] Update Error boundery to use promise
 - [ ] Update to react-router v6 (when in stable, still in alpha as per 2020-04-07)
 - [ ] Swtich to Parcel 2 over webpack (when in stable, still in alpha as per 2020-04-02)
-- [ ] Lint warnings for deepth rule for hooks are not auto fixed on save
 - [ ] Add page to change password at `/account/change-password`
 - [ ] Add page for forgot password at `/account/forgot-password`
-- [ ] To get a more generic boilerplate, switch from Materialdesign to Reach UI
+- [ ] To get a more generic boilerplate, switch from Materialdesign to Reach UI (Wait for webpack plugin for styling, still in development)
 - [ ] Keep an eye out for [Remix](https://remix.run/)
 
 ### Prerequisites
@@ -79,21 +77,6 @@ yarn test
 ```
 
 This will give you an interactive cli where you can choose different alternatives like run all tests or run tests matching a given regex.
-
-### Typecheck
-
-Typechecking is not done during dev build, only inside VS Code and with git hooks.
-If you want to start a typecheck daemon, run:
-
-```
-yarn typecheck
-```
-
-If you just want to do one typecheck:
-
-```
-yarn typecheck-once
-```
 
 ### Lint
 
