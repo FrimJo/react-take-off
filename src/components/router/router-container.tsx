@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { Route, Router, Switch } from 'react-router-dom'
 import { PageRoutes } from 'config/page-routes'
-import { NotFoundPage } from 'pages/not-found-page'
+import { NotFoundPageView } from 'pages/not-found-page/not-found-page-view'
 import { history } from 'utilities/history'
-import { PrivateRoute } from './components/private-route'
+import { PrivateRouteContainer } from './components/private-route/private-route-container'
 
 export const RouterContainer: React.FC = () => {
   return (
@@ -11,9 +11,9 @@ export const RouterContainer: React.FC = () => {
       <Switch>
         <Route {...PageRoutes.Login} />
         <Route {...PageRoutes.Register} />
-        <PrivateRoute {...PageRoutes.Start} />
-        <PrivateRoute {...PageRoutes.Private} />
-        <Route component={NotFoundPage} />
+        <PrivateRouteContainer {...PageRoutes.Start} />
+        <PrivateRouteContainer {...PageRoutes.Private} />
+        <Route component={NotFoundPageView} />
       </Switch>
     </Router>
   )

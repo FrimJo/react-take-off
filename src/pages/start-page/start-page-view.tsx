@@ -1,9 +1,9 @@
 import { Typography } from '@material-ui/core'
 import * as React from 'react'
-import { Button } from 'components/button'
-import { DisplayUser } from 'components/display-user'
+import Button from 'components/button/button-view'
+import { DisplayUserContainer } from 'components/display-user/display-user-container'
 import { useAuthentication } from 'utilities/use-authentication'
-import { UserPage } from './components/user-page'
+import { UserPageContainer } from './components/user-page/user-page-container'
 
 export const StartPageView: React.FC = () => {
   const { logout } = useAuthentication()
@@ -11,8 +11,8 @@ export const StartPageView: React.FC = () => {
   return (
     <div>
       <Typography variant="h1">Start page</Typography>
-      <DisplayUser />
-      <UserPage />
+      <DisplayUserContainer />
+      <UserPageContainer />
       <Button color="primary" variant="contained" onClick={logout}>
         logout
       </Button>

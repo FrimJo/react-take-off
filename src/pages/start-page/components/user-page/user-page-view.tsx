@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { ErrorMessage, Field, Form, Formik, FormikConfig } from 'formik'
 import * as React from 'react'
 import { User } from 'api/use-user-api'
-import { Button } from 'components/button'
+import Button from 'components/button/button-view'
 import { useUserForm } from './utilities/use-user-form'
 
 const Wrapper = styled.div`

@@ -4,7 +4,7 @@ import { Snackbar, SnackbarContent, Theme } from '@material-ui/core'
 import { useTheme } from 'emotion-theming'
 import * as React from 'react'
 import { useIsFetching } from 'react-query'
-import { Spinner } from 'components/spinner'
+import { SpinnerView } from 'components/spinner/spinner-view'
 import { useDebounce } from 'utilities/use-debounce'
 
 const DEBOUNCE_DELAY_IN_MILLISECONDS = 400
@@ -47,7 +47,7 @@ export const IsFetchingSnackbarView: React.FC = () => {
               }
             `}
             id="client-snackbar">
-            <Spinner
+            <SpinnerView
               color="white"
               size={20}
               css={css`

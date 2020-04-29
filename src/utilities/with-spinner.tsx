@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/core'
 import styled from '@emotion/styled'
 import { Fade, PropTypes, useTheme } from '@material-ui/core'
 import * as React from 'react'
-import { Spinner } from 'components/spinner'
+import { SpinnerView } from 'components/spinner/spinner-view'
 
 type Options = Readonly<{
   color?: string
@@ -16,7 +16,7 @@ const ChildrenContainer = styled.div<{ visibility: string }>`
   visibility: ${({ visibility }) => visibility};
 `
 
-const SpinnerContainer = styled(Spinner)`
+const SpinnerContainer = styled(SpinnerView)`
   position: absolute;
 `
 
