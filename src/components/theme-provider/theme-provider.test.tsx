@@ -8,7 +8,7 @@ import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import { cleanup, render } from '@testing-library/react'
 import { useTheme as useEmotionTheme } from 'emotion-theming'
 import * as React from 'react'
-import { ThemeProvider } from '.'
+import { ThemeProviderContainer } from './theme-provider-container'
 
 afterEach(cleanup)
 
@@ -26,7 +26,7 @@ const themeOptions: ThemeOptions = {
 const mockTheme = JSON.parse(JSON.stringify(responsiveFontSizes(createMuiTheme(themeOptions))))
 
 const renderThemeProvider = (component: React.ReactNode) => {
-  return render(<ThemeProvider theme={themeOptions}>{component}</ThemeProvider>)
+  return render(<ThemeProviderContainer theme={themeOptions}>{component}</ThemeProviderContainer>)
 }
 
 const Component: React.FC = () => {

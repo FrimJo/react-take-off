@@ -3,7 +3,7 @@ import { css, jsx, SerializedStyles } from '@emotion/core'
 import { Button as MuiButton, useTheme } from '@material-ui/core'
 import { PaletteColor } from '@material-ui/core/styles/createPalette'
 import * as React from 'react'
-import withSpinner from 'utilities/with-spinner'
+import { withSpinner } from 'utilities/with-spinner'
 
 type MuiButtonProps = React.ComponentProps<typeof MuiButton>
 type Color = MuiButtonProps['color'] | 'error' | 'success'
@@ -47,4 +47,4 @@ const ButtonView: React.FC<ButtonViewProps> = (props) => {
   return <MuiButton {...style} {...rest} />
 }
 
-export default withSpinner(ButtonView)
+export const Button = withSpinner(ButtonView)

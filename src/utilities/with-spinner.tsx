@@ -26,7 +26,7 @@ type WithSpinner = Readonly<{
   className?: string
 }>
 
-function withSpinner<P extends WithSpinner>(
+export function withSpinner<P extends WithSpinner>(
   Component: React.ComponentType<P>,
   options: Options = {}
 ) {
@@ -76,5 +76,3 @@ function withSpinner<P extends WithSpinner>(
   }
   return React.memo(WrapedComponent)
 }
-
-export default withSpinner

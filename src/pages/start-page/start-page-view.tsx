@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core'
 import * as React from 'react'
-import Button from 'components/button/button-view'
+import { Button } from 'components/button/button-view'
 import { DisplayUserContainer } from 'components/display-user/display-user-container'
 import { useAuthentication } from 'utilities/use-authentication'
 import { UserPageContainer } from './components/user-page/user-page-container'
