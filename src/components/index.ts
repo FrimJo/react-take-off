@@ -1,6 +1,6 @@
 import { BottomNavigationExample } from './bottom-navigation-exmaple'
 import { ContainedButton } from './contained-button'
-import { ErrorFallback } from './error-fallback/error-fallback'
+import { ErrorFallback } from './error-fallback'
 import { InstallMessage } from './install-message'
 import { Page } from './page'
 import { Router } from './router'

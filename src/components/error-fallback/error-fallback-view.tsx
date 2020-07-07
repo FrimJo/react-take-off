@@ -4,13 +4,13 @@ import * as React from 'react'
 import { css } from 'styled-components'
 import { ContainedButton, Page } from 'components'
 
-type FallbackProps = {
+type FallbackViewProps = {
   error?: Error
   componentStack?: string
   resetErrorBoundary: () => void
 }
 
-export const ErrorFallback: React.FC<FallbackProps> = ({
+const ErrorFallbackView: React.FC<FallbackViewProps> = ({
   error,
   componentStack,
   resetErrorBoundary,
@@ -64,3 +64,5 @@ export const ErrorFallback: React.FC<FallbackProps> = ({
     </Page>
   )
 }
+
+export default ErrorFallbackView

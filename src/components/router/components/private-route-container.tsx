@@ -14,7 +14,7 @@ const AuthenticateRoute: React.FC = ({ children }) => {
   return <React.Fragment>{children}</React.Fragment>
 }
 
-const PrivateRoute: React.FunctionComponent<IProps> = ({
+const PrivateRouteContainer: React.FunctionComponent<IProps> = ({
   component: Component,
   children,
   ...rest
@@ -28,4 +28,4 @@ const PrivateRoute: React.FunctionComponent<IProps> = ({
   )
 }
 
-export default PrivateRoute
+export default PrivateRouteContainer

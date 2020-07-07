@@ -1,3 +1,3 @@
-import { PageContainerView } from './page-container-view'
+import Page from './page-view'
 
-export { PageContainerView as Page }
+export { Page }

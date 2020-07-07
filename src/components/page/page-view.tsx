@@ -5,7 +5,7 @@ import { Spinner } from 'components'
 import { isInStandaloneMode } from 'utilities/is-in-standalone-mode'
 import { isIos } from 'utilities/is-ios'
 
-export const PageContainerView: React.FC<{
+const PageContainerView: React.FC<{
   iOSStatusbarColor?: string
   bottomNavbarComponent?: false | React.ReactNode
   bgcolor?: string
@@ -133,3 +133,5 @@ export const PageContainerView: React.FC<{
     </div>
   )
 }
+
+export default PageContainerView
