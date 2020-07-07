@@ -29,9 +29,7 @@ function useKey(todoId: number, from?: Date, to?: Date): [BaseKey, { todoId: num
 
 function useTodo(todoId: number) {
   const key = useKey(todoId)
-  const { data, ...rest } = useQuery(key, (_, { todoId }) => {
-    return api.getTodoById({ todoId })
-  })
+  const { data, ...rest } = useQuery(key, (_, { todoId }) => api.getTodoById({ todoId }))
 
   return React.useMemo(() => ({ todo: data, ...rest }), [data, rest])
 }
@@ -55,19 +53,15 @@ const getTodoData = (todoId: number) => {
   return queryCache.getQueryData<ITodoItem>(key)
 }
 
-const refetchTodo = (todoId: number) => {
-  const key = getKey(todoId)
-
-  if (!key) {
-    return Promise.resolve(undefined)
-  }
-  return queryCache.refetchQueries<ITodoItem>(key)
-}
+const invalidateTodo = (todoId: number) => queryCache.invalidateQueries<ITodoItem>(getKey(todoId))
+const prefetcheTodo = (todoId: number) =>
+  queryCache.prefetchQuery(getKey(todoId), (_, { todoId }) => api.getTodoById({ todoId }))
 
 export const todoCache = {
   getTodoData,
   setTodoData,
-  refetchTodo,
+  invalidateTodo,
+  prefetcheTodo,
 }
 
 const TodoQuery = {

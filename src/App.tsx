@@ -11,11 +11,12 @@ import { GlobalStyle } from 'styles/global'
 import { THEME } from 'styles/theme'
 
 const queryConfig: ReactQueryProviderConfig = {
-  staleTime: 60 * 1000, // Fetched data will be fresh for 1 minute befor becoming stale
-  refetchAllOnWindowFocus: true,
-  refetchOnMount: true,
-  // throwOnError: false,
-  suspense: true,
+  shared: { suspense: true },
+  queries: {
+    staleTime: 60 * 1000, // Fetched data will be fresh for 1 minute befor becoming stale
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
+  },
 }
 
 type ServerError = { code: number; title: string; traceId: string; type: string }
@@ -37,7 +38,7 @@ export function App() {
           <ReactQueryConfigProvider config={queryConfig}>
             <Router />
             {/*
-            Uncomment when using service workers and want to have app available as PWA
+            Uncomment when using service workers
             <InstallMessage />
             <UpdateSnackbar />
             */}
