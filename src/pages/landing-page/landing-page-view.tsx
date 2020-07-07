@@ -3,7 +3,7 @@ import * as React from 'react'
 import { css } from 'styled-components'
 import { BottomNavigationExample, Page } from 'components'
 import { useFormatMessage } from 'localization'
-import TodoQuery from 'queries/todo-query'
+import { TodoQuery } from 'queries'
 
 const LandingPageView: React.FC = () => {
   const id = 4
