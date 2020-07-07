@@ -1,3 +1,3 @@
-import { SpinnerView } from './spinner-view'
+import Spinner from './spinner-view'
 
-export { SpinnerView as Spinner }
+export default Spinner

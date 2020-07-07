@@ -1,14 +1,19 @@
 {
   "env": {
     "development": {
-      "presets": [
-        [
-          "@emotion/babel-preset-css-prop",
-          {
-            "autoLabel": true,
-            "labelFormat": "[filename]" // name of the file (without extension) where css or styled expression is located.
-          }
-        ]
+      "plugins": [
+       ["babel-plugin-styled-components", {
+          "minify": false,
+          "transpileTemplateLiterals": false
+        }]
+      ]
+    },
+    "production": {
+      "plugins": [
+        ["babel-plugin-styled-components", {
+          "displayName": false,
+          "fileName": false
+        }]
       ]
     }
   }

@@ -1,36 +1,12 @@
 {
-  "root": true,
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "react", "prettier", "react-hooks", "import"],
+  "plugins": ["prettier", "import"],
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:import/recommended",
-    "plugin:import/react",
+    "react-app",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended", // Uses the recommended rules from @typescript-eslint/eslint-plugin
-    "plugin:jsx-a11y/recommended", // Uses the recommended rules from eslint-plugin-jsx-a11y
-    "prettier/@typescript-eslint", // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
-    "plugin:prettier/recommended" // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+    "plugin:prettier/recommended"
   ],
-  "env": {
-    "node": true,
-    "commonjs": true,
-    "browser": true,
-    "jest": true,
-    "es6": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 2018, // Allows for the parsing of modern ECMAScript features
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "sourceType": "module", // Allows for the use of imports
-    "project": "./tsconfig.json"
-  },
   "rules": {
     "import/order": [
       1,
@@ -41,34 +17,23 @@
       }
     ],
     "import/newline-after-import": [1, { "count": 1 }],
-    "react/prop-types": 0,
-    "react-hooks/rules-of-hooks": 2,
-    "react-hooks/exhaustive-deps": 1,
-    "prettier/prettier": 1,
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/interface-name-prefix": [1, { "prefixWithI": "always" }],
-    "no-irregular-whitespace": 1
+    "no-irregular-whitespace": 1,
+    "prettier/prettier": 1
   },
   "settings": {
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
-      // use <root>/tsconfig.json
       "typescript": {
-        "alwaysTryTypes": true // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+        "alwaysTryTypes": true
       }
     },
-    "react": {
-      "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
-    },
     "linkComponents": [
-      // Components used as alternatives to <a> for linking, eg. <Link to={ url } />
       "Hyperlink",
       { "name": "Link", "linkAttribute": "to" }
     ]
-  },
-  "globals": {
-    "React": "writable"
   }
 }

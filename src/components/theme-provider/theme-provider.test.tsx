@@ -1,14 +1,11 @@
-import {
-  Theme,
-  useTheme as useMuiTheme,
-  createMuiTheme,
-  responsiveFontSizes,
-} from '@material-ui/core'
+import { Theme, responsiveFontSizes, createMuiTheme } from '@material-ui/core'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
+import { useTheme } from '@material-ui/styles'
 import { cleanup, render } from '@testing-library/react'
-import { useTheme as useEmotionTheme } from 'emotion-theming'
 import * as React from 'react'
-import { ThemeProvider } from '.'
+import { useContext } from 'react'
+import { ThemeContext } from 'styled-components/macro'
+import ThemeProvider from './theme-provider-container'
 
 afterEach(cleanup)
 
@@ -22,19 +19,18 @@ const themeOptions: ThemeOptions = {
   },
 }
 
-// Remove functions by stringify -> parse
 const mockTheme = JSON.parse(JSON.stringify(responsiveFontSizes(createMuiTheme(themeOptions))))
 
-const renderThemeProvider = (component: React.ReactNode) => {
-  return render(<ThemeProvider theme={themeOptions}>{component}</ThemeProvider>)
+const renderThemeProvider = (component: React.ReactNode, theme: ThemeOptions) => {
+  return render(<ThemeProvider theme={theme}>{component}</ThemeProvider>)
 }
 
-const Component: React.FC = () => {
-  const eTheme = useEmotionTheme<Theme>()
-  const muiTheme = useMuiTheme<Theme>()
+const Component: React.FunctionComponent = () => {
+  const scTheme = useContext(ThemeContext)
+  const muiTheme = useTheme<Theme>()
   return (
     <>
-      <div data-testid="test-e-theme">{JSON.stringify(eTheme)}</div>
+      <div data-testid="test-sc-theme">{JSON.stringify(scTheme)}</div>
       <div data-testid="test-mui-theme">{JSON.stringify(muiTheme)}</div>
     </>
   )
@@ -42,30 +38,21 @@ const Component: React.FC = () => {
 
 describe('', () => {
   test('that we get correct theme for Material UI', () => {
-    const { getByTestId } = renderThemeProvider(<Component />)
-    const testMuiTheme: Theme = JSON.parse(
-      getByTestId('test-mui-theme').textContent || JSON.stringify({})
-    )
+    const { getByTestId } = renderThemeProvider(<Component />, themeOptions)
+    const testMuiTheme: Theme = JSON.parse(getByTestId('test-mui-theme').textContent || '')
     expect(testMuiTheme).toEqual(mockTheme)
   })
 
-  test('that we get correct theme for Emotion', () => {
-    const { getByTestId } = renderThemeProvider(<Component />)
-    const testEmotionTheme: Theme = JSON.parse(
-      getByTestId('test-e-theme').textContent || JSON.stringify({})
-    )
-    expect(testEmotionTheme).toEqual(mockTheme)
+  test('that we get correct theme for Styled Components', () => {
+    const { getByTestId } = renderThemeProvider(<Component />, themeOptions)
+    const testScTheme: Theme = JSON.parse(getByTestId('test-sc-theme').textContent || '')
+    expect(testScTheme).toEqual(mockTheme)
   })
 
-  test('that the themes are the same for Material UI and Emotion', () => {
-    const { getByTestId } = renderThemeProvider(<Component />)
-
-    const testEmotionTheme: Theme = JSON.parse(
-      getByTestId('test-e-theme').textContent || JSON.stringify({})
-    )
-    const testMuiTheme: Theme = JSON.parse(
-      getByTestId('test-mui-theme').textContent || JSON.stringify({})
-    )
-    expect(testEmotionTheme).toEqual(testMuiTheme)
+  test('that the themes are the same for Material UI and Styled Components', () => {
+    const { getByTestId } = renderThemeProvider(<Component />, themeOptions)
+    const testScTheme: Theme = JSON.parse(getByTestId('test-sc-theme').textContent || '')
+    const testMuiTheme: Theme = JSON.parse(getByTestId('test-mui-theme').textContent || '')
+    expect(testScTheme).toEqual(testMuiTheme)
   })
 })

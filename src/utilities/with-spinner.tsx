@@ -1,71 +1,48 @@
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core'
-import styled from '@emotion/styled'
-import { Fade, PropTypes, useTheme } from '@material-ui/core'
+import { Fade, PropTypes } from '@material-ui/core'
 import * as React from 'react'
-import { Spinner } from 'components/spinner'
+import styled, { css } from 'styled-components'
+import Spinner from 'components/spinner'
 
 type Options = Readonly<{
   color?: string
   size?: number
+  css?: ReturnType<typeof css>
 }>
 
-type WithSpinnerProps = Readonly<{ showSpinner?: boolean }>
+type WithSpinnerProps = Readonly<{ showSpinner?: boolean; options?: Options }>
 
 const ChildrenContainer = styled.div<{ visibility: string }>`
   visibility: ${({ visibility }) => visibility};
 `
 
-const SpinnerContainer = styled(Spinner)`
-  position: absolute;
-`
-
-type WithSpinner = Readonly<{
-  color?: PropTypes.Color
+export type WithSpinner = Readonly<{
+  color?: PropTypes.Color | string
   disabled?: boolean
-  className?: string
 }>
 
-function withSpinner<P extends WithSpinner>(
+const withSpinner = <P extends WithSpinner>(
   Component: React.ComponentType<P>,
   options: Options = {}
-) {
-  function WrapedComponent(props: React.PropsWithChildren<P & WithSpinnerProps>) {
-    const {
-      children,
-      showSpinner,
-      disabled,
-      className,
-      color: themeColor = 'primary',
-      ...rest
-    } = props
+) => {
+  const SpinnerComponent: React.SFC<P & WithSpinnerProps> = ({
+    children,
+    showSpinner,
+    disabled,
+    options: extOptions = {},
+    ...rest
+  }) => {
+    const disabledLocal =
+      disabled !== undefined ? disabled : showSpinner !== undefined ? showSpinner : undefined
 
-    const { color = 'white', size = 16 } = options
-    const theme = useTheme()
-
-    /*
-      Change default disabled background-color and text color
-      for a dsiabled button if we are using a spinner.
-    */
-    const hasColorProp = Object.prototype.hasOwnProperty.call(theme.palette, themeColor)
-    const styling =
-      showSpinner !== undefined && hasColorProp
-        ? css`
-            &.MuiButton-contained.Mui-disabled {
-              color: ${theme.palette[themeColor].contrastText};
-              background-color: ${theme.palette[themeColor].dark};
-            }
-          `
-        : css``
     return (
-      <Component
-        css={styling}
-        disabled={disabled || showSpinner || false}
-        className={className}
-        color={themeColor}
-        {...(rest as P)}>
+      <Component disabled={disabledLocal} {...(rest as P)}>
         <Fade in={showSpinner} unmountOnExit={true}>
-          <SpinnerContainer color={color} size={size} className="mr-1" />
+          <Spinner
+            color={extOptions.color || options.color || 'white'}
+            size={extOptions.size || options.size || 16}
+            css={extOptions.css || options.css}
+            className="mr-1"
+          />
         </Fade>
         {/* We use visibility to keep the size of the button when showing spinner*/}
         <ChildrenContainer visibility={showSpinner ? 'hidden' : 'visible'}>
@@ -74,7 +51,22 @@ function withSpinner<P extends WithSpinner>(
       </Component>
     )
   }
-  return React.memo(WrapedComponent)
+  /*
+    Change default disabled background-color and text color
+    for a dsiabled button if we are using a spinner and we have
+    provided a color type that exists as property of the
+    theme palette.
+    */
+  return styled(SpinnerComponent)(({ theme, color, showSpinner }) =>
+    showSpinner === true && color !== undefined && theme.palette.hasOwnProperty(color)
+      ? css`
+          &.MuiButton-contained.Mui-disabled {
+            color: ${theme.palette[color].contrastText};
+            background-color: ${theme.palette[color].main};
+          }
+        `
+      : ''
+  )
 }
 
 export default withSpinner

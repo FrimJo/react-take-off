@@ -1,32 +1,30 @@
 {
   "compilerOptions": {
-    "allowJs": false,
-    "allowSyntheticDefaultImports": true,
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "baseUrl": "src",
-    "declaration": false,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "allowJs": true, // Allow JavaScript files to be compiled
+    "skipLibCheck": true, // Skip type checking of all declaration files
+    "esModuleInterop": true, // Disables namespace imports (import * as fs from "fs") and enables CJS/AMD/UMD style imports (import fs from "fs")
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
+    "strict": true, // Enable all strict type checking options
+    "forceConsistentCasingInFileNames": true, // Disallow inconsistently-cased references to the same file.
+    "module": "esnext", // Specify module code generation
+    "moduleResolution": "node", // Resolve modules using Node.js style
+    "resolveJsonModule": true, // Include modules imported with .json extension
     "isolatedModules": true,
-    "jsx": "preserve",
-    "keyofStringsOnly": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noEmit": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "pretty": true,
-    "resolveJsonModule": true,
-    "rootDirs": ["src"],
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true,
+    "noEmit": true, // Do not emit output (meaning do not compile code, only perform type checking)
+    "jsx": "react", // Support JSX in .tsx files
+    "sourceMap": true, // Generate corrresponding .map file
+    "declaration": true, // Generate corresponding .d.ts file
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
-    "target": "es5",
-    "types": ["@emotion/core", "jest", "node"]
+    "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
   },
-  "include": ["src", "config-overrides.js"],
-  "exclude": ["types", "node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest"]
+  "include": ["src/**/*", "config-overrides.js"],
+  "exclude": ["node_modules", "build"]
 }

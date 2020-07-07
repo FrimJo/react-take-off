@@ -1,20 +1,26 @@
+import { useTheme } from '@material-ui/core'
 import * as React from 'react'
-import { Route, Router, Switch } from 'react-router-dom'
-import { PageRoutes } from 'config/page-routes'
-import { NotFoundPage } from 'pages/not-found-page'
-import { history } from 'utilities/history'
-import { PrivateRoute } from './components/private-route'
+import { ErrorBoundary } from 'react-error-boundary'
+import { Route, Router, Switch } from 'react-router'
+import { ErrorFallback } from 'components/error-fallback/error-fallback'
+import Spinner from 'components/spinner'
+import { NotFoundRoute, LandingPage } from 'config/routes'
+import history from 'utilities/history'
 
-export const RouterContainer: React.FC = () => {
+const RouterContainer: React.FC = () => {
+  const theme = useTheme()
   return (
     <Router history={history}>
-      <Switch>
-        <Route {...PageRoutes.Login} />
-        <Route {...PageRoutes.Register} />
-        <PrivateRoute {...PageRoutes.Start} />
-        <PrivateRoute {...PageRoutes.Private} />
-        <Route component={NotFoundPage} />
-      </Switch>
+      <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
+        <React.Suspense fallback={<Spinner color={theme.palette.secondary.main} />}>
+          <Switch>
+            <Route {...LandingPage.props} />
+            <Route {...NotFoundRoute.props} />
+          </Switch>
+        </React.Suspense>
+      </ErrorBoundary>
     </Router>
   )
 }
+
+export default RouterContainer

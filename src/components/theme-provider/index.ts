@@ -1,3 +1,3 @@
-import { ThemeProviderContainer } from './theme-provider-container'
+import ThemeProvider from './theme-provider-container'
 
-export { ThemeProviderContainer as ThemeProvider }
+export default ThemeProvider

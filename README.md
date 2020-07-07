@@ -1,134 +1,71 @@
-# React Take-off boilerplate
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 This README describes the necessary steps to get a local development environment of the web app up and running.
 
-### TODO
-
-- [x] Update name of `usePromise` hook to `usePromiseManager`
-- [x] Update to `Formik` v2
-- [x] Make usePromiseManager return array
-- [x] Use only `eslint` and not `tslint`
-- [x] Migrate from styled-components to Emotion
-- [x] Replace `usePromiseManager` with `react-query`
-- [x] Add react-query-devtools https://github.com/tannerlinsley/react-query-devtools
-- [x] Add `lint-staged` and rule for `no-irregular-whitespace`
-- [x] Update VSCode to run `tslint --fix` on save without pretteir bug
-- [x] Rename prject to react-take-off
-- [x] Implement strict mode
-- [x] Fix emotion to work with JSX and css prop
-- [x] Implement support for hot reloading (now know as )
-- [x] Add snackbar for general loading
-- [x] Update url for login from `/authentication` to `/account/login`
-- [x] Update url for register from `/authentication/register` to `/account/register`
-- [ ] Graph QL
-- [ ] Remove TS check on compile
-- [ ] Update Error boundery to use promise
-- [ ] Update to react-router v6 (when in stable, still in alpha as per 2020-04-07)
-- [ ] Swtich to Parcel 2 over webpack (when in stable, still in alpha as per 2020-04-02)
-- [ ] Lint warnings for deepth rule for hooks are not auto fixed on save
-- [ ] Add page to change password at `/account/change-password`
-- [ ] Add page for forgot password at `/account/forgot-password`
-- [ ] To get a more generic boilerplate, switch from Materialdesign to Reach UI
-- [ ] Keep an eye out for [Remix](https://remix.run/)
-
-### Prerequisites
+## Prerequisites
 
 - A git client
   - See their [homepage](https://git-scm.com) for installation
   - If you want a gui, take a look at [Sourcetree](https://www.sourcetreeapp.com/)
-- Node (their LTS version has been used, currently 13.7.1)
+- Node (their LTS version has been used, currently 14.0.0)
   - See their [homepage](https://nodejs.org) for installation
-  - Run `node --version` to see wich version you've got
-- Yarn (their stable version has been used, currently 1.21.1)
+  - Run `node --version` to see which version you've got
+- Yarn (their stable version has been used, currently 1.22.4)
   - See their [homepage](https://yarnpkg.com/en) for installation
-  - Run `yarn -v` to see wich version you've got
+  - Run `yarn -v` to see which version you've got
 - A code editor - Visual Studio Code is recommended
 - A local copy of the codebase
 
-### Set up
+## Available Scripts
 
-Install dependencies with `yarn install`
+In the project directory, you can run:
 
-Dublicate the file called `.env.sample` and rename it to `.env`. Then, open `.env` and remove the optional variables and set the `REACT_APP_API_URL` variable to your desired backend url.
+### `yarn start`
 
-For running the project as is
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
+
+### `yarn build`
+
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
+
+### Deploy build localy
 ```
-REACT_APP_API_URL=https://reqres.in
-```
-
-Example for using local backend (replace PPPP with port)
-
-```
-REACT_APP_API_URL=https://localhost:PORT
-```
-
-### Start
-
-Start the application with `yarn start`
-
-This will open http://localhost:3000 in your browser.
-
-### Test
-
-This project uses [jest](https://jestjs.io) for testing.
-The following command will start jest in watch mode:
-
-```
-yarn test
+yarn global add serve
+serve -s build -l 3000
 ```
 
-This will give you an interactive cli where you can choose different alternatives like run all tests or run tests matching a given regex.
+### `yarn test`
 
-### Typecheck
-
-Typechecking is not done during dev build, only inside VS Code and with git hooks.
-If you want to start a typecheck daemon, run:
-
-```
-yarn typecheck
-```
-
-If you just want to do one typecheck:
-
-```
-yarn typecheck-once
-```
-
-### Lint
-
-Linting is done inside VS Code but can also be run manually using:
-
-```
-yarn lint
-```
-
-To fix autofixable issues:
-
-```
-yarn lint-fix
-```
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ## Folder structure
 
-We use `kebab-kase` for all our files and folders in this project.
+We use `kebab-case` for all our files and folders in this project.
 
 The folder structure used in this project is based of an article written by [Charles Stover](https://medium.com/@Charles_Stover) called [Optimal file structure for React applications](https://medium.com/@Charles_Stover/optimal-file-structure-for-react-applications-f3e35ad0a145)
 
 - `public` is where our static files reside. (located outside of `src` folder.)
-- `api` is where we keep all code for communicating with the backend. This folder should be pure TypeScript and not contain any React related code.
+- `api` is where we keep all code for communicating with the backend.
 - `assets` is where any kind of asset, like images are place here.
 - `components` contains all components of the application.
 - `config` contains routes and other configurable variables.
-- `localization` is where all the language files reside.
 - `pages` is where we define all entry points referenced from the `routes.ts` file in `config` folder.
-- `styles` contains all styling related code, souch as global styling, theme and colors.
-- `types` contains special type definition files for thirdparty modules.
+- `styles` contains all styling related code, such as global styling, theme and colors.
+- `types` contains special type definition files for third party modules.
 - `utilities` contains helper functions.
 
 ### Utilities folder `utilities`
 
-This is a folder full of helper functions that are used globally in the project.
+This is a folder full of helper functions that are used globally.
 
 ### Components folder `components`
 
@@ -138,17 +75,27 @@ Each component can, but does not need to, contain the following type files:
 
 - `component-name-container.tsx` is your business logic and state management as handled before being sent to the stateless view Component.
 - `component-name-context.tsx` is where the non local stat logic lies.
-- `component-name-style.ts` is where we store the styled components.
+- `component-name-styles.ts` is where we store the styled components.
 - `component-name-view.tsx` is your stateless view Component. For the majority of cases, this Component should be able to be pure functional Component (no hooks!).
-- `index.ts` is your entry point for importing your Component. It contains nothing but an import and export statement that points to the topmost Component at any point in time, because the topmost Component changes often during development.
-- `component-name-test.ts` are created when writing tests.
+- `index.ts` is your entry point for importing your Component. It contains nothing but an export statement that points to the topmost Component at any point in time, because the topmost Component changes often during development.
+- `component-name.test.ts` are created for writing tests.
 
-The `components` folder can also hosts its own `utilities` for utilities and `components` for child components used by it self or it children.
-
-### React Router
-
-In `configs/routes.ts` we define all routes for this project, and the pages refrenced in the rotues are located in `pages`.
+The `components` folder can also host its own `utilities` and `components`.
 
 ### Using [Material-UI](https://github.com/mui-org/material-ui)
 
-To alter Material-UI components we use [emotion](https://github.com/emotion-js/emotion), read [here](https://material-ui.com/guides/interoperability/#emotion) on how it works.
+To alter Material-UI components we use [styled-components](https://github.com/styled-components/styled-components), read [here](https://material-ui.com/guides/interoperability/#styled-components) on how it works.
+
+
+## Generate TypeScript from Open API spec
+
+### Requirement
+- [openapi-generator](https://openapi-generator.tech) (Provided as devdep in `package.json`)
+
+Run this script in root project
+
+`yarn openapi-generator generate -i https://petstore.swagger.io/v2/swagger.json -g typescript-fetch -o ./src/api`
+
+## Manifest
+
+Uses generated manifest from [RealFaviconGenerator](https://realfavicongenerator.net/) [v0.16](https://realfavicongenerator.net/change_log#v0.16)

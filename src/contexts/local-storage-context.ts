@@ -1,15 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react'
-import { buildContext } from 'utilities/build-context'
+import { hookToContext } from 'utilities/hook-to-context'
 
 type LocalStorgateType = { [key in string]: any }
-const LOCAL_STORAGE_KEY = 'reactTakeOff'
+const LOCAL_STORAGE_KEY = 'smart-coping-pwa'
+
+export function getLocalStorage() {
+  const itemJSON = window.localStorage.getItem(LOCAL_STORAGE_KEY)
+  return itemJSON == null ? {} : JSON.parse(itemJSON)
+}
+
+export function setLocalStorage(
+  value: ((prevValue: LocalStorgateType) => LocalStorgateType) | LocalStorgateType
+): void {
+  const prevValues = getLocalStorage()
+  // Allow value to be a function so we have same API as useState
+  const valueToStore = value instanceof Function ? value(prevValues) : value
+  // Save to local storage
+  return window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(valueToStore))
+}
 
 function useLocalStorageContext() {
-  const [storedValues, setStoredValues] = React.useState<LocalStorgateType>(() => {
-    const itemJSON = window.localStorage.getItem(LOCAL_STORAGE_KEY)
-    return itemJSON == null ? {} : JSON.parse(itemJSON)
-  })
+  const [storedValues, setStoredValues] = React.useState<LocalStorgateType>(() => getLocalStorage())
 
   const setValue = React.useCallback(
     function <ValueType>(key: string, value: ((prevValue: ValueType) => ValueType) | ValueType) {
@@ -43,4 +55,7 @@ function useLocalStorageContext() {
   ])
 }
 
-export const LocalStorageContext = buildContext(useLocalStorageContext, 'LocalStorageContext')
+const LocalStorageContext = hookToContext(useLocalStorageContext, 'LocalStorageContext')
+export const LocalStorageProvider = LocalStorageContext.Provider
+export const useLocalStorageActions = LocalStorageContext.useActions
+export const useLocalStorageState = LocalStorageContext.useState

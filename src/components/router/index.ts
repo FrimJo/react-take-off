@@ -1,3 +1,3 @@
-import { RouterContainer } from './router-container'
+import Router from './router-container'
 
-export { RouterContainer as Router }
+export default Router
