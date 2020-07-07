@@ -1,7 +1,6 @@
 import { Typography } from '@material-ui/core'
 import * as React from 'react'
-import ContainedButton from 'components/contained-button'
-import { Page } from 'components/page'
+import { ContainedButton, Page } from 'components'
 import history from 'utilities/history'
 
 export const NotFoundPageView: React.FC = () => {

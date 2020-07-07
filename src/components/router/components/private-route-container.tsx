@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Route as DomRoute, RouteProps } from 'react-router'
-import Spinner from 'components/spinner'
+import { Spinner } from 'components'
 
 interface IProps extends RouteProps {
   component?: React.ComponentType

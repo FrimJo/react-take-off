@@ -1,7 +1,7 @@
 import { useTheme } from '@material-ui/core'
 import * as React from 'react'
 import { css } from 'styled-components'
-import Spinner from 'components/spinner'
+import { Spinner } from 'components'
 import { isInStandaloneMode } from 'utilities/is-in-standalone-mode'
 import { isIos } from 'utilities/is-ios'
 

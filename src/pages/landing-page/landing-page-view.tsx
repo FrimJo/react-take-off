@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core'
 import * as React from 'react'
 import { css } from 'styled-components'
-import { Page } from 'components/page'
+import { BottomNavigationExample, Page } from 'components'
 import { useFormatMessage } from 'localization'
 import TodoQuery from 'queries/todo-query'
 
@@ -13,18 +13,7 @@ const LandingPageView: React.FC = () => {
     return <div>no todo item received with id {id}</div>
   }
   return (
-    <Page
-      iOSStatusbarColor="black"
-      bottomNavbarComponent={
-        <div
-          css={css`
-            height: 64px;
-            width: 100%;
-            background-color: ${({ theme }) => theme.palette.primary.main};
-          `}>
-          navbar
-        </div>
-      }>
+    <Page iOSStatusbarColor="black" bottomNavbarComponent={<BottomNavigationExample />}>
       <Typography variant="h1">{f('HELLO')}</Typography>
       <div
         css={css`
