@@ -6,7 +6,7 @@ import history from 'utilities/history'
 
 export const NotFoundPageView: React.FC = () => {
   return (
-    <Page>
+    <Page iOSStatusbarColor="black">
       <Typography variant="h1">Page not found</Typography>
       <ContainedButton onClick={() => history.goBack()}>Go back</ContainedButton>
     </Page>

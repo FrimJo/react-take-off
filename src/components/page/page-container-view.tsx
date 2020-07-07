@@ -113,7 +113,7 @@ export const PageContainerView: React.FC<{
           <React.Suspense fallback={<Spinner />}>{children}</React.Suspense>
         </div>
       </div>
-      {BottomNavbarComponent ?? <div />}
+      {BottomNavbarComponent}
     </div>
   )
 }
