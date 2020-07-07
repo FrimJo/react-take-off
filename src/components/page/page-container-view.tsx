@@ -32,7 +32,23 @@ export const PageContainerView: React.FC<{
   return (
     <div
       css={css`
-        height: ${isInStandaloneMode() ? '100vh' : `${innerHeight}px`};
+        /* Fall back to fill view to support bottom navbar */
+        height: 100vh;
+
+        /*
+          If device is iOS and not in standalone mode, set height to inner height of window to prevent Safari bug
+         */
+        ${isIos() &&
+        !isInStandaloneMode() &&
+        css`
+          height: ${innerHeight}px;
+        `}
+
+        /* Browsers which supports fill-available should use it in any scenario */
+        @supports (height: fill-available) {
+          height: fill-available;
+        }
+
         background-color: ${bgcolor ?? theme.palette.background.default};
         display: flex;
         flex-direction: column;
@@ -68,8 +84,8 @@ export const PageContainerView: React.FC<{
         }
       `}>
       {/*
-        If we do not have enough contrast to display the status bar and app is in standalone mode:
-        Show black border which receives the top padding provided by parent div styling above.
+        If we do not have enough contrast on an iOS device to display the status bar and app is in standalone mode:
+        Show black background for statusbar.
         */}
       {iOSStatusbarColor && isIos() && isInStandaloneMode() && (
         <div

@@ -18,18 +18,23 @@ export const GlobalStyle = createGlobalStyle(
 
         /* Fix for: When content is loading, spinner is shown on black background because height is 0 (no content) instead of correct default background */
         & #root {
-          /* Keep correct color on background when showing loading spinner */
+          /* Keep correct default color on background when showing loading spinner */
           background-color: ${theme.palette.background.default};
 
           /* Have background color cover full screen (only works in standalone mode) */
           height: 100vh;
+
+          /* Browsers which supports fill-available should use it */
+          @supports (height: fill-available) {
+            height: fill-available;
+          }
         }
       `}
-    }
 
-    body {
-      padding: 0px;
-      margin: 0px;
+      body {
+        padding: 0px;
+        margin: 0px;
+      }
     }
   `
 )
