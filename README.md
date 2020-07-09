@@ -31,7 +31,7 @@ You will also see any lint errors in the console.
 ### Deploy build localy
 
 
-To test service worker, we need to run build using https, to do this please generate certificate using [mkcert](https://github.com/FiloSottile/mkcert). Please install it `mkcert` following the instructions in their [GitHub](https://github.com/FiloSottile/mkcert).
+To test service worker, we need to run build using https. To do this, generate certificate using [mkcert](https://github.com/FiloSottile/mkcert). Following their instructions on [GitHub](https://github.com/FiloSottile/mkcert).
 
 When you have installed `mkcert` run below command to generate certificats which will be used when serving over HTTPS:
 
