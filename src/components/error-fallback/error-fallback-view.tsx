@@ -52,8 +52,8 @@ const ErrorFallbackView: React.FC<FallbackViewProps> = ({
       <Box pb={1} />
       <Button
         onClick={() => {
-          // TODO
-          console.log('Add log out logic here')
+          // TODO Add log out logic here
+          alert('Add log out logic here')
         }}
         variant="text"
         color="inherit"

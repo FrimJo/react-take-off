@@ -45,14 +45,12 @@ function useServiceWorker() {
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function onServiceWorkerUpdate(registration: ServiceWorkerRegistration) {
-      console.log('onServiceWorkerUpdate', registration)
       setWaitingWorker(registration.waiting)
       setShowReload(true)
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function onServiceWorkerWaiting(waiting: ServiceWorker) {
-      console.log('onServiceWorkerWaiting', waiting)
       setWaitingWorker(waiting)
       setShowReload(true)
     }
@@ -67,7 +65,6 @@ function useServiceWorker() {
     // on all the open tabs of our application, so that we don't leave
     // any tab in an incosistent state
     waitingWorker?.addEventListener('statechange', (event) => {
-      console.log('statechange', event)
       if ((event.target as any).state === 'activated') {
         window.location.reload()
       }
@@ -75,7 +72,6 @@ function useServiceWorker() {
   }, [waitingWorker])
 
   const updateServiceWorker = React.useCallback(() => {
-    console.log('updateServiceWorker')
     waitingWorker?.postMessage({ type: 'SKIP_WAITING' })
   }, [waitingWorker])
 

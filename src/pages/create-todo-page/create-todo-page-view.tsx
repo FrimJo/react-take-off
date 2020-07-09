@@ -62,9 +62,7 @@ const CreateTodoPageView: React.FC<{ className?: string }> = ({ className }) => 
       <Typography variant="h3">Create Todo</Typography>
       <Formik {...formikProps}>
         {(props) => {
-          console.log('props', props)
           const { isSubmitting } = props
-          console.log('isSubmitting', isSubmitting)
           return (
             <Form>
               <div

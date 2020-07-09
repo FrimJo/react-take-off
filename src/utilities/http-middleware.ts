@@ -7,7 +7,7 @@ export const httpMiddleware: Middleware = {
   pre: ({ init: initOptions, url }) => {
     const authResult = { accessToken: '' } // TODO: Get access token here
     if (!authResult) {
-      console.log('Redirect user to log in screen here') // TODO
+      // TODO Redirect user to log in screen here
       return Promise.reject('No auth result found')
     }
 

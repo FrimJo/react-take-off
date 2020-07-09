@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react'
 import { hookToContext } from 'utilities/hook-to-context'
 
-console.log('hookToContext', hookToContext)
 type LocalStorgateType = { [key in string]: any }
 const LOCAL_STORAGE_KEY = 'smart-coping-pwa'
 

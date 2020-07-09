@@ -27,7 +27,6 @@ export const withSpinner = <P extends WithSpinner>(
     options: extOptions = {},
     ...rest
   }) => {
-    console.log('rest2', rest)
     const disabledLocal =
       disabled !== undefined ? disabled : showSpinner !== undefined ? showSpinner : undefined
 
@@ -57,7 +56,6 @@ export const withSpinner = <P extends WithSpinner>(
     provided a color type that exists as property of the
     theme palette.
     */
-  console.log('SpinnerComponent', SpinnerComponent)
   return styled(SpinnerComponent)(({ theme, color, showSpinner }) =>
     showSpinner === true && color !== undefined && theme.palette.hasOwnProperty(color)
       ? css`
