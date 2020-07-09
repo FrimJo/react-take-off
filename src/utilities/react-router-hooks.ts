@@ -3,7 +3,7 @@
 import * as H from 'history'
 import { useContext } from 'react'
 import { __RouterContext as RouterContext, RouteComponentProps, StaticContext } from 'react-router'
-import history, { LocationState } from 'utilities/history'
+import { browserHistory, LocationState } from 'utilities/history'
 
 export type Path = H.Path
 export type LocationDescriptorObject = H.LocationDescriptorObject
@@ -37,8 +37,8 @@ export function navigate(
   }
 
   if (replace) {
-    history.replace(to, { from, ...state })
+    browserHistory.replace(to, { from, ...state })
   } else {
-    history.push(to, { from, ...state })
+    browserHistory.push(to, { from, ...state })
   }
 }

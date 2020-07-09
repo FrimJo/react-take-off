@@ -1,6 +1,6 @@
 import { Name } from 'types'
 
-export function getNamesForObjet<T extends Object>(parent: T, parentStr = ''): Name<T> {
+export function getNamesForObject<T extends Object>(parent: T, parentStr = ''): Name<T> {
   const returnObj = {}
 
   for (let key in parent as Object) {
@@ -11,7 +11,7 @@ export function getNamesForObjet<T extends Object>(parent: T, parentStr = ''): N
       if (Object.keys(child).length === 0) {
         returnObj[key] = childStr
       } else {
-        returnObj[key] = getNamesForObjet(child, childStr)
+        returnObj[key] = getNamesForObject(child, childStr)
       }
     } else {
       returnObj[key] = childStr

@@ -22,7 +22,6 @@ export const THEME: ThemeOptions = {
     background: { default: Colors.White },
     text: {
       primary: Colors.LimedSpruce,
-      secondary: Colors.White,
     },
   },
   typography: {

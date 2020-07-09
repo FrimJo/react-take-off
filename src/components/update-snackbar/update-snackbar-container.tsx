@@ -1,12 +1,12 @@
-import { Snackbar, Button } from '@material-ui/core'
+import { Snackbar } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert'
 import * as React from 'react'
 import { css } from 'styled-components'
+import { ContainedButton } from 'components/contained-button'
 import ServiceWorkerContext from 'contexts/service-worker-context'
 import { useFormatMessage } from 'localization'
-import withSpinner from 'utilities/with-spinner'
 
-export const UpdateSnackbarContainer: React.FC = (props) => {
+const UpdateSnackbarContainer: React.FC = (props) => {
   const f = useFormatMessage()
   const { newVersionAvailable } = ServiceWorkerContext.useState()
   const { updateServiceWorker } = ServiceWorkerContext.useActions()
@@ -37,14 +37,14 @@ export const UpdateSnackbarContainer: React.FC = (props) => {
         elevation={5}
         variant="filled"
         action={
-          <ButtonWithSpinner
+          <ContainedButton
             onClick={updateServiceWorker}
             size="small"
             css={css`
               color: ${({ theme }) => theme.palette.success.contrastText};
             `}>
             {f('SERVICE_WORKER_PROVIDER_RELOAD_BUTTON')}
-          </ButtonWithSpinner>
+          </ContainedButton>
         }
         severity="success">
         {f('SERVICE_WORKER_PROVIDER_NEW_VERSION')}
@@ -53,4 +53,4 @@ export const UpdateSnackbarContainer: React.FC = (props) => {
   )
 }
 
-const ButtonWithSpinner = withSpinner(Button)
+export default UpdateSnackbarContainer

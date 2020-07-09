@@ -2,16 +2,16 @@ import { Typography, useTheme, Box, Button } from '@material-ui/core'
 import { Reload } from 'mdi-material-ui'
 import * as React from 'react'
 import { css } from 'styled-components'
-import ContainedButton from 'components/contained-button'
+import { ContainedButton } from 'components/contained-button'
 import { Page } from 'components/page'
 
-type FallbackProps = {
+type FallbackViewProps = {
   error?: Error
   componentStack?: string
   resetErrorBoundary: () => void
 }
 
-export const ErrorFallback: React.FC<FallbackProps> = ({
+const ErrorFallbackView: React.FC<FallbackViewProps> = ({
   error,
   componentStack,
   resetErrorBoundary,
@@ -65,3 +65,5 @@ export const ErrorFallback: React.FC<FallbackProps> = ({
     </Page>
   )
 }
+
+export default ErrorFallbackView
