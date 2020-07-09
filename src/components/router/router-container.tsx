@@ -2,18 +2,20 @@ import { useTheme } from '@material-ui/core'
 import * as React from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Route, Router, Switch } from 'react-router'
-import { ErrorFallback, Spinner } from 'components'
-import { NotFoundRoute, LandingPage } from 'config/routes'
-import history from 'utilities/history'
+import { ErrorFallback } from 'components/error-fallback'
+import { Spinner } from 'components/spinner'
+import { NotFoundRoute, LandingPage, CreateTodoPage } from 'config/routes'
+import { browserHistory } from 'utilities/history'
 
 const RouterContainer: React.FC = () => {
   const theme = useTheme()
   return (
-    <Router history={history}>
+    <Router history={browserHistory}>
       <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
         <React.Suspense fallback={<Spinner color={theme.palette.secondary.main} />}>
           <Switch>
             <Route {...LandingPage.props} />
+            <Route {...CreateTodoPage.props} />
             <Route {...NotFoundRoute.props} />
           </Switch>
         </React.Suspense>

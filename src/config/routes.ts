@@ -9,6 +9,12 @@ export const LandingPage = generateRoute({
   component: React.lazy(() => import('pages/landing-page')),
 })
 
+export const CreateTodoPage = generateRoute({
+  pattern: '/create-todo',
+  exact: false,
+  component: React.lazy(() => import('pages/create-todo-page')),
+})
+
 export const NotFoundRoute = generateRoute({
   pattern: '/not-found',
   exact: false,

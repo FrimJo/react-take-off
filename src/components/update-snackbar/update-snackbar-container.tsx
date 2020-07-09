@@ -2,7 +2,7 @@ import { Snackbar } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert'
 import * as React from 'react'
 import { css } from 'styled-components'
-import { ContainedButton } from 'components'
+import { ContainedButton } from 'components/contained-button'
 import ServiceWorkerContext from 'contexts/service-worker-context'
 import { useFormatMessage } from 'localization'
 

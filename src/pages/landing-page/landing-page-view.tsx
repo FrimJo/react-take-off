@@ -1,9 +1,12 @@
-import { Typography } from '@material-ui/core'
+import { Typography, Box, Link } from '@material-ui/core'
 import * as React from 'react'
 import { css } from 'styled-components'
-import { BottomNavigationExample, Page } from 'components'
+import { BottomNavigationExample } from 'components/bottom-navigation-exmaple'
+import { Page } from 'components/page'
+import { CreateTodoPage } from 'config/routes'
 import { useFormatMessage } from 'localization'
 import { TodoQuery } from 'queries'
+import { navigate } from 'utilities/react-router-hooks'
 
 const LandingPageView: React.FC = () => {
   const id = 4
@@ -24,6 +27,8 @@ const LandingPageView: React.FC = () => {
       />
       <Typography variant="h6">{todo.title}</Typography>
       <Typography variant="body1">Completed: {todo.completed ? 'yes' : 'no'}</Typography>
+      <Box pt={5} />
+      <Link onClick={() => navigate(CreateTodoPage.generatePath())}>Create todo</Link>
     </Page>
   )
 }

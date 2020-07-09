@@ -1,7 +1,7 @@
 import { Fade, PropTypes } from '@material-ui/core'
 import * as React from 'react'
 import styled, { css } from 'styled-components'
-import { Spinner } from 'components'
+import { Spinner } from 'components/spinner'
 
 type Options = Readonly<{
   color?: string
@@ -11,16 +11,12 @@ type Options = Readonly<{
 
 type WithSpinnerProps = Readonly<{ showSpinner?: boolean; options?: Options }>
 
-const ChildrenContainer = styled.div<{ visibility: string }>`
-  visibility: ${({ visibility }) => visibility};
-`
-
 export type WithSpinner = Readonly<{
   color?: PropTypes.Color | string
   disabled?: boolean
 }>
 
-const withSpinner = <P extends WithSpinner>(
+export const withSpinner = <P extends WithSpinner>(
   Component: React.ComponentType<P>,
   options: Options = {}
 ) => {
@@ -31,6 +27,7 @@ const withSpinner = <P extends WithSpinner>(
     options: extOptions = {},
     ...rest
   }) => {
+    console.log('rest2', rest)
     const disabledLocal =
       disabled !== undefined ? disabled : showSpinner !== undefined ? showSpinner : undefined
 
@@ -45,9 +42,12 @@ const withSpinner = <P extends WithSpinner>(
           />
         </Fade>
         {/* We use visibility to keep the size of the button when showing spinner*/}
-        <ChildrenContainer visibility={showSpinner ? 'hidden' : 'visible'}>
+        <div
+          css={css`
+            visibility: ${showSpinner ? 'hidden' : 'visible'};
+          `}>
           {children}
-        </ChildrenContainer>
+        </div>
       </Component>
     )
   }
@@ -57,6 +57,7 @@ const withSpinner = <P extends WithSpinner>(
     provided a color type that exists as property of the
     theme palette.
     */
+  console.log('SpinnerComponent', SpinnerComponent)
   return styled(SpinnerComponent)(({ theme, color, showSpinner }) =>
     showSpinner === true && color !== undefined && theme.palette.hasOwnProperty(color)
       ? css`
@@ -68,5 +69,3 @@ const withSpinner = <P extends WithSpinner>(
       : ''
   )
 }
-
-export default withSpinner

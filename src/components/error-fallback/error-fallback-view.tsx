@@ -2,7 +2,8 @@ import { Typography, useTheme, Box, Button } from '@material-ui/core'
 import { Reload } from 'mdi-material-ui'
 import * as React from 'react'
 import { css } from 'styled-components'
-import { ContainedButton, Page } from 'components'
+import { ContainedButton } from 'components/contained-button'
+import { Page } from 'components/page'
 
 type FallbackViewProps = {
   error?: Error

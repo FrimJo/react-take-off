@@ -1,19 +1,30 @@
 import * as React from 'react'
-import { useQuery, queryCache } from 'react-query'
-// import { configuration } from './utilities'
+import { useQuery, queryCache, useMutation } from 'react-query'
+import { configuration } from './utilities'
 
-interface ITodoItem {
+/* Usualy this is imported from the generated API */
+export interface ITodoItem {
   userId: number
   id: number
   title: string
   completed: boolean
 }
 
-// const api = new TodoApi(configuration)
+// const api = new TodoApi(configuration) // Generated from swagger using openapi-generator (see README.md)
 const api = {
   getTodoById: (props: { todoId: number }): Promise<ITodoItem> =>
-    window
-      .fetch('https://jsonplaceholder.typicode.com/todos/' + props.todoId)
+    configuration
+      .fetchApi('https://jsonplaceholder.typicode.com/todos/' + props.todoId, {
+        method: 'GET',
+        headers: configuration.headers,
+      })
+      .then((response) => response.json()),
+  createTodo: (props: { userId: number; item: Omit<ITodoItem, 'userId' | 'id'> }) =>
+    configuration
+      .fetchApi('https://jsonplaceholder.typicode.com/todos', {
+        method: 'POST',
+        headers: configuration.headers,
+      })
       .then((response) => response.json()),
 }
 const BASE_KEY = 'todo'
@@ -32,6 +43,18 @@ function useTodo(todoId: number) {
   const { data, ...rest } = useQuery(key, (_, { todoId }) => api.getTodoById({ todoId }))
 
   return React.useMemo(() => ({ todo: data, ...rest }), [data, rest])
+}
+
+function useCreateTodo(props: { userId: number }) {
+  const { userId } = props
+  const [createFromApi, result] = useMutation(api.createTodo)
+
+  const createTodo = React.useCallback(
+    (item: Omit<ITodoItem, 'userId' | 'id'>) => createFromApi({ item, userId }),
+    [createFromApi, userId]
+  )
+
+  return React.useMemo(() => ({ createTodo, result }), [createTodo, result])
 }
 
 const setTodoData = (
@@ -66,6 +89,7 @@ export const todoCache = {
 
 const TodoQuery = {
   useTodo,
+  useCreateTodo,
 }
 
 export default TodoQuery
