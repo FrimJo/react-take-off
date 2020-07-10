@@ -1,6 +1,27 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This README describes the necessary steps to get a local development environment of the web app up and running.
+
+## Features
+- TypeScript
+- PWA ready
+- react-query
+- material-ui
+- formik
+- react-router
+- styled-components
+- eslint
+- prettier
+- react-refresh
+- openapi-generator
+
+### Includes
+- Hooks for working with local storage
+- Helper HOC to create contexts
+- Hook for building forms with Formik
+- Function for creating route props
+- Spinner HOC for showing loading spinners in components, such as buttons
+- Middleware for JWT token renewal
+- Support for iOS safe-area
 
 ## Prerequisites
 
