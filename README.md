@@ -1,18 +1,18 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 
-## Features
+## Highlights
 - TypeScript
 - PWA ready
-- react-query
-- material-ui
-- formik
-- react-router
-- styled-components
+- [react-query](https://react-query.tanstack.com/)
+- [material-ui](https://material-ui.com/)
+- [formik](https://formik.org/)
+- [react-router](https://reactrouter.com/web)
+- [styled-components](https://styled-components.com/)
 - eslint
 - prettier
 - react-refresh
-- openapi-generator
+- [openapi-generator](https://openapi-generator.tech/)
 
 ### Includes
 - Hooks for working with local storage
@@ -90,14 +90,16 @@ We use `kebab-case` for all our files and folders in this project.
 The folder structure used in this project is based of an article written by [Charles Stover](https://medium.com/@Charles_Stover) called [Optimal file structure for React applications](https://medium.com/@Charles_Stover/optimal-file-structure-for-react-applications-f3e35ad0a145)
 
 - `public` is where our static files reside. (located outside of `src` folder.)
-- `api` is where we keep all code for communicating with the backend.
+- `api` is where we keep all code for communicating with the backend. The content of this folder is preferably generated using [openapi-generator](https://openapi-generator.tech), see separate section below.
 - `assets` is where any kind of asset, like images are place here.
 - `components` contains all components of the application.
+- `contexts` contains all contexts of the application.
 - `config` contains routes and other configurable variables.
 - `pages` is where we define all entry points referenced from the `routes.ts` file in `config` folder.
 - `styles` contains all styling related code, such as global styling, theme and colors.
 - `types` contains special type definition files for third party modules.
 - `utilities` contains helper functions.
+- `queries` contains hooks for fetching async data using react-query.
 
 ### Utilities folder `utilities`
 
@@ -109,14 +111,21 @@ The `components` folder contains all components of the application. When creatin
 
 Each component can, but does not need to, contain the following type files:
 
-- `component-name-container.tsx` is your business logic and state management as handled before being sent to the stateless view Component.
-- `component-name-context.tsx` is where the non local stat logic lies.
-- `component-name-styles.ts` is where we store the styled components.
-- `component-name-view.tsx` is your stateless view Component. For the majority of cases, this Component should be able to be pure functional Component (no hooks!).
-- `index.ts` is your entry point for importing your Component. It contains nothing but an export statement that points to the topmost Component at any point in time, because the topmost Component changes often during development.
-- `component-name.test.ts` are created for writing tests.
+- `[component name]-container.tsx` is your business logic and state management as handled before being sent to the stateless view Component.
+- `[component name]-styles.ts` is where we store the styled components.
+- `[component name]-view.tsx` is your stateless view Component. For the majority of cases, this Component should be able to be pure functional Component.
+- `[component name].test.ts` are created for writing tests.
+- `index.ts` is your entry point for importing your Component. It contains nothing but an export statement that points to the top-most Component at any point in time, because the top-most Component changes often during development.
 
 The `components` folder can also host its own `utilities` and `components`.
+
+### Queries folder `contexts`
+
+The `contexts` folder contains all React contexts. There is a hook under `utilities` folder which converts a hook into context (`utilities/hook-to-context`), it's very nifty.
+
+### Queries folder `queries`
+
+The `queries` folder contains all hooks for fetching async data. Each file should be named `[type of query]-query.ts` and contain hooks for fetching, creating, updating that type, example: `post-query` would have hooks for `usePost`, `useUpdatePost`, `useDeletePost` etc.
 
 ### Using [Material-UI](https://github.com/mui-org/material-ui)
 

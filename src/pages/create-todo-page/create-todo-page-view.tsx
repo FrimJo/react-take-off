@@ -7,13 +7,12 @@ import { css } from 'styled-components'
 import * as yup from 'yup'
 import { ContainedButton } from 'components/contained-button'
 import { Page } from 'components/page'
-import { TodoQuery } from 'queries'
-import { ITodoItem } from 'queries/todo-query'
+import { ITodoItem, useCreateTodo } from 'queries/todo-query'
 import { browserHistory } from 'utilities/history'
 import { useForm } from 'utilities/use-form'
 
 const CreateTodoPageView: React.FC<{ className?: string }> = ({ className }) => {
-  const { createTodo } = TodoQuery.useCreateTodo({ userId: 1 })
+  const { createTodo } = useCreateTodo({ userId: 1 })
 
   const { formikProps, name } = useForm<Omit<ITodoItem, 'id' | 'userId'>>({
     initialValues: { completed: false, title: '' },

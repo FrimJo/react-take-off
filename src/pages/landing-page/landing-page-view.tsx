@@ -5,12 +5,12 @@ import { BottomNavigationExample } from 'components/bottom-navigation-exmaple'
 import { Page } from 'components/page'
 import { CreateTodoPage } from 'config/routes'
 import { useFormatMessage } from 'localization'
-import { TodoQuery } from 'queries'
+import { useTodo } from 'queries/todo-query'
 import { navigate } from 'utilities/react-router-hooks'
 
 const LandingPageView: React.FC = () => {
   const id = 4
-  const { todo } = TodoQuery.useTodo(id)
+  const { todo } = useTodo(id)
   const f = useFormatMessage()
   if (!todo) {
     return <div>no todo item received with id {id}</div>

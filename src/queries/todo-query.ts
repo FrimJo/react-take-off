@@ -38,14 +38,14 @@ function useKey(todoId: number, from?: Date, to?: Date): [BaseKey, { todoId: num
   return React.useMemo(() => [BASE_KEY, { todoId }], [todoId])
 }
 
-function useTodo(todoId: number) {
+export function useTodo(todoId: number) {
   const key = useKey(todoId)
   const { data, ...rest } = useQuery(key, (_, { todoId }) => api.getTodoById({ todoId }))
 
   return React.useMemo(() => ({ todo: data, ...rest }), [data, rest])
 }
 
-function useCreateTodo(props: { userId: number }) {
+export function useCreateTodo(props: { userId: number }) {
   const { userId } = props
   const [createFromApi, result] = useMutation(api.createTodo)
 
@@ -57,7 +57,7 @@ function useCreateTodo(props: { userId: number }) {
   return React.useMemo(() => ({ createTodo, result }), [createTodo, result])
 }
 
-const setTodoData = (
+const setData = (
   todoId: number,
   dataOrUpdater: ITodoItem | ((oldData: ITodoItem | undefined) => ITodoItem)
 ) => {
@@ -68,7 +68,7 @@ const setTodoData = (
   queryCache.setQueryData(key, dataOrUpdater)
 }
 
-const getTodoData = (todoId: number) => {
+const getData = (todoId: number) => {
   const key = getKey(todoId)
   if (!key) {
     return undefined
@@ -76,15 +76,15 @@ const getTodoData = (todoId: number) => {
   return queryCache.getQueryData<ITodoItem>(key)
 }
 
-const invalidateTodo = (todoId: number) => queryCache.invalidateQueries<ITodoItem>(getKey(todoId))
-const prefetcheTodo = (todoId: number) =>
+const invalidate = (todoId: number) => queryCache.invalidateQueries<ITodoItem>(getKey(todoId))
+const prefetche = (todoId: number) =>
   queryCache.prefetchQuery(getKey(todoId), (_, { todoId }) => api.getTodoById({ todoId }))
 
 export const todoCache = {
-  getTodoData,
-  setTodoData,
-  invalidateTodo,
-  prefetcheTodo,
+  getData,
+  setData,
+  invalidate,
+  prefetche,
 }
 
 const TodoQuery = {
