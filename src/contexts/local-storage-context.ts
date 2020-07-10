@@ -2,7 +2,7 @@ import * as React from 'react'
 import { hookToContext } from 'utilities/hook-to-context'
 
 type LocalStorgateType = { [key in string]: any }
-const LOCAL_STORAGE_KEY = 'smart-coping-pwa'
+const LOCAL_STORAGE_KEY = 'example-app'
 
 export function getLocalStorage() {
   const itemJSON = window.localStorage.getItem(LOCAL_STORAGE_KEY)
