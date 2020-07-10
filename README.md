@@ -15,6 +15,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - [openapi-generator](https://openapi-generator.tech/)
 
 ### Includes
+- Pre commit hooks using `husky` to prevent lint warnings and errors beeing commited
 - Hooks for working with local storage
 - Helper HOC to create contexts
 - Hook for building forms with Formik
@@ -58,21 +59,23 @@ When you have installed `mkcert` run below command to generate certificats which
 
 ```
 # Create rootCA-key.pem and rootCA.pem in your user folder and register them with your system 
-mkcert -install
+mkcert -install # Can be ran anywhere
 
 # Generates local SSL certificates localhost-key.pem and localhost.pem to use when localy serving over HTTPS
-mkcert localhost 
+mkcert localhost # Generated pem-files needs to be placed in root folder of project
 ```
 
 ### `yarn build`
-Then build and deploy using below commands:
+Add `serve` as global module.
 
+```
+# Add serve to your global modules
+yarn global add serve
+```
+Build project and servit over HTTPS using `serve`
 ```
 # Build project
 yarn build
-
-# Add serve to your global modules
-yarn global add serve
 
 # Start webserver using our generated certificate on port 3001
 serve -s build --ssl-cert localhost.pem --ssl-key localhost-key.pem
@@ -132,14 +135,13 @@ The `queries` folder contains all hooks for fetching async data. Each file shoul
 To alter Material-UI components we use [styled-components](https://github.com/styled-components/styled-components), read [here](https://material-ui.com/guides/interoperability/#styled-components) on how it works.
 
 
-## Generate TypeScript from Open API spec
+### Generate TypeScript from Open API spec
 
-### Requirement
-- [openapi-generator](https://openapi-generator.tech) (Provided as devdep in `package.json`)
+To generate typedefinitins for our API we use [openapi-generator](https://openapi-generator.tech). `openapi-generator` is provided as devdep in `package.json` and will be installed by running `yarn install` or `npm install`.
 
-Run this script in root project
+Generating the typedefinitions are done using the following command, except change url to your target Swagger API.
 
-`yarn openapi-generator generate -i https://petstore.swagger.io/v2/swagger.json -g typescript-fetch -o ./src/api`
+`yarn openapi-generator generate -i https://petstore.swagger.io/v2/swagger.json -g typescript-fetch -o ./src/api --additional-properties=supportsES6=true,typescriptThreePlus=true`
 
 ## Manifest
 
