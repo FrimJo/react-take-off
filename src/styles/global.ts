@@ -10,13 +10,13 @@ export const GlobalStyle = createGlobalStyle(
       font-family: ${theme.typography.fontFamily} !important;
       background-color: ${theme.palette.background.default};
 
-      /* If devie is in standaline mode */
+      /* If device is in standaline mode */
       ${isInStandaloneMode() &&
       css`
         /* Show black background on bounce scroll */
         background-color: black;
 
-        /* Fix for: When content is loading, spinner is shown on black background because height is 0 (no content) instead of correct default background */
+        /* Fix for: When content is loading, spinner is shown on black background because height 0 (no content) instead of correct default background */
         & #root {
           /* Keep correct default color on background when showing loading spinner */
           background-color: ${theme.palette.background.default};

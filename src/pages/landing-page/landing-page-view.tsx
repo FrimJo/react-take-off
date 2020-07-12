@@ -16,7 +16,7 @@ const LandingPageView: React.FC = () => {
     return <div>no todo item received with id {id}</div>
   }
   return (
-    <Page iOSStatusbarColor="black" bottomNavbarComponent={<BottomNavigationExample />}>
+    <Page iosStatusbarColor="black" bottomNavbarComponent={<BottomNavigationExample />}>
       <Typography variant="h1">{f('HELLO')}</Typography>
       <div
         css={css`

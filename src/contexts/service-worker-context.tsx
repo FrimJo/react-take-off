@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as serviceWorker from 'serviceWorker'
-import { hookToContext } from 'utilities/hook-to-context'
+import { asContext } from 'utilities/as-context'
 
 window.addEventListener('error', async (err) => {
   // Since we are handling the error here, we must make
@@ -84,5 +84,5 @@ function useServiceWorker() {
   )
 }
 
-const ServiceWorkerContext = hookToContext(useServiceWorker, 'ServiceWorkerContext')
+const ServiceWorkerContext = asContext(useServiceWorker, 'ServiceWorkerContext')
 export default ServiceWorkerContext

@@ -2,7 +2,7 @@ import * as React from 'react'
 
 type HookFunction<S, A, P> = (props: P) => { state: S; actions: A }
 
-export function hookToContext<S, A, P extends object>(
+export function asContext<S, A, P extends object>(
   useHook: HookFunction<S, A, P>,
   identification?: string
 ) {

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { hookToContext } from 'utilities/hook-to-context'
+import { asContext } from 'utilities/as-context'
 
 type LocalStorgateType = { [key in string]: any }
 const LOCAL_STORAGE_KEY = 'example-app'
@@ -54,7 +54,7 @@ function useLocalStorageContext() {
   ])
 }
 
-const LocalStorageContext = hookToContext(useLocalStorageContext, 'LocalStorageContext')
+const LocalStorageContext = asContext(useLocalStorageContext, 'LocalStorageContext')
 export const LocalStorageProvider = LocalStorageContext.Provider
 export const useLocalStorageActions = LocalStorageContext.useActions
 export const useLocalStorageState = LocalStorageContext.useState
