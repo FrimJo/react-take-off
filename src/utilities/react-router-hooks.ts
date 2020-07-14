@@ -25,20 +25,20 @@ export function useNavigationState<S extends LocationState = LocationState>() {
   return location.state
 }
 
-export function navigate(
-  to: H.Path,
-  { replace = false, from, ...state }: LocationState & { replace?: boolean } = {
-    replace: false,
-  }
-) {
+type NavigationConfig = { replace?: boolean; newWindow?: boolean; state?: LocationState }
+export function navigate(to: string, config: NavigationConfig = {}) {
   // If we try to navigate to same page, prevent navigation
-  if (to === from) {
+  if (to === config.state?.from) {
+    return
+  }
+  if (config.newWindow) {
+    window.open(to)
+    return
+  }
+  if (config?.replace) {
+    browserHistory.replace(to, config.state)
     return
   }
 
-  if (replace) {
-    browserHistory.replace(to, { from, ...state })
-  } else {
-    browserHistory.push(to, { from, ...state })
-  }
+  browserHistory.push(to, config.state)
 }
