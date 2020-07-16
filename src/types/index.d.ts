@@ -1,3 +1,5 @@
-export type Name<Values extends object> = {
-  [key in keyof Values]: Values extends object ? Name<key> : string
+export type Name<Value> = {
+  [Key in keyof Value]: Value[Key] extends string | Function | Array<any> | number | Date | boolean
+    ? string
+    : Name<Value[Key]>
 }
