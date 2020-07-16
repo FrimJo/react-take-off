@@ -8,4 +8,6 @@
 
 export default {
   HELLO: 'Hello',
+  SERVICE_WORKER_PROVIDER_RELOAD_BUTTON: 'Reload',
+  SERVICE_WORKER_PROVIDER_NEW_VERSION: 'New verions released!',
 }

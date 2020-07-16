@@ -16,10 +16,12 @@ const CreateTodoPageView: React.FC<{ className?: string }> = ({ className }) => 
 
   const { formikProps, name } = useForm<Omit<ITodoItem, 'id' | 'userId'>>({
     initialValues: { completed: false, title: '' },
-    schema: {
-      title: yup.string().required(),
-      completed: yup.boolean().required(),
-    },
+    schema: yup
+      .object({
+        title: yup.string().required(),
+        completed: yup.boolean().required(),
+      })
+      .defined(),
     onSubmit: (values, actions) => {
       createTodo(values)
         .then(() => alert('Success'))

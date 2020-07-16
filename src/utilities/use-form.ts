@@ -5,13 +5,13 @@ import { getNamesForObject } from './get-names-for-object'
 
 export type OnSubmitFunction<Values extends object> = FormikConfig<Values>['onSubmit']
 
-function createSchema<Value extends object>(value: yup.ObjectSchemaDefinition<Value>) {
-  return yup.object(value).defined()
-}
+// function createSchema<Value extends object>(value: yup.Schema<Value>) {
+//   return yup.object(value).defined()
+// }
 
 export function useForm<Values extends object>(props: {
   initialValues: Values
-  schema: yup.ObjectSchemaDefinition<Values>
+  schema: yup.Schema<Values>
   onSubmit: OnSubmitFunction<Values>
 }) {
   const onSubmitRef = React.useRef(props.onSubmit)
@@ -20,7 +20,7 @@ export function useForm<Values extends object>(props: {
       formikProps: {
         initialValues: props.initialValues,
         onSubmit: onSubmitRef.current,
-        validationSchema: createSchema(props.schema),
+        validationSchema: props.schema,
       },
       name: getNamesForObject(props.initialValues),
     }),

@@ -4,7 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { Route, Router, Switch } from 'react-router'
 import { ErrorFallback } from 'components/error-fallback'
 import { Spinner } from 'components/spinner'
-import { NotFoundRoute, LandingPage, CreateTodoPage } from 'config/routes'
+import { NotFoundRoute, LandingRoute, CreateTodoRoute, NestedFormExampleRoute } from 'config/routes'
 import { browserHistory } from 'utilities/history'
 
 const RouterContainer: React.FC = () => {
@@ -14,8 +14,9 @@ const RouterContainer: React.FC = () => {
       <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
         <React.Suspense fallback={<Spinner color={theme.palette.secondary.main} />}>
           <Switch>
-            <Route {...LandingPage.props} />
-            <Route {...CreateTodoPage.props} />
+            <Route {...LandingRoute.props} />
+            <Route {...CreateTodoRoute.props} />
+            <Route {...NestedFormExampleRoute.props} />
             <Route {...NotFoundRoute.props} />
           </Switch>
         </React.Suspense>

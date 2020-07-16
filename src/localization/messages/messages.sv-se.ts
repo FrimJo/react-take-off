@@ -8,4 +8,6 @@
 
 export default {
   HELLO: 'Hej',
+  SERVICE_WORKER_PROVIDER_RELOAD_BUTTON: 'Ladda om',
+  SERVICE_WORKER_PROVIDER_NEW_VERSION: 'Ny version tillgänglig!',
 }
