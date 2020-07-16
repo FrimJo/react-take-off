@@ -1,27 +1,11 @@
-import { Formik, Form, FormikConfig } from 'formik'
+import { Formik, Form } from 'formik'
 import * as React from 'react'
 import * as yup from 'yup'
 import { ContainedButton } from 'components/contained-button'
 import { Page } from 'components/page'
+import { getSubForm } from 'utilities/get-sub-form'
 import { useForm } from 'utilities/use-form'
 import { Form1, Form2 } from './components'
-
-type SubFormProps<Values, Path extends keyof Values> = {
-  name: Path
-  initialValues: Values[Path]
-  validationSchema: yup.Schema<Values[Path]>
-}
-function getSubForm<Values, P extends keyof Values & string>(
-  form: FormikConfig<Values>,
-  path: P
-): SubFormProps<Values, P> {
-  const subForm: SubFormProps<Values, P> = {
-    name: path,
-    initialValues: form.initialValues[path],
-    validationSchema: yup.reach(form.validationSchema, path),
-  }
-  return subForm
-}
 
 export default (props: React.PropsWithChildren<{}>) => {
   const { formikProps } = useForm({
