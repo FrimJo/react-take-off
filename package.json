@@ -47,6 +47,8 @@
     "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-prettier": "^3.1.3",
+    "patch-package": "^6.2.2",
+    "postinstall-postinstall": "^2.1.0",
     "prettier": "2.0.5",
     "react-app-rewired": "^2.1.6",
     "source-map-explorer": "^2.4.2",
@@ -59,7 +61,8 @@
     "typecheck": "tsc -w -p tsconfig.json",
     "typecheck-once": "tsc -p tsconfig.json",
     "lint": "tsc --noEmit && eslint '*/**/*.{js,ts,tsx}' --fix",
-    "analyze": "yarn build && source-map-explorer 'build/static/js/*.js'"
+    "analyze": "yarn build && source-map-explorer 'build/static/js/*.js'",
+    "postinstall": "patch-package"
   },
   "browserslist": {
     "production": [

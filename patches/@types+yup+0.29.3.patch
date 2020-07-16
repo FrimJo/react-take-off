@@ -1,0 +1,13 @@
+diff --git a/node_modules/@types/yup/index.d.ts b/node_modules/@types/yup/index.d.ts
+index acff7d2..68bae33 100644
+--- a/node_modules/@types/yup/index.d.ts
++++ b/node_modules/@types/yup/index.d.ts
+@@ -17,7 +17,7 @@
+ // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+ // TypeScript Version: 3.6
+ 
+-export function reach<T>(schema: Schema<T>, path: string, value?: any, context?: any): Schema<T>;
++export function reach<T, K extends keyof T>(schema: Schema<T>, path: string, value?: any, context?: any): Schema<T[K]>;
+ export function addMethod<T extends Schema<any>>(
+     schemaCtor: AnySchemaConstructor,
+     name: string,
