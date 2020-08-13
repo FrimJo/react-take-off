@@ -24,6 +24,7 @@ const api = {
       .fetchApi('https://jsonplaceholder.typicode.com/todos', {
         method: 'POST',
         headers: configuration.headers,
+        body: JSON.stringify(props.item),
       })
       .then((response) => response.json()),
 }

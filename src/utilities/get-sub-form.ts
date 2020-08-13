@@ -1,20 +1,15 @@
-import { FormikConfig } from 'formik'
-import * as yup from 'yup'
-
-type SubFormProps<Values, Path extends keyof Values> = {
+type SubFormProps<TFieldValues, Path extends keyof TFieldValues> = {
   name: Path
-  initialValues: Values[Path]
-  validationSchema: yup.Schema<Values[Path]>
+  defaultValues: TFieldValues[Path]
 }
 
-export function getSubForm<Values, P extends keyof Values & string>(
-  form: FormikConfig<Values>,
-  path: P
-): SubFormProps<Values, P> {
-  const subForm: SubFormProps<Values, P> = {
+export function getSubForm<TFieldValues extends object, TPath extends keyof TFieldValues & string>(
+  defaultValues: TFieldValues,
+  path: TPath
+): SubFormProps<TFieldValues, TPath> {
+  const subForm: SubFormProps<TFieldValues, TPath> = {
     name: path,
-    initialValues: form.initialValues[path],
-    validationSchema: yup.reach(form.validationSchema, path),
+    defaultValues: defaultValues[path],
   }
   return subForm
 }

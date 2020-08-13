@@ -10,4 +10,6 @@ export default {
   HELLO: 'Hej',
   SERVICE_WORKER_PROVIDER_RELOAD_BUTTON: 'Ladda om',
   SERVICE_WORKER_PROVIDER_NEW_VERSION: 'Ny version tillgänglig!',
+  TEST_USE_FORMAT_MESSAGE_TEXT: 'Öka',
+  TEST_USE_FORMAT_MESSAGE_TEXT_AND_VALUE: 'Värde {value}',
 }

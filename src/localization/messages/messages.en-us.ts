@@ -10,4 +10,6 @@ export default {
   HELLO: 'Hello',
   SERVICE_WORKER_PROVIDER_RELOAD_BUTTON: 'Reload',
   SERVICE_WORKER_PROVIDER_NEW_VERSION: 'New verions released!',
+  TEST_USE_FORMAT_MESSAGE_TEXT: 'Increment',
+  TEST_USE_FORMAT_MESSAGE_TEXT_AND_VALUE: 'Value {value}',
 }

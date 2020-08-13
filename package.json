@@ -20,6 +20,7 @@
     "react-dom": "^16.13.1",
     "react-error-boundary": "^2.2.1",
     "react-gtm-module": "^2.0.8",
+    "react-hook-form": "^6.3.0",
     "react-intl": "^5.0.2",
     "react-query": "^2.4.13",
     "react-query-devtools": "^2.2.1",
@@ -27,8 +28,7 @@
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.0",
     "styled-theming": "^2.2.0",
-    "typescript": "~3.9.6",
-    "yup": "^0.29.1"
+    "typescript": "~3.9.6"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^1.0.15-4.3.1",
@@ -39,7 +39,6 @@
     "@types/react-router": "^5.1.7",
     "@types/styled-components": "^5.1.0",
     "@types/styled-theming": "^2.2.2",
-    "@types/yup": "^0.29.3",
     "babel-plugin-styled-components": "^1.10.7",
     "customize-cra": "^1.0.0",
     "customize-cra-react-refresh": "^1.1.0",
