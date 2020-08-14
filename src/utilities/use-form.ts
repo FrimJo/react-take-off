@@ -13,18 +13,30 @@ export function getPartialValues(obj: object, arr: string[]): object {
   if (Object.keys(obj).length === 0) {
     return {}
   }
-  const retObj = {}
+  const root = {}
   for (const str of arr) {
-    let clone = JSON.parse(JSON.stringify(obj))
+    // Splitt the string from 'car.brand' to ['car', 'brand'] used to traverse the object
     const strArry = str.split('.')
-    const last = strArry[strArry.length - 1]
-    let key
-    while ((key = strArry.shift()) && key !== undefined && key in clone) {
-      clone = clone[key]
+
+    let key, // key variable to store next key to use when traversing the object
+      pointer = root // Start out att the root of the oibject
+
+    // While we have keys in the arrays and they exist in object
+    while ((key = strArry.shift()) && key !== undefined && key in obj) {
+      // Get next level of object
+      const child = obj[key]
+
+      // If child is of type object, move pointer and object down one level
+      if (typeof child === 'object') {
+        pointer = pointer[key] = {}
+        obj = child
+      } else {
+        // Else, save value to pointer (remember that pointer is reffering to root object)
+        pointer[key] = child
+      }
     }
-    retObj[last] = clone
   }
-  return retObj
+  return root
 }
 
 export function useNestedForm<
