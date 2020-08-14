@@ -3,7 +3,12 @@ import * as React from 'react'
 import { css } from 'styled-components'
 import { BottomNavigationExample } from 'components/bottom-navigation-exmaple'
 import { Page } from 'components/page'
-import { CreateTodoRoute, NestedFormExampleRoute } from 'config/routes'
+import {
+  CreateTodoRoute,
+  WizardFormExampleRoute,
+  PartialFormExampleRoute,
+  NestedFormExampleRoute,
+} from 'config/routes'
 import { useFormatMessage } from 'localization'
 import { useTodo } from 'queries/todo-query'
 import { navigate } from 'utilities/react-router-hooks'
@@ -35,6 +40,12 @@ const LandingPageView: React.FC = () => {
       <Typography variant="body1">Completed: {todo.completed ? 'yes' : 'no'}</Typography>
       <Box pt={5} />
       <Link onClick={() => navigate(CreateTodoRoute.generatePath())}>Create todo</Link>
+      <Link onClick={() => navigate(WizardFormExampleRoute.generatePath())}>
+        Wizard form example
+      </Link>
+      <Link onClick={() => navigate(PartialFormExampleRoute.generatePath())}>
+        Partial form example
+      </Link>
       <Link onClick={() => navigate(NestedFormExampleRoute.generatePath())}>
         Nested form example
       </Link>

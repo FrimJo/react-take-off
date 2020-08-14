@@ -15,6 +15,18 @@ export const CreateTodoRoute = generateRoute({
   component: React.lazy(() => import('pages/create-todo-page')),
 })
 
+export const WizardFormExampleRoute = generateRoute({
+  pattern: '/wizard-form-example',
+  exact: false,
+  component: React.lazy(() => import('pages/wizard-form-example-page')),
+})
+
+export const PartialFormExampleRoute = generateRoute({
+  pattern: '/partial-form-example',
+  exact: false,
+  component: React.lazy(() => import('pages/partial-form-example-page')),
+})
+
 export const NestedFormExampleRoute = generateRoute({
   pattern: '/nested-form-example',
   exact: false,

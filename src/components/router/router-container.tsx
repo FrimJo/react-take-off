@@ -4,7 +4,14 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { Route, Router, Switch } from 'react-router'
 import { ErrorFallback } from 'components/error-fallback'
 import { Spinner } from 'components/spinner'
-import { NotFoundRoute, LandingRoute, CreateTodoRoute, NestedFormExampleRoute } from 'config/routes'
+import {
+  NotFoundRoute,
+  LandingRoute,
+  CreateTodoRoute,
+  WizardFormExampleRoute,
+  PartialFormExampleRoute,
+  NestedFormExampleRoute,
+} from 'config/routes'
 import { browserHistory } from 'utilities/history'
 
 const RouterContainer: React.FC = () => {
@@ -16,6 +23,8 @@ const RouterContainer: React.FC = () => {
           <Switch>
             <Route {...LandingRoute.props} />
             <Route {...CreateTodoRoute.props} />
+            <Route {...WizardFormExampleRoute.props} />
+            <Route {...PartialFormExampleRoute.props} />
             <Route {...NestedFormExampleRoute.props} />
             <Route {...NotFoundRoute.props} />
           </Switch>

@@ -1,13 +1,7 @@
 import { FormikConfig } from 'formik'
 import * as React from 'react'
-import { useForm as useHookForm } from 'react-hook-form'
-import {
-  FieldValues,
-  UseFormOptions,
-  UnpackNestedValue,
-  FieldName,
-  UseFormMethods,
-} from 'react-hook-form/dist/types/form'
+import { useForm as useHookForm, UseFormOptions, UseFormMethods } from 'react-hook-form'
+import { FieldValues, UnpackNestedValue, FieldName } from 'react-hook-form/dist/types/form'
 import { getNamesForObject } from './get-names-for-object'
 
 export type OnSubmitFunction<Values extends object> = FormikConfig<Values>['onSubmit']
@@ -18,7 +12,7 @@ export function flattenNames(obj: object | string): Array<string> {
   }
   return Object.values(obj).flatMap(flattenNames)
 }
-export function getValuesFor(obj: object, arr: string[]): object {
+export function getPartialValues(obj: object, arr: string[]): object {
   if (Object.keys(obj).length === 0) {
     return {}
   }
@@ -36,20 +30,45 @@ export function getValuesFor(obj: object, arr: string[]): object {
   return retObj
 }
 
-export function usePartialForm<
+export function useNestedForm<
   TFieldValues extends FieldValues = FieldValues,
   TContext extends object = object
 >(
-  props: UseDefaultFormOptions<TFieldValues, TContext> & {
+  props: UseFormOptions<TFieldValues, TContext> & {
     register: UseFormMethods<TFieldValues>['register']
   }
 ): UseFormMethods<TFieldValues> {
-  const { register: formRegister, ...formMethods } = useHookForm<TFieldValues, TContext>(props)
-  const register: UseFormMethods<TFieldValues>['register'] = (...args: any) => {
-    props.register(...args)
-    return formRegister(...args)
-  }
-  return { ...formMethods, register }
+  const formMethods = useHookForm<TFieldValues, TContext>(props)
+
+  const register: typeof formMethods.register = React.useCallback(
+    (...args: any[]): typeof propsRefFunc => {
+      const propsRefFunc = props.register(...args)
+      const formRefFunc = formMethods.register(...args)
+      return (ref) => {
+        propsRefFunc(ref)
+        formRefFunc(ref)
+      }
+    },
+    [formMethods, props]
+  )
+
+  const handleSubmit: typeof formMethods.handleSubmit = React.useCallback(
+    (...args) => {
+      const callback = formMethods.handleSubmit(...args)
+      return (event, ...rest) => {
+        event?.stopPropagation()
+        event?.preventDefault()
+        return callback(event, ...rest)
+      }
+    },
+    [formMethods]
+  )
+
+  return React.useMemo(() => ({ ...formMethods, register, handleSubmit }), [
+    formMethods,
+    handleSubmit,
+    register,
+  ])
 }
 
 type UseDefaultFormOptions<
@@ -59,7 +78,7 @@ type UseDefaultFormOptions<
   defaultValues: UnpackNestedValue<TFieldValues>
 }
 
-export function useDefaultForm<
+export function useForm<
   TFieldValues extends FieldValues = FieldValues,
   TContext extends object = object
 >(props: UseDefaultFormOptions<TFieldValues, TContext>) {
@@ -67,27 +86,12 @@ export function useDefaultForm<
   const name = getNamesForObject(props.defaultValues)
 
   const handlePartialSubmit = React.useCallback(
-    function <TFieldName extends keyof TFieldValues>(
-      name: string | object,
-      callback?: (values: any) => void
-    ) {
-      const names = flattenNames(name) as FieldName<TFieldValues>[]
-      const values = getValuesFor(formMethods.watch(), names)
-      // console.log('names', names)
+    function (name: string | object, callback?: (values: any) => void) {
+      const names = flattenNames(name)
+      const values = getPartialValues(formMethods.watch(), names)
 
-      // const values = getValuesFor(defaultValues, names)
-      // const values = formMethods.getValues(Array.isArray(name) ? name : [name])
-
-      // let obj = { a: { b: 'a.b' } }
-      // while (instanceof obj === object && Object.keys(obj).length > 0 && (obj = obj[Object.keys(obj)[0]]));
-
-      // while(arr.length && (obj = obj[arr.shift()]));
-
-      // const names = Object.keys(values).flatMap((name) =>
-      //   Object.keys(values[name] ?? {}).map((key) => name + '.' + key)
-      // ) as FieldName<TFieldValues>[]
       return async () => {
-        const result = await formMethods.trigger(names)
+        const result = await formMethods.trigger(names as FieldName<TFieldValues>[])
         if (result) {
           callback?.(values)
         }
