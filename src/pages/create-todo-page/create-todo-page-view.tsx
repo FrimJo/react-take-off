@@ -1,5 +1,4 @@
 import { Typography, IconButton, Paper, TextField, Checkbox } from '@material-ui/core'
-import {} from 'formik-material-ui'
 import { Close } from 'mdi-material-ui'
 import * as React from 'react'
 import { css } from 'styled-components'

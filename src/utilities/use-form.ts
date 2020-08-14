@@ -1,10 +1,7 @@
-import { FormikConfig } from 'formik'
 import * as React from 'react'
 import { useForm as useHookForm, UseFormOptions, UseFormMethods } from 'react-hook-form'
 import { FieldValues, UnpackNestedValue, FieldName } from 'react-hook-form/dist/types/form'
 import { getNamesForObject } from './get-names-for-object'
-
-export type OnSubmitFunction<Values extends object> = FormikConfig<Values>['onSubmit']
 
 export function flattenNames(obj: object | string): Array<string> {
   if (typeof obj !== 'object') {
