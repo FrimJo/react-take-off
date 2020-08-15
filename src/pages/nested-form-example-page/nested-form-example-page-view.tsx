@@ -18,15 +18,7 @@ export default (props: React.PropsWithChildren<{}>) => {
   }
 
   const { handleSubmit, register, watch, name } = useForm({ defaultValues })
-  const onSubmit = React.useMemo(
-    () =>
-      handleSubmit(({ profile, info }) => {
-        alert(
-          `Name: ${profile.firstName} ${profile.lastName}\nStreet: ${info.address} ${info.city}`
-        )
-      }),
-    [handleSubmit]
-  )
+
   return (
     <Page>
       <div
@@ -34,13 +26,15 @@ export default (props: React.PropsWithChildren<{}>) => {
           display: flex;
           flex-direction: column;
         `}>
-        <form onSubmit={onSubmit}>
+        <form
+          onSubmit={handleSubmit(({ profile, info }) => {
+            alert(
+              `Name: ${profile.firstName} ${profile.lastName}\nStreet: ${info.address} ${info.city}`
+            )
+          })}>
           <Form1
             profile={defaultValues.profile}
-            onSubmit={(profile) => {
-              debugger
-              alert(`Name: ${profile.firstName} ${profile.lastName}`)
-            }}
+            onSubmit={(profile) => alert(`Name: ${profile.firstName} ${profile.lastName}`)}
             register={register}
             name={name.profile}
           />
