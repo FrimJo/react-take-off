@@ -44,26 +44,26 @@ export default (props: React.PropsWithChildren<{}>) => {
             inputRef={register({ required: true })}
           />
           <ContainedButton
-            onClick={handlePartialSubmit([name.profile], (profile) =>
+            onClick={handlePartialSubmit([name.profile], ({ profile }) => {
               alert(`First name: ${profile.firstName}\nLast name: ${profile.lastName}`)
-            )}>
+            })}>
             submit form 1
           </ContainedButton>
 
           <TextField
             variant="outlined"
-            label="First name"
+            label="Address"
             name={name.info.address}
             inputRef={register({ required: true })}
           />
           <TextField
             variant="outlined"
-            label="Last name"
+            label="City"
             name={name.info.city}
             inputRef={register({ required: true })}
           />
           <ContainedButton
-            onClick={handlePartialSubmit([name.info], (info) =>
+            onClick={handlePartialSubmit([name.info], ({ info }) =>
               alert(`Address: ${info.address}\nCity: ${info.city}`)
             )}>
             submit form 2

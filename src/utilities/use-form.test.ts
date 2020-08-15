@@ -31,9 +31,24 @@ describe('flattenNames', () => {
     const outArray = flattenNames(inObj)
     expect(JSON.stringify(outArray)).toEqual(JSON.stringify(expArray))
   })
+  test('array with single object and two keys returns array with two string', () => {
+    const inArray = [{ firstName: 'profile.firstName', lastName: 'profile.lastName' }]
+    const expArray = ['profile.firstName', 'profile.lastName']
+    const outArray = flattenNames(inArray)
+    expect(JSON.stringify(outArray)).toEqual(JSON.stringify(expArray))
+  })
 })
 
 describe('getPartialValues', () => {
+  test('expect error for key not in object', () => {
+    expect(() => getPartialValues({}, ['foo'])).toThrowError(
+      `Key 'foo' not found in object ${JSON.stringify({})}`
+    )
+    const o = { foo: {} }
+    expect(() => getPartialValues(o, ['foo.bar'])).toThrowError(
+      `Key 'bar' not found in object ${JSON.stringify(o)}`
+    )
+  })
   test('empty object and empty array returns empty object', () => {
     const inObj = {}
     const inArray: string[] = []
@@ -72,7 +87,6 @@ describe('getPartialValues', () => {
     const expObj = { firstName: 'John', car: { brand: 'Tesla' } }
     const outObj = getPartialValues(inObj, inArray)
     expect(JSON.stringify(outObj)).toEqual(JSON.stringify(expObj))
-    expect(JSON.stringify(inArray)).toEqual(JSON.stringify(['firstName', 'car.brand']))
   })
 
   test(`expect in array parameter not to have changed`, () => {
@@ -86,8 +100,17 @@ describe('getPartialValues', () => {
     const inObj = { firstName: 'John', lastName: 'Doe', car: { brand: 'Tesla' } }
     const inArray = ['firstName', 'car.brand']
     getPartialValues(inObj, inArray)
-    expect(JSON.stringify(inObj)).toEqual(
-      JSON.stringify({ firstName: 'John', lastName: 'Doe', car: { brand: 'Tesla' } })
-    )
+    const expObj = { firstName: 'John', lastName: 'Doe', car: { brand: 'Tesla' } }
+    expect(JSON.stringify(inObj)).toEqual(JSON.stringify(expObj))
+  })
+  test(`expect big object to and correct array to return sub object`, () => {
+    const inObj = {
+      profile: { firstName: 'John', lastName: 'Doe' },
+      info: { address: 'Some address', city: 'A city' },
+    }
+    const inArray = ['profile.firstName', 'profile.lastName']
+    const outObj = getPartialValues(inObj, inArray)
+    const expObj = { profile: { firstName: 'John', lastName: 'Doe' } }
+    expect(JSON.stringify(outObj)).toEqual(JSON.stringify(expObj))
   })
 })
