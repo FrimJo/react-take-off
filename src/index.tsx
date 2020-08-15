@@ -5,7 +5,7 @@ import * as ReactDOM from 'react-dom'
 import ServiceWorkerContext from 'contexts/service-worker-context'
 import { App } from './App'
 
-if (process.env.NODE_ENV === 'production' && process.env.REACT_GOOGLE_TAG_MANAGER_ID) {
+if (process.env.REACT_GOOGLE_TAG_MANAGER_ID !== undefined) {
   const TagManager = require('react-gtm-module')
   TagManager.initialize({
     gtmId: process.env.REACT_GOOGLE_TAG_MANAGER_ID,
