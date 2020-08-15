@@ -39,16 +39,19 @@ const PageView: React.FC<{
         /*
           If device is iOS and not in standalone mode, set height to inner height of window to prevent Safari bug
          */
-        ${isIos() &&
-        !isInStandaloneMode() &&
-        css`
-          height: ${innerHeight}px;
-        `}
+        ${
+          isIos() &&
+          !isInStandaloneMode() &&
+          css`
+            height: ${innerHeight}px;
 
-        /* Browsers which supports fill-available should use it in any scenario */
-        @supports (height: fill-available) {
-          height: fill-available;
+            /* Browsers which supports fill-available should use it in any scenario */
+            @supports (height: fill-available) {
+              height: fill-available;
+            }
+          `
         }
+
 
         background-color: ${bgcolor ?? theme.palette.background.default};
         display: flex;
