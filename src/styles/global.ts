@@ -9,8 +9,9 @@ export const GlobalStyle = createGlobalStyle(
       flex-shrink: 0;
       font-family: ${theme.typography.fontFamily} !important;
       background-color: ${theme.palette.background.default};
+      overflow: hidden;
 
-      /* If device is in standaline mode */
+      /* If device is in standalone mode */
       ${isInStandaloneMode() &&
       css`
         /* Show black background on bounce scroll */
