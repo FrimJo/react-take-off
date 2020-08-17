@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^12.0.11",
     "date-fns": "^2.13.0",
     "husky": "^4.2.5",
+    "lazy-props": "^2.2.0",
     "lint-staged": "^10.2.2",
     "mdi-material-ui": "^6.16.0",
     "react": "^16.13.1",

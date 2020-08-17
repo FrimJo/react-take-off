@@ -1,4 +1,5 @@
 import { Typography, Box, Link } from '@material-ui/core'
+import { lazyProps } from 'lazy-props'
 import * as React from 'react'
 import { css } from 'styled-components'
 import { BottomNavigationExample } from 'components/bottom-navigation-exmaple'
@@ -10,16 +11,13 @@ import {
   NestedFormExampleRoute,
 } from 'config/routes'
 import { useFormatMessage } from 'localization'
-import { useTodo } from 'queries/todo-query'
+import { todoCache } from 'queries/todo-query'
 import { navigate } from 'utilities/react-router-hooks'
+import { TodoItem } from './components/todo-item'
 
 const LandingPageView: React.FC = () => {
-  const id = 4
-  const { todo } = useTodo(id)
+  const LazyTodoItem = React.lazy(() => lazyProps(TodoItem, { todo: todoCache.prefetch(4) }))
   const f = useFormatMessage()
-  if (!todo) {
-    return <div>no todo item received with id {id}</div>
-  }
   return (
     <Page
       iosStatusbarColor="black"
@@ -36,8 +34,7 @@ const LandingPageView: React.FC = () => {
           background-color: ${({ theme }) => theme.palette.text.primary};
         `}
       />
-      <Typography variant="h6">{todo.title}</Typography>
-      <Typography variant="body1">Completed: {todo.completed ? 'yes' : 'no'}</Typography>
+      <LazyTodoItem />
       <Box pt={5} />
       <Link onClick={() => navigate(CreateTodoRoute.generatePath())}>Create todo</Link>
       <Link onClick={() => navigate(WizardFormExampleRoute.generatePath())}>

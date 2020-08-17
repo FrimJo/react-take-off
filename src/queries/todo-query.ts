@@ -78,14 +78,14 @@ const getData = (todoId: number) => {
 }
 
 const invalidate = (todoId: number) => queryCache.invalidateQueries<ITodoItem>(getKey(todoId))
-const prefetche = (todoId: number) =>
+const prefetch = (todoId: number) =>
   queryCache.prefetchQuery(getKey(todoId), (_, { todoId }) => api.getTodoById({ todoId }))
 
 export const todoCache = {
   getData,
   setData,
   invalidate,
-  prefetche,
+  prefetch,
 }
 
 const TodoQuery = {

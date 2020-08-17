@@ -7208,6 +7208,11 @@ lazy-cache@^1.0.3:
   resolved "https://registry.yarnpkg.com/lazy-cache/-/lazy-cache-1.0.4.tgz#a1d78fc3a50474cb80845d3b3b6e1da49a446e8e"
   integrity sha1-odePw6UEdMuAhF07O24dpJpEbo4=
 
+lazy-props@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/lazy-props/-/lazy-props-2.2.0.tgz#46372915f0c70deaa44998f8bbeba817c587b464"
+  integrity sha512-8dJ0ZSD8jkX2rQD75t9WreIWfLSiMja1JRchkHdukMf+KbONk/mOU41Zsm/3QuKSQ+c/oSoztYOvK/t63ExZAA==
+
 lcid@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/lcid/-/lcid-2.0.0.tgz#6ef5d2df60e52f82eb228a4c373e8d1f397253cf"
