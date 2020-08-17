@@ -3,11 +3,14 @@ import { isInStandaloneMode } from 'utilities/is-in-standalone-mode'
 
 export const GlobalStyle = createGlobalStyle(
   ({ theme }) => css`
+    * {
+      box-sizing: border-box;
+      font-family: ${theme.typography.fontFamily};
+    }
+
     html {
-      box-sizing: border-box !important;
       flex-grow: 0;
       flex-shrink: 0;
-      font-family: ${theme.typography.fontFamily} !important;
       background-color: ${theme.palette.background.default};
       overflow: hidden;
 
