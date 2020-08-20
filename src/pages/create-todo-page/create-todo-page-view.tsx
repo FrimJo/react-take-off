@@ -4,14 +4,15 @@ import * as React from 'react'
 import { css } from 'styled-components'
 import { ContainedButton } from 'components/contained-button'
 import { Page } from 'components/page'
-import { ITodoItem, useCreateTodo } from 'queries/todo-query'
+import { CreateTodoItem } from 'mocks/handlers'
+import { useCreateTodo } from 'queries/todo-query'
 import { browserHistory } from 'utilities/history'
 import { useForm } from 'utilities/use-form'
 
 const CreateTodoPageView: React.FC<{ className?: string }> = ({ className }) => {
   const { createTodo, result } = useCreateTodo({ userId: 1 })
 
-  const { name, register, handleSubmit } = useForm<Omit<ITodoItem, 'id' | 'userId'>>({
+  const { name, register, handleSubmit } = useForm<CreateTodoItem>({
     defaultValues: { completed: false, title: '' },
   })
 

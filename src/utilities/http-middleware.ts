@@ -5,6 +5,7 @@ import { navigate } from './react-router-hooks'
 const abortController = new AbortController()
 export const httpMiddleware: Middleware = {
   pre: ({ init: initOptions, url }) => {
+    console.log('pre')
     const authResult = { accessToken: '' } // TODO: Get access token here
     if (!authResult) {
       // TODO Redirect user to log in screen here
@@ -35,6 +36,7 @@ export const httpMiddleware: Middleware = {
     return promise
   },
   post: async ({ fetch, init, response, url }) => {
+    console.log('post')
     if (response.ok) {
       return Promise.resolve(response)
     }

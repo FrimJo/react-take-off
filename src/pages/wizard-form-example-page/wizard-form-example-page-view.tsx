@@ -2,6 +2,7 @@ import * as React from 'react'
 import { css } from 'styled-components'
 import { ContainedButton } from 'components/contained-button'
 import { Page } from 'components/page'
+import { Wizard } from 'components/wizard'
 import { Form1 } from './components/form-1'
 import { Form2 } from './components/form-2'
 
@@ -16,7 +17,7 @@ export default (props: React.PropsWithChildren<{}>) => {
     info: { address: '', city: '' },
   }
   const [state, setState] = React.useState(defaultValues)
-  const [step, setStep] = React.useState(0)
+
   return (
     <Page>
       <div
@@ -24,25 +25,19 @@ export default (props: React.PropsWithChildren<{}>) => {
           display: flex;
           flex-direction: column;
         `}>
-        {step === 0 && (
+        <Wizard>
           <Form1
-            defaultValues={defaultValues.profile}
+            defaultValues={state.profile}
             onSubmit={(profile) => {
               setState((prevState) => ({ ...prevState, profile }))
-              setStep(1)
             }}
           />
-        )}
-        {step === 1 && (
           <Form2
-            defaultValues={defaultValues.info}
+            defaultValues={state.info}
             onSubmit={(info) => {
               setState((prevState) => ({ ...prevState, info }))
-              setStep(2)
             }}
           />
-        )}
-        {step === 2 && (
           <ContainedButton
             onClick={() =>
               alert(
@@ -51,9 +46,9 @@ export default (props: React.PropsWithChildren<{}>) => {
             }>
             Submit full form
           </ContainedButton>
-        )}
-        {JSON.stringify(state, null, 2)}
+        </Wizard>
       </div>
+      {JSON.stringify(state, null, 2)}
     </Page>
   )
 }

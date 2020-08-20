@@ -1,13 +1,16 @@
-import { Typography } from '@material-ui/core'
+import { lazyProps } from 'lazy-props'
 import * as React from 'react'
-import { ITodoItem } from 'queries/todo-query'
+import { todoCache } from 'queries/todo-query'
+import TodoItemView from './todo-item-view'
 
-export default (props: React.PropsWithChildren<{ todo: ITodoItem }>) => {
-  const { todo } = props
+export default (props: React.PropsWithChildren<{ id: number }>) => {
+  const { id } = props
+  const LazyTodoItemView = React.lazy(() =>
+    lazyProps(TodoItemView, { todo: todoCache.prefetch(id) })
+  )
   return (
-    <>
-      <Typography variant="h6">{todo.title}</Typography>
-      <Typography variant="body1">Completed: {todo.completed ? 'yes' : 'no'}</Typography>
-    </>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <LazyTodoItemView />
+    </React.Suspense>
   )
 }

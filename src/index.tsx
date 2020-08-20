@@ -12,6 +12,11 @@ if (process.env.REACT_GOOGLE_TAG_MANAGER_ID !== undefined) {
   })
 }
 
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/browser')
+  worker.start()
+}
+
 ReactDOM.render(
   <ServiceWorkerContext.Provider>
     <React.Suspense fallback={<>Splash screen goes here</>}>

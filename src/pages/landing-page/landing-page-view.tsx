@@ -1,5 +1,4 @@
 import { Typography, Box, Link } from '@material-ui/core'
-import { lazyProps } from 'lazy-props'
 import * as React from 'react'
 import { css } from 'styled-components'
 import { BottomNavigationExample } from 'components/bottom-navigation-exmaple'
@@ -11,12 +10,12 @@ import {
   NestedFormExampleRoute,
 } from 'config/routes'
 import { useFormatMessage } from 'localization'
-import { todoCache } from 'queries/todo-query'
+import { useTodos } from 'queries/todo-query'
 import { navigate } from 'utilities/react-router-hooks'
 import { TodoItem } from './components/todo-item'
 
 const LandingPageView: React.FC = () => {
-  const LazyTodoItem = React.lazy(() => lazyProps(TodoItem, { todo: todoCache.prefetch(4) }))
+  const { todos } = useTodos()
   const f = useFormatMessage()
   return (
     <Page
@@ -34,7 +33,7 @@ const LandingPageView: React.FC = () => {
           background-color: ${({ theme }) => theme.palette.text.primary};
         `}
       />
-      <LazyTodoItem />
+      <TodoItem id={4} />
       <Box pt={5} />
       <Link onClick={() => navigate(CreateTodoRoute.generatePath())}>Create todo</Link>
       <Link onClick={() => navigate(WizardFormExampleRoute.generatePath())}>
@@ -46,6 +45,11 @@ const LandingPageView: React.FC = () => {
       <Link onClick={() => navigate(NestedFormExampleRoute.generatePath())}>
         Nested form example
       </Link>
+      <ul>
+        {(todos ?? []).map((t, index) => (
+          <li key={index}>{t.title}</li>
+        ))}
+      </ul>
     </Page>
   )
 }

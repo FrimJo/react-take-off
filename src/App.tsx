@@ -11,8 +11,10 @@ import { GlobalStyle } from 'styles/global'
 import { THEME } from 'styles/theme'
 
 const queryConfig: ReactQueryProviderConfig = {
+  mutations: { useErrorBoundary: true },
   shared: { suspense: true },
   queries: {
+    useErrorBoundary: true,
     staleTime: 60 * 1000, // Fetched data will be fresh for 1 minute befor becoming stale
     refetchOnWindowFocus: true,
     refetchOnMount: true,
