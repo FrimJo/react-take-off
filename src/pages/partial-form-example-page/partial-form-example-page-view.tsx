@@ -10,7 +10,7 @@ export type UserDTO = {
   info: { address: string; city: string }
 }
 
-export default (props: React.PropsWithChildren<{}>) => {
+export default () => {
   const defaultValues: UserDTO = {
     profile: { firstName: '', lastName: '' },
     info: { address: '', city: '' },

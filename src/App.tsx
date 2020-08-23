@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ReactQueryConfigProvider, ReactQueryProviderConfig } from 'react-query'
+import { ReactQueryConfigProvider, ReactQueryConfig } from 'react-query'
 import { ReactQueryDevtools } from 'react-query-devtools'
 import { InstallMessage } from 'components/install-message'
 import { Router } from 'components/router'
@@ -10,7 +10,7 @@ import { LocalizationProvider } from 'localization'
 import { GlobalStyle } from 'styles/global'
 import { THEME } from 'styles/theme'
 
-const queryConfig: ReactQueryProviderConfig = {
+const queryConfig: ReactQueryConfig = {
   mutations: { useErrorBoundary: true },
   shared: { suspense: true },
   queries: {

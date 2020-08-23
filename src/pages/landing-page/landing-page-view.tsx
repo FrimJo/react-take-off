@@ -10,13 +10,13 @@ import {
   NestedFormExampleRoute,
 } from 'config/routes'
 import { useFormatMessage } from 'localization'
-import { useTodos } from 'queries/todo-query'
 import { navigate } from 'utilities/react-router-hooks'
 import { TodoItem } from './components/todo-item'
+import { TodosList } from './components/todos-list'
 
 const LandingPageView: React.FC = () => {
-  const { todos } = useTodos()
   const f = useFormatMessage()
+
   return (
     <Page
       iosStatusbarColor="black"
@@ -33,7 +33,7 @@ const LandingPageView: React.FC = () => {
           background-color: ${({ theme }) => theme.palette.text.primary};
         `}
       />
-      <TodoItem id={4} />
+      <TodoItem id={1} />
       <Box pt={5} />
       <Link onClick={() => navigate(CreateTodoRoute.generatePath())}>Create todo</Link>
       <Link onClick={() => navigate(WizardFormExampleRoute.generatePath())}>
@@ -45,11 +45,8 @@ const LandingPageView: React.FC = () => {
       <Link onClick={() => navigate(NestedFormExampleRoute.generatePath())}>
         Nested form example
       </Link>
-      <ul>
-        {(todos ?? []).map((t, index) => (
-          <li key={index}>{t.title}</li>
-        ))}
-      </ul>
+
+      <TodosList />
     </Page>
   )
 }

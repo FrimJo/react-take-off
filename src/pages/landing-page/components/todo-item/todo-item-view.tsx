@@ -1,13 +1,14 @@
-import { Typography } from '@material-ui/core'
+import { Checkbox, FormControlLabel, CheckboxProps } from '@material-ui/core'
 import * as React from 'react'
 import { ITodoItem } from 'mocks/handlers'
 
-export default (props: React.PropsWithChildren<{ todo: ITodoItem }>) => {
-  const { todo } = props
+type Props = { todo: ITodoItem } & CheckboxProps
+export default (props: React.PropsWithChildren<Props>) => {
+  const { todo, ...rest } = props
   return (
-    <>
-      <Typography variant="h6">{todo.title}</Typography>
-      <Typography variant="body1">Completed: {todo.completed ? 'yes' : 'no'}</Typography>
-    </>
+    <FormControlLabel
+      control={<Checkbox checked={todo.completed} {...rest} />}
+      label={todo.title}
+    />
   )
 }

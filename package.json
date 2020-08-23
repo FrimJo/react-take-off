@@ -19,7 +19,7 @@
     "react-dom": "^16.13.1",
     "react-error-boundary": "^2.2.1",
     "react-gtm-module": "^2.0.8",
-    "react-hook-form": "^6.3.0",
+    "react-hook-form": "^6.5.0",
     "react-intl": "^5.0.2",
     "react-query": "^2.5.14",
     "react-query-devtools": "^2.4.3",
@@ -54,7 +54,7 @@
     "yarnhook": "^0.4.3"
   },
   "scripts": {
-    "start": "react-app-rewired start --ssl-cert localhost.pem --ssl-key localhost-key.pem",
+    "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "typecheck": "tsc -w -p tsconfig.json",

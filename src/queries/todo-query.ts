@@ -49,7 +49,10 @@ function useKey(todoId?: number): [BaseKey] | [BaseKey, { todoId: number }] {
 
 export function useTodo(todoId: number) {
   const key = useKey(todoId)
-  const { data, ...rest } = useQuery(key, (_, { todoId }) => api.getTodoById({ todoId }))
+  const { todos } = useTodos()
+  const { data, ...rest } = useQuery(key, (_, { todoId }) => api.getTodoById({ todoId }), {
+    initialData: todos?.find((t) => t.id === todoId),
+  })
 
   return React.useMemo(() => ({ todo: data, ...rest }), [data, rest])
 }
@@ -86,7 +89,14 @@ export const todoCache = {
     dataOrUpdater: ITodoItem | ((oldData: ITodoItem | undefined) => ITodoItem)
   ) => queryCache.setQueryData(getKey(todoId), dataOrUpdater),
   getData: (todoId: number) => queryCache.getQueryData<ITodoItem>(getKey(todoId)),
-  invalidate: (todoId: number) => queryCache.invalidateQueries<ITodoItem>(getKey(todoId)),
+  invalidate: (todoId: number) => queryCache.invalidateQueries(getKey(todoId)),
   prefetch: (todoId: number) =>
-    queryCache.prefetchQuery(getKey(todoId), (_, { todoId }) => api.getTodoById({ todoId })),
+    queryCache.prefetchQuery(
+      getKey(todoId),
+      (_, { todoId }) => api.getTodoById({ todoId }),
+      {},
+      {
+        throwOnError: true,
+      }
+    ),
 }
