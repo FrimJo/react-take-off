@@ -5,6 +5,7 @@ import { ITodoItem } from 'mocks/handlers'
 type Props = { todo: ITodoItem } & CheckboxProps
 export default (props: React.PropsWithChildren<Props>) => {
   const { todo, ...rest } = props
+
   return (
     <FormControlLabel
       control={<Checkbox checked={todo.completed} {...rest} />}

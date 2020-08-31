@@ -4,14 +4,12 @@ import { css } from 'styled-components'
 import { BottomNavigationExample } from 'components/bottom-navigation-exmaple'
 import { Page } from 'components/page'
 import {
-  CreateTodoRoute,
   WizardFormExampleRoute,
   PartialFormExampleRoute,
   NestedFormExampleRoute,
 } from 'config/routes'
 import { useFormatMessage } from 'localization'
 import { navigate } from 'utilities/react-router-hooks'
-import { TodoItem } from './components/todo-item'
 import { TodosList } from './components/todos-list'
 
 const LandingPageView: React.FC = () => {
@@ -33,9 +31,7 @@ const LandingPageView: React.FC = () => {
           background-color: ${({ theme }) => theme.palette.text.primary};
         `}
       />
-      <TodoItem id={1} />
       <Box pt={5} />
-      <Link onClick={() => navigate(CreateTodoRoute.generatePath())}>Create todo</Link>
       <Link onClick={() => navigate(WizardFormExampleRoute.generatePath())}>
         Wizard form example
       </Link>

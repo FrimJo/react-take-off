@@ -4,6 +4,7 @@ import * as React from 'react'
 import { css } from 'styled-components'
 import { ContainedButton } from 'components/contained-button'
 import { Page } from 'components/page'
+import { useStaticCallback } from 'utilities/use-static-callback'
 
 type FallbackViewProps = {
   error?: Error
@@ -18,10 +19,10 @@ const ErrorFallbackView: React.FC<FallbackViewProps> = ({
 }) => {
   const theme = useTheme()
   const [resetPressed, setResetPressed] = React.useState(false)
-  const handleResetPressed = React.useCallback(() => {
+  const handleResetPressed = useStaticCallback(() => {
     setResetPressed(true)
     resetErrorBoundary()
-  }, [resetErrorBoundary])
+  })
   return (
     <Page
       bgcolor={theme.palette.primary.main}

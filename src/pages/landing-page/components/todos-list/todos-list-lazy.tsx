@@ -7,7 +7,12 @@ import TodoListView from './todos-list-view'
 export default () => {
   const LazyTodosList = React.lazy(() => lazyProps(TodoListView, { todos: todosCache.prefetch() }))
   return (
-    <ErrorBoundary fallbackRender={({ error }) => <div>Could not load todos</div>}>
+    <ErrorBoundary
+      fallbackRender={({ error, resetErrorBoundary }) => (
+        <div>
+          Could not load todos<button onClick={resetErrorBoundary}>reset</button>
+        </div>
+      )}>
       <React.Suspense fallback={<div>Loading todos…</div>}>
         <LazyTodosList />
       </React.Suspense>

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { isInStandaloneMode } from 'utilities/is-in-standalone-mode'
 import { isIos } from 'utilities/is-ios'
 import { useLocalStorage } from 'utilities/use-local-storage'
+import { useStaticCallback } from 'utilities/use-static-callback'
 
 const LOCAL_STORAGE_KEY = 'installMessage'
 
@@ -21,10 +22,10 @@ export function useInstallStorage() {
     [set]
   )
 
-  const clear = React.useCallback(() => {
+  const clear = useStaticCallback(() => {
     clearStorage()
     setShow(canShow)
-  }, [canShow, clearStorage])
+  })
 
   return React.useMemo(() => ({ declined, show, setDeclined, setShow, clear, canShow }), [
     canShow,

@@ -1,3 +1,3 @@
-import TodosList from './todos-list-container'
+import TodosList from './todos-list-lazy'
 
 export { TodosList }

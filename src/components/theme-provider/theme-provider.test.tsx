@@ -4,7 +4,7 @@ import { useTheme } from '@material-ui/styles'
 import { cleanup, render } from '@testing-library/react'
 import * as React from 'react'
 import { useContext } from 'react'
-import { ThemeContext } from 'styled-components/macro'
+import { ThemeContext } from 'styled-components'
 import ThemeProvider from './theme-provider-container'
 
 afterEach(cleanup)

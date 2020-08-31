@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { asContext } from 'utilities/as-context'
+import { useStaticCallback } from 'utilities/use-static-callback'
 
 type WizardProviderConfig = { totalSteps: number }
 type WizardProviderProps = { config: WizardProviderConfig }
@@ -9,17 +10,17 @@ const useWizardContext = (props: WizardProviderProps) => {
 
   const [currentStep, setCurrentStep] = React.useState(0)
 
-  const next = React.useCallback(() => {
+  const next = useStaticCallback(() => {
     if (currentStep !== config.totalSteps - 1) {
       setCurrentStep((prevStep) => prevStep + 1)
     }
-  }, [config.totalSteps, currentStep])
+  })
 
-  const previous = React.useCallback(() => {
+  const previous = useStaticCallback(() => {
     if (currentStep !== 0) {
       setCurrentStep((prevStep) => prevStep - 1)
     }
-  }, [currentStep])
+  })
 
   return React.useMemo(() => ({ state: { currentStep }, actions: { previous, next } }), [
     currentStep,

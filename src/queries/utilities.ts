@@ -4,7 +4,7 @@ import { httpMiddleware } from 'utilities/http-middleware'
 const middleware = [httpMiddleware]
 
 function randmoDelay<T>(value: T) {
-  const delay = Math.random() * 700 + 300
+  const delay = Math.random() * 7000 + 300
   return new Promise<T>((resolve) => setTimeout(() => resolve(value), delay))
 }
 

@@ -1,6 +1,6 @@
 import { useTheme } from '@material-ui/core'
 import * as React from 'react'
-import { css } from 'styled-components/macro'
+import { css } from 'styled-components'
 import SpinnerStyle from './spinner-style'
 
 export type Props = Readonly<{

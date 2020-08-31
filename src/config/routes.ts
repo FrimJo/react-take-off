@@ -9,12 +9,6 @@ export const LandingRoute = generateRoute({
   component: React.lazy(() => import('pages/landing-page')),
 })
 
-export const CreateTodoRoute = generateRoute({
-  pattern: '/create-todo',
-  exact: false,
-  component: React.lazy(() => import('pages/create-todo-page')),
-})
-
 export const WizardFormExampleRoute = generateRoute({
   pattern: '/wizard-form-example',
   exact: false,

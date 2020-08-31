@@ -7,7 +7,6 @@ import { Spinner } from 'components/spinner'
 import {
   NotFoundRoute,
   LandingRoute,
-  CreateTodoRoute,
   WizardFormExampleRoute,
   PartialFormExampleRoute,
   NestedFormExampleRoute,
@@ -22,7 +21,6 @@ const RouterContainer: React.FC = () => {
         <React.Suspense fallback={<Spinner color={theme.palette.secondary.main} />}>
           <Switch>
             <Route {...LandingRoute.props} />
-            <Route {...CreateTodoRoute.props} />
             <Route {...WizardFormExampleRoute.props} />
             <Route {...PartialFormExampleRoute.props} />
             <Route {...NestedFormExampleRoute.props} />
