@@ -1,6 +1,12 @@
 import * as React from 'react'
-import { useForm as useHookForm, UseFormOptions, UseFormMethods } from 'react-hook-form'
-import { FieldValues, UnpackNestedValue, FieldName } from 'react-hook-form/dist/types/form'
+import {
+  useForm as useHookForm,
+  UseFormOptions,
+  UseFormMethods,
+  FieldValues,
+  UnpackNestedValue,
+  FieldName,
+} from 'react-hook-form'
 import { getNamesForObject } from './get-names-for-object'
 
 export function flattenNames(obj: object | string): Array<string> {
