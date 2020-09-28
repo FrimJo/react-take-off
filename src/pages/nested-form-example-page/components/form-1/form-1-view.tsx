@@ -15,7 +15,7 @@ type Form1ViewProps = {
 }
 const Form1View: React.FC<Form1ViewProps> = (props) => {
   const { profile, onSubmit, name } = props
-  const { handleSubmit, watch, register } = useNestedForm({
+  const { handleSubmit, watch, register } = useNestedForm<Form1ViewProps>({
     register: props.register,
     defaultValues: { profile },
   })
