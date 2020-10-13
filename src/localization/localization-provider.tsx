@@ -1,6 +1,6 @@
 import DateFnsUtils from '@date-io/date-fns'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
-import * as React from 'react'
+import React from 'react'
 import { IntlProvider } from 'react-intl'
 import { getLocale, getLocaleFns } from './get-locale'
 import { getMessages } from './messages'

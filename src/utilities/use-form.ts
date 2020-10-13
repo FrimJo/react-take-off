@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import * as React from 'react'
+import { useCallback, useMemo } from 'react'
 import {
   useForm as useHookForm,
   UseFormOptions,
@@ -59,7 +59,7 @@ export function useNestedForm<
 ): UseFormMethods<TFieldValues> {
   const formMethods = useHookForm<TFieldValues, TContext>(props)
 
-  const register: typeof formMethods.register = React.useCallback(
+  const register: typeof formMethods.register = useCallback(
     (...args: any[]): typeof propsRefFunc => {
       const propsRefFunc = props.register(...args)
       const formRefFunc = formMethods.register(...args)
@@ -71,7 +71,7 @@ export function useNestedForm<
     [formMethods, props]
   )
 
-  const handleSubmit: typeof formMethods.handleSubmit = React.useCallback(
+  const handleSubmit: typeof formMethods.handleSubmit = useCallback(
     (...args) => {
       const callback = formMethods.handleSubmit(...args)
       return (event, ...rest) => {
@@ -83,7 +83,7 @@ export function useNestedForm<
     [formMethods]
   )
 
-  return React.useMemo(() => ({ ...formMethods, register, handleSubmit }), [
+  return useMemo(() => ({ ...formMethods, register, handleSubmit }), [
     formMethods,
     handleSubmit,
     register,
@@ -104,7 +104,7 @@ export function useForm<
   const formMethods = useHookForm<TFieldValues, TContext>(props)
   const name = getNamesForObject(props.defaultValues)
 
-  const handlePartialSubmit = React.useCallback(
+  const handlePartialSubmit = useCallback(
     function (name: string | object, callback?: (values: any) => void) {
       const names = flattenNames(name)
       const values = getPartialValues(formMethods.watch(), names)
@@ -119,7 +119,7 @@ export function useForm<
     [formMethods]
   )
 
-  return React.useMemo(() => ({ ...formMethods, name, handlePartialSubmit }), [
+  return useMemo(() => ({ ...formMethods, name, handlePartialSubmit }), [
     formMethods,
     name,
     handlePartialSubmit,
