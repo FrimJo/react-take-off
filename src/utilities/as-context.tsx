@@ -1,15 +1,15 @@
-import * as React from 'react'
+import React, { createContext, useContext } from 'react'
 
 type HookFunction<S, A, P> = (props: P) => { state: S; actions: A }
 
-export function asContext<S, A, P extends object>(
+function asContext<S, A, P extends Record<string, unknown>>(
   useHook: HookFunction<S, A, P>,
   identification?: string
 ) {
-  const StateContext = React.createContext<S | undefined>(undefined)
-  const ActionsContext = React.createContext<A | undefined>(undefined)
+  const StateContext = createContext<S | undefined>(undefined)
+  const ActionsContext = createContext<A | undefined>(undefined)
 
-  const Provider: React.SFC<P> = ({ children, ...props }) => {
+  const Provider = ({ children, ...props }: React.PropsWithChildren<P>) => {
     const { state, actions } = useHook(props as P)
 
     return (
@@ -20,7 +20,7 @@ export function asContext<S, A, P extends object>(
   }
 
   const useState = () => {
-    const state = React.useContext(StateContext)
+    const state = useContext(StateContext)
     if (state === undefined) {
       throw Error(`Missing Provider for useState ${identification}`)
     }
@@ -28,14 +28,14 @@ export function asContext<S, A, P extends object>(
   }
 
   const useActions = () => {
-    const actions = React.useContext(ActionsContext)
+    const actions = useContext(ActionsContext)
     if (actions === undefined) {
       throw Error(`Missing Provider for useActions ${identification}`)
     }
     return actions
   }
 
-  const StateConsumer: React.SFC<{
+  const StateConsumer: React.FC<{
     children: (state: S) => React.ReactNode
   }> = ({ children }) => {
     return (
@@ -50,7 +50,7 @@ export function asContext<S, A, P extends object>(
     )
   }
 
-  const ActionsConsumer: React.SFC<{
+  const ActionsConsumer: React.FC<{
     children: (actions: A) => React.ReactNode
   }> = ({ children }) => {
     return (
@@ -75,3 +75,5 @@ export function asContext<S, A, P extends object>(
     ActionsConsumer,
   }
 }
+
+export default asContext

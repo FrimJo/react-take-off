@@ -1,20 +1,17 @@
 {
-  "env": {
-    "development": {
-      "plugins": [
-       ["babel-plugin-styled-components", {
-          "minify": false,
-          "transpileTemplateLiterals": false
-        }]
-      ]
-    },
-    "production": {
-      "plugins": [
-        ["babel-plugin-styled-components", {
-          "displayName": false,
-          "fileName": false
-        }]
-      ]
-    }
-  }
+  "presets": [
+    "next/babel"
+  ],
+  "plugins": [
+    "inline-react-svg",
+    "@babel/syntax-dynamic-import",
+    [
+      "styled-components",
+      {
+        "ssr": true,
+        "displayName": true,
+        "preprocess": false
+      }
+    ]
+  ]
 }

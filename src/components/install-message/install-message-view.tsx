@@ -9,19 +9,16 @@ import {
   IconButton,
 } from '@material-ui/core'
 import { Close } from 'mdi-material-ui'
-import * as React from 'react'
+import React, { useCallback } from 'react'
 import { css } from 'styled-components'
-import { useStaticCallback } from 'utilities/use-static-callback'
-import { ReactComponent as PlusAppIcon } from '../../assets/plus-app.svg'
-import { ReactComponent as ShareIcon } from '../../assets/share.svg'
+import PlusAppIcon from './assets/plus-app.svg'
+import ShareIcon from './assets/share.svg'
 import { useInstallStorage } from './utilities/use-install-storage'
 
-type InstallMessageViewProps = {}
-
-const InstallMessageView: React.FC<InstallMessageViewProps> = () => {
+const InstallMessageView: React.FC = () => {
   const { declined, show, setDeclined, setShow } = useInstallStorage()
-  const handleClose = useStaticCallback(() => setShow(false))
-  const handleDecline = useStaticCallback(() => setDeclined(true))
+  const handleClose = useCallback(() => setShow(false), [setShow])
+  const handleDecline = useCallback(() => setDeclined(true), [setDeclined])
   return (
     <Slide direction="up" in={!declined && show} mountOnEnter unmountOnExit>
       <Card

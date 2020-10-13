@@ -1,7 +1,15 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import * as React from 'react'
-import { useForm as useHookForm, UseFormOptions, UseFormMethods } from 'react-hook-form'
-import { FieldValues, UnpackNestedValue, FieldName } from 'react-hook-form/dist/types/form'
-import { getNamesForObject } from './get-names-for-object'
+import {
+  useForm as useHookForm,
+  UseFormOptions,
+  UseFormMethods,
+  FieldValues,
+  UnpackNestedValue,
+  FieldName,
+  DeepPartial,
+} from 'react-hook-form'
+import getNamesForObject from './get-names-for-object'
 
 export function flattenNames(obj: object | string): Array<string> {
   if (typeof obj !== 'object') {
@@ -86,7 +94,7 @@ type UseDefaultFormOptions<
   TFieldValues extends FieldValues = FieldValues,
   TContext extends object = object
 > = Omit<UseFormOptions<TFieldValues, TContext>, 'defaultValues'> & {
-  defaultValues: UnpackNestedValue<TFieldValues>
+  defaultValues: UnpackNestedValue<DeepPartial<TFieldValues>>
 }
 
 export function useForm<

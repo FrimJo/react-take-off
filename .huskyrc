@@ -1,8 +1,0 @@
-{
-  "hooks": {
-    "pre-commit": "tsc --noEmit && lint-staged",
-    "post-merge": "yarnhook",
-    "post-checkout": "yarnhook",
-    "post-rewrite": "yarnhook"
-  }
-}

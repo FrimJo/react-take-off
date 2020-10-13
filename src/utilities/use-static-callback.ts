@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/ban-types */
 import { useRef } from 'react'
 
 type ExtractArgs<T> = T extends (...args: infer A) => any ? A : undefined
