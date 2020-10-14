@@ -132,9 +132,9 @@ export type IosSafeAreaProps = {
 
 const IosSafeArea: React.FC<IosSafeAreaProps> = (props) => {
   const { children, statusBarColor = false } = props
-  const { isIOS } = checkForIOS()
+  const { isSafari } = checkForIOS()
 
-  return <>{isIOS ? renderIOSChildren(children, statusBarColor) : children}</>
+  return <>{isSafari ? renderIOSChildren(children, statusBarColor) : children}</>
 }
 
 export default IosSafeArea

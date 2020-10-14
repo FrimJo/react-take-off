@@ -28,26 +28,26 @@ const PageWrapperView: React.FC<Props> = (props) => {
     throw Error('Can not both use component props and child as object')
   }
 
-  const TopComponent =
+  const renderTopComponent = () =>
     (isChildObject(children) && children.top) ||
     (Children.count(children) === 3 && Children.toArray(children)[0]) ||
     topComponent
 
-  const BodyComponent =
+  const renderBodyComponent = () =>
     (isChildObject(children) && children.body) ||
     (Children.count(children) === 3 && Children.toArray(children)[1]) ||
     children
 
-  const BottomComponent =
+  const renderBottomComponent = () =>
     (isChildObject(children) && children.bottom) ||
     (Children.count(children) === 3 && Children.toArray(children)[2]) ||
     bottomComponent
 
   return (
     <IOSSafeArea {...iOSConfig}>
-      {TopComponent}
-      <PageBody className={className}>{BodyComponent}</PageBody>
-      {BottomComponent}
+      <PageTop>{renderTopComponent()}</PageTop>
+      <PageBody className={className}>{renderBodyComponent()}</PageBody>
+      <PageBottom>{renderBottomComponent()}</PageBottom>
     </IOSSafeArea>
   )
 }
@@ -57,8 +57,8 @@ export const PageTop: React.FC<{ iOSConfig?: IosSafeAreaProps }> = ({
   iOSConfig = {},
 }) => {
   const child = Children.only(children)
-  const { isIOS } = checkForIOS()
-  if (!isIOS) {
+  const { isSafari } = checkForIOS()
+  if (!isSafari) {
     return <>{child}</>
   }
   if (isInStandaloneMode() && iOSConfig.statusBarColor) {
@@ -97,8 +97,8 @@ export const PageBody: React.FC<{
 
 export const PageBottom: React.FC = ({ children }) => {
   const child = Children.only(children)
-  const { isIOS } = checkForIOS()
-  if (!isIOS) {
+  const { isSafari } = checkForIOS()
+  if (!isSafari) {
     return <>{child}</>
   }
 

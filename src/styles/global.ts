@@ -1,5 +1,6 @@
 import { createGlobalStyle, css } from 'styled-components'
 import { normalize } from 'styled-normalize'
+import { checkForIOS, isInStandaloneMode } from 'utilities'
 
 export const GlobalStyle = createGlobalStyle(
   ({ theme }) => css`
@@ -10,11 +11,17 @@ export const GlobalStyle = createGlobalStyle(
     }
 
     html {
-      height: fill-available;
+      ${!(checkForIOS().isSafari && isInStandaloneMode()) &&
+      css`
+        height: fill-available;
+      `}
 
       body {
         min-height: 100vh;
-        min-height: fill-available;
+        ${!(checkForIOS().isSafari && isInStandaloneMode()) &&
+        css`
+          min-height: fill-available;
+        `}
 
         background-color: ${theme.palette.background.default};
         padding: 0px;
