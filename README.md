@@ -42,13 +42,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `yarn start`
+### `yarn dev`
 
 Runs the app in the development mode.<br />
 Open [https://localhost:3000](https://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The page will reload if you make edits. You will also see any lint errors in the console.
 
 ### Deploy build localy
 To test service worker, we need to run build using https. To do this, generate certificate using [mkcert](https://github.com/FiloSottile/mkcert). Following their instructions on [GitHub](https://github.com/FiloSottile/mkcert).
@@ -62,14 +61,16 @@ mkcert -install # Can be ran anywhere
 # Generates local SSL certificates localhost-key.pem and localhost.pem to use when localy serving over HTTPS
 mkcert localhost # Generated pem-files needs to be placed in root folder of project
 ```
-## Using project as SPA
 
-Add `serve` as global module.
+### Build project and run project as SSR/SSG (Run on server)
+```
+yarn build
+yarn start
+```
 
-```
-# Add serve to your global modules
-yarn global add serve
-```
+
+### Build project as SPA (Static site)
+
 Build project and serve it over HTTP using `serve`
 ```
 # Build project
