@@ -38,6 +38,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - A code editor - Visual Studio Code is recommended
 - A local copy of the codebase
 
+## Pre-setup
+- If project is an `SPA`, edit `next.config.js` to use project as SPA.
+- If `PWA` is not needed, remove `withPWA` and `pwa` settings in `next.config.js`. Also, add `react-router-dom` to `pages/index.ts`.
+- Uncomment and update `sitemap` settings for `sitemap()` in `next.config.js` to generate `sitemap.xml` to be used with `Google Search Console`.
+
 ## Available Scripts
 
 In the project directory, you can run:
