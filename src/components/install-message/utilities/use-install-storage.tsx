@@ -4,8 +4,8 @@ import { checkForIOS, isInStandaloneMode, useLocalStorage } from 'utilities'
 const LOCAL_STORAGE_KEY = 'installMessage'
 
 export function useInstallStorage() {
-  const { isSafari } = checkForIOS()
-  const canShow = isSafari && !isInStandaloneMode()
+  const { isIOS } = checkForIOS()
+  const canShow = isIOS && !isInStandaloneMode()
   const [show, setShow] = useState(canShow)
   const [{ declined }, set, clearStorage] = useLocalStorage(LOCAL_STORAGE_KEY, {
     declined: false,

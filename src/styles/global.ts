@@ -11,14 +11,14 @@ export const GlobalStyle = createGlobalStyle(
     }
 
     html {
-      ${!(checkForIOS().isSafari && isInStandaloneMode()) &&
+      ${!(checkForIOS().isIOS && isInStandaloneMode()) &&
       css`
         height: fill-available;
       `}
 
       body {
         min-height: 100vh;
-        ${!(checkForIOS().isSafari && isInStandaloneMode()) &&
+        ${!(checkForIOS().isIOS && isInStandaloneMode()) &&
         css`
           min-height: fill-available;
         `}
