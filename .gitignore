@@ -3,6 +3,7 @@
 # PWA
 **/public/precache.*.js
 **/public/sw.js
+**/public/sw.js.map
 
 # dependencies
 /node_modules
