@@ -33,7 +33,7 @@ const PageWrapperExample1: NextPage = () => {
           background-color: ${theme.palette.primary.main};
         `}>
         <Typography variant="h3">
-          Example pf using PageWrapper component and its props 'topComponent' and 'bottomComponent'
+          Example of using PageWrapper component and its props 'topComponent' and 'bottomComponent'
         </Typography>
         <Navigation />
       </div>
