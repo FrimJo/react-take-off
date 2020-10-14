@@ -25,7 +25,8 @@ const PageWrapperExample2: NextPage = () => {
               height: 2000px;
               background-color: ${theme.palette.primary.main};
             `}>
-            <Typography variant="h3">
+            <Typography variant="h4">PageWrapper example 2</Typography>
+            <Typography variant="body1">
               Example of using PageWrapper component with child as object
             </Typography>
             <Navigation />

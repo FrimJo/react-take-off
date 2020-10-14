@@ -37,7 +37,8 @@ const LandingPage: NextPage = () => {
           height: 2000px;
           background-color: ${theme.palette.primary.main};
         `}>
-        <Typography variant="h3">Random Chuck Norris joke</Typography>
+        <Typography variant="h4">Home</Typography>
+        <Typography variant="body1">Random Chuck Norris joke</Typography>
         {data?.value && <Typography variant="body1">{data.value}</Typography>}
         <Navigation />
       </div>

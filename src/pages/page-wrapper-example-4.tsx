@@ -24,7 +24,10 @@ const PageWrapperExample4: NextPage = () => {
             height: 2000px;
             background-color: ${theme.palette.primary.main};
           `}>
-          <Typography variant="h3">Example of using PageWrapper sibling component</Typography>
+          <Typography variant="h4">PageWrapper example 4</Typography>
+          <Typography variant="body1">
+            Example of using PageWrapper helper component PageTop, PageBody and PageBottom
+          </Typography>
           <Navigation />
         </div>
       </PageBody>

@@ -28,7 +28,7 @@ export const THEME: ThemeOptions = {
     },
   },
   typography: {
-    fontFamily: 'Oxygen',
+    fontFamily: ['Arial', 'sans-serif'].join(','),
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightBold: 700,
