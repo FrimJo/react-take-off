@@ -21,19 +21,27 @@ type Props = {
   children: React.ReactNode | ChildObject
 }
 
-const PageWrapperView: React.FC<Props> = ({
-  children,
-  iOSConfig = {},
-  className,
-  topComponent,
-  bottomComponent,
-}) => {
+const PageWrapperView: React.FC<Props> = (props) => {
+  const { children, iOSConfig = {}, className, topComponent, bottomComponent } = props
+
   if ((topComponent || bottomComponent) && isChildObject(children)) {
     throw Error('Can not both use component props and child as object')
   }
-  const TopComponent = topComponent ?? (isChildObject(children) && children.top)
-  const BodyComponent = isChildObject(children) ? children.body : children
-  const BottomComponent = bottomComponent ?? (isChildObject(children) && children.bottom)
+
+  const TopComponent =
+    (isChildObject(children) && children.top) ||
+    (Children.count(children) === 3 && Children.toArray(children)[0]) ||
+    topComponent
+
+  const BodyComponent =
+    (isChildObject(children) && children.body) ||
+    (Children.count(children) === 3 && Children.toArray(children)[1]) ||
+    children
+
+  const BottomComponent =
+    (isChildObject(children) && children.bottom) ||
+    (Children.count(children) === 3 && Children.toArray(children)[2]) ||
+    bottomComponent
 
   return (
     <IOSSafeArea {...iOSConfig}>
