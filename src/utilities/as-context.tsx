@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useMemo } from 'react'
 
 type HookFunction<S, A, P> = (props: P) => { state: S; actions: A }
 
@@ -11,10 +11,11 @@ function asContext<S, A, P extends Record<string, unknown>>(
 
   const Provider = ({ children, ...props }: React.PropsWithChildren<P>) => {
     const { state, actions } = useHook(props as P)
-
+    const contextState = useMemo(() => state, [state])
+    const contextActions = useMemo(() => actions, [actions])
     return (
-      <StateContext.Provider value={state}>
-        <ActionsContext.Provider value={actions}>{children}</ActionsContext.Provider>
+      <StateContext.Provider value={contextState}>
+        <ActionsContext.Provider value={contextActions}>{children}</ActionsContext.Provider>
       </StateContext.Provider>
     )
   }
