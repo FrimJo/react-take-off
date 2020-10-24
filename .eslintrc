@@ -35,6 +35,7 @@
       }
     ],
     "import/newline-after-import": [1, { "count": 1 }],
+    "import/no-named-as-default-member": 0,
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/explicit-function-return-type": 0,

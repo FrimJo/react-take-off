@@ -10,8 +10,8 @@ export function getLocalStorageFor<IStorage>(key: string): IStorage | undefined 
   return getLocalStorage()[key] ?? undefined
 }
 
-export function clearLocalStorageFor(key: string): void {
-  return setLocalStorageFor(key)(null)
+export function clearLocalStorageFor<IStorage>(key: string): void {
+  return setLocalStorageFor<IStorage>(key)(undefined)
 }
 
 export const setLocalStorageFor = <IStorage>(key: string) => (

@@ -1,9 +1,5 @@
-/* eslint-disable import/order */
 import { ThemeOptions } from '@material-ui/core'
 import { Colors } from './colors'
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const Color = require('color')
 
 export const THEME: ThemeOptions = {
   palette: {
@@ -11,8 +7,8 @@ export const THEME: ThemeOptions = {
       main: Colors.PurpleMountainsMajesty,
     },
     secondary: {
-      main: Color(Colors.PurpleMountainsMajesty).lighten(0.6).string(),
-      contrastText: Colors.PurpleMountainsMajesty,
+      main: Colors.PurpleMountainsMajesty,
+      contrastText: Colors.White,
     },
     error: {
       main: Colors.Contessa,

@@ -3,26 +3,32 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next",
     "build": "next build",
-    "start": "next start",
-    "export": "next build && next export",
+    "preexport": "yarn build",
+    "export": "next export",
+    "prestart": "yarn export",
+    "start": "serve out",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "yarn lint --fix",
-    "test": "jest"
+    "test": "jest",
+    "generate:api": "openapi-generator-cli generate -i https://ers.engcon.com/swagger/v1/swagger.json -g typescript-fetch -o ./src/api",
+    "tsc:watch": "yarn tsc --watch"
   },
   "dependencies": {
     "@date-io/date-fns": "^2.10.6",
     "@material-ui/core": "^4.11.0",
     "@material-ui/pickers": "^3.2.10",
-    "color": "^3.1.2",
     "date-fns": "^2.16.1",
     "history": "^5.0.0",
     "mdi-material-ui": "^6.19.0",
-    "next": "9.5.3",
+    "next": "latest",
+    "next-images": "^1.6.0",
     "next-pwa": "^3.1.5",
+    "nextjs-sitemap-generator": "^1.1.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-error-boundary": "^3.0.2",
     "react-hook-form": "^6.9.1",
     "react-intl": "^5.8.6",
     "react-query": "^2.23.1",
@@ -31,6 +37,7 @@
     "styled-normalize": "^8.0.7"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.0.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
     "@testing-library/user-event": "^12.1.7",
@@ -57,7 +64,9 @@
     "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
     "react-query-devtools": "^2.6.0",
-    "typescript": "^4.0.3"
+    "serve": "^11.3.2",
+    "typescript": "^4.0.3",
+    "yarnhook": "^0.4.5"
   },
   "husky": {
     "hooks": {
