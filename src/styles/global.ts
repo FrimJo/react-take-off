@@ -29,6 +29,10 @@ export const GlobalStyle = createGlobalStyle(
 
         display: flex;
         flex-direction: column;
+
+        .MuiTypography-root {
+          max-width: ${theme.breakpoints.values.sm}px;
+        }
       }
 
       #__next {
