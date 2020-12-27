@@ -148,7 +148,15 @@ To generate typedefinitins for our API we use [openapi-generator](https://openap
 
 Generating the typedefinitions are done using the following command, except change url to your target Swagger API.
 
-`yarn openapi-generator generate -i https://petstore.swagger.io/v2/swagger.json -g typescript-fetch -o ./src/api --additional-properties=supportsES6=true,typescriptThreePlus=true`
+Remember to update `generate:api` script in `package.json` with correct url to swagger api. Then run:
+```
+yarn generate:api
+```
+
+Or run full command from terminal:
+```
+yarn openapi-generator generate -i https://petstore.swagger.io/v2/swagger.json -g typescript-fetch -o ./src/api --additional-properties=supportsES6=true,typescriptThreePlus=true
+```
 
 ## Manifest
 
