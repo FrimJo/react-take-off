@@ -15,7 +15,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - [openapi-generator](https://openapi-generator.tech/)
 
 ### Includes
-- Pre commit hooks using `husky` to prevent lint warnings and errors beeing commited
+- Pre commit hooks using `husky` to prevent lint warnings and errors being committed
 - Hooks for working with local storage
 - Helper HOC to create contexts
 - Hook for building forms with Formik
@@ -54,10 +54,11 @@ Open [https://localhost:3000](https://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits. You will also see any lint errors in the console.
 
-### Deploy build localy
+### Deploy build locally
+
 To test service worker, we need to run build using https. To do this, generate certificate using [mkcert](https://github.com/FiloSottile/mkcert). Following their instructions on [GitHub](https://github.com/FiloSottile/mkcert).
 
-When you have installed `mkcert` run below command to generate certificats which will be used when serving over HTTPS:
+When you have installed `mkcert` run below command to generate certificates which will be used when serving over HTTPS:
 
 ```
 # Create rootCA-key.pem and rootCA.pem in your user folder and register them with your system
@@ -146,7 +147,7 @@ To alter Material-UI components we use [styled-components](https://github.com/st
 
 To generate typedefinitins for our API we use [openapi-generator](https://openapi-generator.tech). `openapi-generator` is provided as devdep in `package.json` and will be installed by running `yarn install` or `npm install`.
 
-Generating the typedefinitions are done using the following command, except change url to your target Swagger API.
+Generating the type definitions are done using the following command, except change url to your target Swagger API.
 
 Remember to update `generate:api` script in `package.json` with correct url to swagger api. Then run:
 ```

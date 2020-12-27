@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-type FetchAPI = GlobalFetch['fetch']
+type FetchAPI = typeof window.fetch
 
 interface RequestContext {
   fetch: FetchAPI
