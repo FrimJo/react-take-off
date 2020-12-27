@@ -1,23 +1,22 @@
-import * as React from 'react'
+import { useCallback, useMemo } from 'react'
 import {
   useLocalStorageState,
   useLocalStorageActions,
   getLocalStorage,
   setLocalStorage,
-} from 'contexts/local-storage-context'
+} from 'contexts/local-storage'
 
 export function getLocalStorageFor<IStorage>(key: string): IStorage | undefined {
   return getLocalStorage()[key] ?? undefined
 }
 
-export function clearLocalStorageFor(key: string): void {
-  return setLocalStorageForKey(key, null)
+export function clearLocalStorageFor<IStorage>(key: string): void {
+  return setLocalStorageFor<IStorage>(key)(undefined)
 }
 
-export function setLocalStorageForKey<IStorage>(
-  key: string,
-  value: ((prevValue: IStorage) => IStorage) | IStorage
-): void {
+export const setLocalStorageFor = <IStorage>(key: string) => (
+  value: ((prevValue: IStorage | undefined) => IStorage | undefined) | IStorage | undefined
+): void => {
   return setLocalStorage((prevStorage) => {
     // Allow value to be a function so we have same API as useState
     const valueToStore = value instanceof Function ? value(prevStorage[key]) : value
@@ -26,28 +25,46 @@ export function setLocalStorageForKey<IStorage>(
   })
 }
 
-export function useLocalStorage<IStorage>(key: string, defaultValue?: IStorage) {
+export function useLocalStorage<IStorage>(
+  key: string
+): [
+  IStorage | undefined,
+  (dataOrUpdater: (IStorage | undefined) | ((prevValue: IStorage | undefined) => IStorage)) => void,
+  () => void
+]
+export function useLocalStorage<IStorage>(
+  key: string,
+  defaultValue: IStorage
+): [
+  IStorage,
+  (dataOrUpdater: (IStorage | undefined) | ((prevValue: IStorage | undefined) => IStorage)) => void,
+  () => void
+]
+export function useLocalStorage<IStorage>(
+  key: string,
+  defaultValue?: IStorage
+): [
+  IStorage | undefined,
+  (dataOrUpdater: (IStorage | undefined) | ((prevValue: IStorage | undefined) => IStorage)) => void,
+  () => void
+] {
   const { storedValues } = useLocalStorageState()
   const { setValue, clearValue } = useLocalStorageActions()
-  const defaultRefValue = React.useRef(defaultValue ?? null)
-  const value: IStorage = React.useMemo(() => storedValues[key] ?? defaultRefValue.current, [
+  const value: IStorage | undefined = useMemo(() => storedValues[key] ?? defaultValue, [
+    defaultValue,
     key,
     storedValues,
   ])
 
-  const set = React.useCallback(
-    (dataOrUpdater: IStorage | ((prevValue: IStorage) => IStorage)) => {
-      try {
-        const data = dataOrUpdater instanceof Function ? dataOrUpdater(value) : dataOrUpdater
-        return setValue(key, data)
-      } catch (error) {
-        throw error
-      }
+  const set = useCallback(
+    (dataOrUpdater: (IStorage | undefined) | ((prevValue: IStorage | undefined) => IStorage)) => {
+      const data = dataOrUpdater instanceof Function ? dataOrUpdater(value) : dataOrUpdater
+      setValue(key, data)
     },
     [key, setValue, value]
   )
 
-  const clear = React.useCallback(() => clearValue(key), [clearValue, key])
+  const clear = useCallback(() => clearValue(key), [clearValue, key])
 
-  return React.useMemo(() => ({ value, set, clear }), [clear, set, value])
+  return useMemo(() => [value, set, clear], [clear, set, value])
 }

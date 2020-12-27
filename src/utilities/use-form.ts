@@ -1,7 +1,15 @@
-import * as React from 'react'
-import { useForm as useHookForm, UseFormOptions, UseFormMethods } from 'react-hook-form'
-import { FieldValues, UnpackNestedValue, FieldName } from 'react-hook-form/dist/types/form'
-import { getNamesForObject } from './get-names-for-object'
+/* eslint-disable @typescript-eslint/ban-types */
+import { useCallback, useMemo } from 'react'
+import {
+  useForm as useHookForm,
+  UseFormOptions,
+  UseFormMethods,
+  FieldValues,
+  UnpackNestedValue,
+  FieldName,
+  DeepPartial,
+} from 'react-hook-form'
+import getNamesForObject from './get-names-for-object'
 
 export function flattenNames(obj: object | string): Array<string> {
   if (typeof obj !== 'object') {
@@ -51,7 +59,7 @@ export function useNestedForm<
 ): UseFormMethods<TFieldValues> {
   const formMethods = useHookForm<TFieldValues, TContext>(props)
 
-  const register: typeof formMethods.register = React.useCallback(
+  const register: typeof formMethods.register = useCallback(
     (...args: any[]): typeof propsRefFunc => {
       const propsRefFunc = props.register(...args)
       const formRefFunc = formMethods.register(...args)
@@ -63,7 +71,7 @@ export function useNestedForm<
     [formMethods, props]
   )
 
-  const handleSubmit: typeof formMethods.handleSubmit = React.useCallback(
+  const handleSubmit: typeof formMethods.handleSubmit = useCallback(
     (...args) => {
       const callback = formMethods.handleSubmit(...args)
       return (event, ...rest) => {
@@ -75,7 +83,7 @@ export function useNestedForm<
     [formMethods]
   )
 
-  return React.useMemo(() => ({ ...formMethods, register, handleSubmit }), [
+  return useMemo(() => ({ ...formMethods, register, handleSubmit }), [
     formMethods,
     handleSubmit,
     register,
@@ -86,7 +94,7 @@ type UseDefaultFormOptions<
   TFieldValues extends FieldValues = FieldValues,
   TContext extends object = object
 > = Omit<UseFormOptions<TFieldValues, TContext>, 'defaultValues'> & {
-  defaultValues: UnpackNestedValue<TFieldValues>
+  defaultValues: UnpackNestedValue<DeepPartial<TFieldValues>>
 }
 
 export function useForm<
@@ -96,7 +104,7 @@ export function useForm<
   const formMethods = useHookForm<TFieldValues, TContext>(props)
   const name = getNamesForObject(props.defaultValues)
 
-  const handlePartialSubmit = React.useCallback(
+  const handlePartialSubmit = useCallback(
     function (name: string | object, callback?: (values: any) => void) {
       const names = flattenNames(name)
       const values = getPartialValues(formMethods.watch(), names)
@@ -111,7 +119,7 @@ export function useForm<
     [formMethods]
   )
 
-  return React.useMemo(() => ({ ...formMethods, name, handlePartialSubmit }), [
+  return useMemo(() => ({ ...formMethods, name, handlePartialSubmit }), [
     formMethods,
     name,
     handlePartialSubmit,

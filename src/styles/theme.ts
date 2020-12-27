@@ -4,11 +4,10 @@ import { Colors } from './colors'
 export const THEME: ThemeOptions = {
   palette: {
     primary: {
-      main: Colors.FuchsiaBlue,
-      contrastText: Colors.White,
+      main: Colors.PurpleMountainsMajesty,
     },
     secondary: {
-      main: Colors.BaliHai,
+      main: Colors.PurpleMountainsMajesty,
       contrastText: Colors.White,
     },
     error: {
@@ -25,11 +24,10 @@ export const THEME: ThemeOptions = {
     },
   },
   typography: {
-    fontFamily: 'Roboto',
-    fontWeightLight: 100,
-    fontWeightRegular: 300,
-    fontWeightMedium: 400,
-    fontWeightBold: 500,
+    fontFamily: ['Arial', 'sans-serif'].join(','),
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightBold: 700,
     fontSize: 16,
     h1: {
       fontSize: '6rem',
@@ -40,7 +38,7 @@ export const THEME: ThemeOptions = {
       lineHeight: 1.25,
     },
     h2: {
-      fontSize: '3.175rem',
+      fontSize: '4.175rem',
       letterSpacing: -0.5,
       fontWeight: 100,
       textTransform: 'none',
@@ -82,7 +80,7 @@ export const THEME: ThemeOptions = {
     subtitle1: {
       fontSize: '1rem',
       letterSpacing: 0.15,
-      fontWeight: 300,
+      fontWeight: 500,
       textTransform: 'none',
       color: 'rgba(0, 0, 0, 0.82)',
       lineHeight: 1.5,
@@ -115,7 +113,7 @@ export const THEME: ThemeOptions = {
       fontSize: '0.875rem',
       letterSpacing: 1.25,
       fontWeight: 400,
-      textTransform: 'uppercase',
+      textTransform: 'none',
       color: 'rgba(0, 0, 0, 0.82)',
       lineHeight: 1.5,
     },

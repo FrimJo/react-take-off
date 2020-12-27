@@ -38,47 +38,55 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - A code editor - Visual Studio Code is recommended
 - A local copy of the codebase
 
+## Pre-setup
+- If project is an `SPA`, edit `next.config.js` to use project as SPA.
+- If `PWA` is not needed, remove `withPWA` and `pwa` settings in `next.config.js`. Also, add `react-router-dom` to `pages/index.ts`.
+- Uncomment and update `sitemap` settings for `sitemap()` in `next.config.js` to generate `sitemap.xml` to be used with `Google Search Console`.
+
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+### `yarn dev`
 
 Runs the app in the development mode.<br />
 Open [https://localhost:3000](https://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The page will reload if you make edits. You will also see any lint errors in the console.
 
 ### Deploy build locally
-
 
 To test service worker, we need to run build using https. To do this, generate certificate using [mkcert](https://github.com/FiloSottile/mkcert). Following their instructions on [GitHub](https://github.com/FiloSottile/mkcert).
 
 When you have installed `mkcert` run below command to generate certificates which will be used when serving over HTTPS:
 
 ```
-# Create rootCA-key.pem and rootCA.pem in your user folder and register them with your system 
+# Create rootCA-key.pem and rootCA.pem in your user folder and register them with your system
 mkcert -install # Can be ran anywhere
 
 # Generates local SSL certificates localhost-key.pem and localhost.pem to use when localy serving over HTTPS
 mkcert localhost # Generated pem-files needs to be placed in root folder of project
 ```
 
-### `yarn build`
-Add `serve` as global module.
+### Build project and run project as SSR/SSG (Run on server)
+```
+yarn build
+yarn start
+```
 
-```
-# Add serve to your global modules
-yarn global add serve
-```
-Build project and servit over HTTPS using `serve`
+
+### Build project as SPA (Static site)
+
+Build project and serve it over HTTP using `serve`
 ```
 # Build project
-yarn build
+yarn export # Builds and export project to `out` dir
 
-# Start webserver using our generated certificate on port 3001
-serve -s build --ssl-cert localhost.pem --ssl-key localhost-key.pem
+# Start webserver using HTTPS and our generated certificate on port 3001
+serve -s out --ssl-cert localhost.pem --ssl-key localhost-key.pem
+
+# Start webserver using HTTP on port 3001
+serve -s out
 ```
 
 ### `yarn test`
@@ -141,7 +149,15 @@ To generate typedefinitins for our API we use [openapi-generator](https://openap
 
 Generating the type definitions are done using the following command, except change url to your target Swagger API.
 
-`yarn openapi-generator generate -i https://petstore.swagger.io/v2/swagger.json -g typescript-fetch -o ./src/api --additional-properties=supportsES6=true,typescriptThreePlus=true`
+Remember to update `generate:api` script in `package.json` with correct url to swagger api. Then run:
+```
+yarn generate:api
+```
+
+Or run full command from terminal:
+```
+yarn openapi-generator generate -i https://petstore.swagger.io/v2/swagger.json -g typescript-fetch -o ./src/api --additional-properties=supportsES6=true,typescriptThreePlus=true
+```
 
 ## Manifest
 

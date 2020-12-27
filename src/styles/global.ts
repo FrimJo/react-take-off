@@ -1,43 +1,45 @@
 import { createGlobalStyle, css } from 'styled-components'
-import { isInStandaloneMode } from 'utilities/is-in-standalone-mode'
+import { normalize } from 'styled-normalize'
+import { checkForIOS, isInStandaloneMode } from 'utilities'
 
 export const GlobalStyle = createGlobalStyle(
   ({ theme }) => css`
+    ${normalize}
+
     * {
-      box-sizing: border-box;
       font-family: ${theme.typography.fontFamily};
     }
 
     html {
-      flex-grow: 0;
-      flex-shrink: 0;
-      background-color: ${theme.palette.background.default};
-      overflow: hidden;
-
-      /* If device is in standalone mode */
-      ${isInStandaloneMode() &&
+      ${!(checkForIOS().isIOS && isInStandaloneMode()) &&
       css`
-        /* Show black background on bounce scroll */
-        background-color: black;
-
-        /* Fix for: When content is loading, spinner is shown on black background because height 0 (no content) instead of correct default background */
-        & #root {
-          /* Keep correct default color on background when showing loading spinner */
-          background-color: ${theme.palette.background.default};
-
-          /* Have background color cover full screen (only works in standalone mode) */
-          height: 100vh;
-
-          /* Browsers which supports fill-available should use it */
-          @supports (height: fill-available) {
-            height: fill-available;
-          }
-        }
+        height: fill-available;
       `}
 
       body {
+        min-height: 100vh;
+        ${!(checkForIOS().isIOS && isInStandaloneMode()) &&
+        css`
+          min-height: fill-available;
+        `}
+
+        background-color: ${theme.palette.background.default};
         padding: 0px;
         margin: 0px;
+
+        display: flex;
+        flex-direction: column;
+
+        .MuiTypography-root {
+          max-width: ${theme.breakpoints.values.sm}px;
+        }
+      }
+
+      #__next {
+        flex: 1;
+        height: 0;
+        display: flex;
+        flex-direction: column;
       }
     }
   `

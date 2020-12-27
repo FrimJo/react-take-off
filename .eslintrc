@@ -1,13 +1,31 @@
 {
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": { "jsx": true }
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
   "plugins": ["prettier", "import"],
   "extends": [
-    "react-app",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
+    // Prettier plugin and recommended rules
+    "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
   "rules": {
+    "react/no-unescaped-entities": 0,
+    "react/prop-types": 0,
+    "react/react-in-jsx-scope": 0,
     "import/order": [
       1,
       {
@@ -17,12 +35,26 @@
       }
     ],
     "import/newline-after-import": [1, { "count": 1 }],
+    "import/no-named-as-default-member": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/interface-name-prefix": [1, { "prefixWithI": "always" }],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "interface",
+        "format": ["PascalCase"],
+        "custom": {
+          "regex": "^I[A-Z]",
+          "match": true
+        }
+      }
+    ],
     "no-irregular-whitespace": 1,
     "prettier/prettier": 1
   },
   "settings": {
+    "react": { "version": "detect" },
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },

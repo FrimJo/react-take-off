@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/interface-name-prefix */
+/* eslint-disable @typescript-eslint/no-empty-interface */
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Theme } from '@material-ui/core'
 import { CSSProp } from 'styled-components'
 

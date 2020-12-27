@@ -1,5 +1,5 @@
 import { cleanup } from '@testing-library/react'
-import { getNamesForObject } from './get-names-for-object'
+import getNamesForObject from './get-names-for-object'
 
 afterEach(cleanup)
 

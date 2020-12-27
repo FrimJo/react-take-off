@@ -1,77 +1,68 @@
-import { Middleware, FetchParams } from 'api'
-import { NotFoundRoute } from 'config/routes'
-import { navigate } from './react-router-hooks'
+/* eslint-disable @typescript-eslint/naming-convention */
+type FetchAPI = typeof window.fetch
 
-const abortController = new AbortController()
+interface RequestContext {
+  fetch: FetchAPI
+  url: string
+  init: RequestInit
+}
+
+interface ResponseContext {
+  fetch: FetchAPI
+  url: string
+  init: RequestInit
+  response: Response
+}
+
+interface FetchParams {
+  url: string
+  init: RequestInit
+}
+
+interface Middleware {
+  pre?(context: RequestContext): Promise<FetchParams | void>
+  post?(context: ResponseContext): Promise<Response | void>
+}
+
+const getToken = async (): Promise<false | string> => {
+  return 'TODO: Implement fetch token'
+}
+
 export const httpMiddleware: Middleware = {
-  pre: ({ init: initOptions, url }) => {
-    console.log('pre')
-    const authResult = { accessToken: '' } // TODO: Get access token here
-    if (!authResult) {
-      // TODO Redirect user to log in screen here
-      return Promise.reject('No auth result found')
-    }
-
+  pre: async ({ init: initOptions, url }) => {
+    const token = await getToken()
     const init: RequestInit = {
-      signal: abortController.signal,
       ...initOptions,
       headers: {
         'Access-Control-Allow-Origin': window.location.origin,
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: `Baic ${authResult.accessToken}`,
+        ...(!!token && { Authorization: `Bearer ${token}` }), // Add Authorization property only if we have a token
         ...initOptions.headers,
       },
     }
 
-    // Add cancel property to promise object for react-query to cancel request if aborted
-    const promise: Promise<FetchParams> & {
-      cancel?: typeof abortController.abort
-    } = Promise.resolve({
-      url,
-      init: { ...initOptions, ...init },
-    })
-
-    promise.cancel = abortController.abort
-    return promise
+    return { url, init }
   },
   post: async ({ fetch, init, response, url }) => {
-    console.log('post')
     if (response.ok) {
       return Promise.resolve(response)
     }
 
-    // Unauthorizede HTTP (Token might have expired)
-    if (response.status === 401) {
-      console.log('Error status 401, try check session')
-      // TODO Refetch auth result and send request again
-      throw Error('Need implementation')
-    } else if (response.status === 404) {
-      navigate(NotFoundRoute.generatePath(), { replace: true })
-      return Promise.resolve(undefined)
+    // Unauthorizede HTTP (Token might have expired, or user is not authorized)
+    if (response.status === 401 && !init.headers?.['authStatus']) {
+      console.warn(`Error status 401, try refresh token.`)
+      const token = await getToken()
+      return fetch(url, {
+        ...init,
+        headers: {
+          ...init.headers,
+          ...(token && { Authorization: `Bearer ${token}` }),
+          authStatus: 'retry',
+        },
+      })
     }
 
-    const json = await response.json()
-
-    // Add properties for different status codes
-    const statusContainer = {
-      ...(response.status === 400 && { errors: convertKeys(toLowerCamelCase)(json.errors) }), // Bad Request (Typically form error)
-      ...(response.status === 409 && { status: json.detail }), // Conflict
-    }
-
-    // If no keys were added, reject json, else reject status container
-    if (Object.keys(statusContainer).length === 0) return Promise.reject(json)
-    return Promise.reject(statusContainer)
+    return
   },
-}
-
-const convertKeys = (func: (key: string) => string) => (object: Object): Object => {
-  return Object.keys(object).reduce((prev, key) => ({ ...prev, [func(key)]: object[key] }), {})
-}
-
-function toLowerCamelCase(str: string): string {
-  if (str.length === 0) {
-    return ''
-  }
-  return str[0].toLowerCase() + str.slice(1, str.length)
 }

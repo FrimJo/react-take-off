@@ -1,37 +1,30 @@
-import * as React from 'react'
-import { isInStandaloneMode } from 'utilities/is-in-standalone-mode'
-import { isIos } from 'utilities/is-ios'
-import { useLocalStorage } from 'utilities/use-local-storage'
-import { useStaticCallback } from 'utilities/use-static-callback'
+import { useCallback, useMemo, useState } from 'react'
+import { checkForIOS, isInStandaloneMode, useLocalStorage } from 'utilities'
 
 const LOCAL_STORAGE_KEY = 'installMessage'
 
 export function useInstallStorage() {
-  const canShow = React.useMemo(() => isIos() && !isInStandaloneMode(), [])
-  const [show, setShow] = React.useState(canShow)
-  const {
-    set,
-    value: { declined },
-    clear: clearStorage,
-  } = useLocalStorage(LOCAL_STORAGE_KEY, {
+  const { isIOS } = checkForIOS()
+  const canShow = isIOS && !isInStandaloneMode()
+  const [show, setShow] = useState(canShow)
+  const [{ declined }, set, clearStorage] = useLocalStorage(LOCAL_STORAGE_KEY, {
     declined: false,
   })
 
-  const setDeclined = React.useCallback(
-    (declined: boolean) => set((prev) => ({ ...prev, declined })),
-    [set]
-  )
+  const setDeclined = useCallback((declined: boolean) => set((prev) => ({ ...prev, declined })), [
+    set,
+  ])
 
-  const clear = useStaticCallback(() => {
+  const clear = useCallback(() => {
     clearStorage()
     setShow(canShow)
-  })
+  }, [canShow, clearStorage])
 
-  return React.useMemo(() => ({ declined, show, setDeclined, setShow, clear, canShow }), [
-    canShow,
-    clear,
+  return useMemo(() => ({ declined, show, setDeclined, setShow, clear, canShow }), [
     declined,
-    setDeclined,
     show,
+    setDeclined,
+    clear,
+    canShow,
   ])
 }

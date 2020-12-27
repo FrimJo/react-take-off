@@ -1,5 +1,5 @@
 import { cleanup, render } from '@testing-library/react'
-import * as React from 'react'
+import React from 'react'
 import { LocalizationProvider } from 'localization'
 import { getLocale } from './get-locale'
 import useFormatMessage from './use-format-message'
