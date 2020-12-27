@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query-devtools'
-import { trackException } from 'utilities/applicationinsights'
+import { trackException } from 'utilities/application-insights'
 
 const ReactQueryProvider: React.FC = ({ children }) => {
   const router = useRouter()
