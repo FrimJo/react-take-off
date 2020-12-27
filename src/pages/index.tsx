@@ -1,7 +1,7 @@
 import { Typography, useTheme } from '@material-ui/core'
 import { NextPage } from 'next'
 import React from 'react'
-import { useQuery, QueryCache } from 'react-query'
+import { useQuery, QueryClient } from 'react-query'
 import { dehydrate } from 'react-query/hydration'
 import { css } from 'styled-components'
 import { Navigation, PageWrapper } from 'components'
@@ -17,7 +17,7 @@ type Joke = {
 }
 
 const getRandomJoke = (): Promise<Joke> =>
-  fetch('https://api.chucknorris.io/jokes/random').then((response) => response.json())
+  fetch(`${process.env.NEXT_PUBLIC_API_URL}/random`).then((response) => response.json())
 
 const LandingPage: NextPage = () => {
   const theme = useTheme()
@@ -54,13 +54,13 @@ const LandingPage: NextPage = () => {
 }
 
 export async function getServerSideProps() {
-  const queryCache = new QueryCache()
+  const queryClient = new QueryClient()
 
-  await queryCache.prefetchQuery('joke', getRandomJoke)
+  await queryClient.prefetchQuery('joke', getRandomJoke)
 
   return {
     props: {
-      dehydratedState: dehydrate(queryCache),
+      dehydratedState: dehydrate(queryClient),
     },
   }
 }
