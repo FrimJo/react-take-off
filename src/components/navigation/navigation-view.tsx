@@ -14,9 +14,6 @@ const NavigationView = () => (
     <li>
       <Link href="/page-wrapper-example-3">PageWrapper example 3</Link>
     </li>
-    <li>
-      <Link href="/page-wrapper-example-4">PageWrapper example 4</Link>
-    </li>
   </ul>
 )
 

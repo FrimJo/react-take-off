@@ -22,32 +22,25 @@ type Props = {
 }
 
 const PageWrapperView: React.FC<Props> = (props) => {
-  const { children, iOSConfig = {}, className, topComponent, bottomComponent } = props
+  const { children, iOSConfig = {}, className } = props
 
-  if ((topComponent || bottomComponent) && isChildObject(children)) {
+  if ((props.topComponent || props.bottomComponent) && isChildObject(children)) {
     throw Error('Can not both use component props and child as object')
   }
 
-  const renderTopComponent = () =>
-    (isChildObject(children) && children.top) ||
-    (Children.count(children) === 3 && Children.toArray(children)[0]) ||
-    topComponent
+  const topComponent: React.ReactNode | undefined =
+    (isChildObject(children) && children.top) || props.topComponent
 
-  const renderBodyComponent = () =>
-    (isChildObject(children) && children.body) ||
-    (Children.count(children) === 3 && Children.toArray(children)[1]) ||
-    children
+  const bodyComponent: React.ReactNode = (isChildObject(children) && children.body) || children
 
-  const renderBottomComponent = () =>
-    (isChildObject(children) && children.bottom) ||
-    (Children.count(children) === 3 && Children.toArray(children)[2]) ||
-    bottomComponent
+  const bottomComponent: React.ReactNode | undefined =
+    (isChildObject(children) && children.bottom) || props.bottomComponent
 
   return (
     <IOSSafeArea {...iOSConfig}>
-      <PageTop>{renderTopComponent()}</PageTop>
-      <PageBody className={className}>{renderBodyComponent()}</PageBody>
-      <PageBottom>{renderBottomComponent()}</PageBottom>
+      {topComponent && <PageTop>{topComponent}</PageTop>}
+      <PageBody className={className}>{bodyComponent}</PageBody>
+      {bottomComponent && <PageBottom>{bottomComponent}</PageBottom>}
     </IOSSafeArea>
   )
 }
