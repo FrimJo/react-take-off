@@ -1,6 +1,7 @@
 import type { AppProps /*, AppContext */ } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
+import { CookiesProvider } from 'react-cookie'
 import { Hydrate } from 'react-query/hydration'
 import { InstallMessage } from 'components'
 import { LocalStorageProvider } from 'contexts/local-storage'
@@ -36,18 +37,20 @@ function MyApp({ Component, pageProps }: AppProps) {
 
         <title>Next.js PWA Example</title>
       </Head>
-      <ReactQueryProvider>
-        <Hydrate state={pageProps.dehydratedState}>
-          <LocalStorageProvider>
-            <React.Suspense fallback={<h2>Loading...</h2>}>
-              <ThemeProvider theme={THEME}>
-                <Component {...pageProps} />
-                <InstallMessage />
-              </ThemeProvider>
-            </React.Suspense>
-          </LocalStorageProvider>
-        </Hydrate>
-      </ReactQueryProvider>
+      <CookiesProvider>
+        <ReactQueryProvider>
+          <Hydrate state={pageProps.dehydratedState}>
+            <LocalStorageProvider>
+              <React.Suspense fallback={<h2>Loading...</h2>}>
+                <ThemeProvider theme={THEME}>
+                  <Component {...pageProps} />
+                  <InstallMessage />
+                </ThemeProvider>
+              </React.Suspense>
+            </LocalStorageProvider>
+          </Hydrate>
+        </ReactQueryProvider>
+      </CookiesProvider>
     </>
   )
 }
