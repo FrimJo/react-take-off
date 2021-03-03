@@ -1,46 +1,25 @@
-import { Typography, useTheme } from '@material-ui/core'
 import { NextPage } from 'next'
 import React from 'react'
-import { css } from 'styled-components'
-import { Navigation, PageWrapper } from 'components'
+import { Navigation, PageWrapper, Typography } from 'components'
 
 const PageWrapperExample2: NextPage = () => {
-  const theme = useTheme()
-
   return (
     <PageWrapper>
       {{
-        top: (
-          <div
-            css={css`
-              background-color: orange;
-              height: 45px;
-            `}>
-            top bar
-          </div>
-        ),
+        top: <div tw="bg-secondary h-20">top bar</div>,
         body: (
-          <div
-            css={css`
-              height: 2000px;
-              background-color: ${theme.palette.primary.main};
-            `}>
-            <Typography variant="h4">PageWrapper example 2</Typography>
-            <Typography variant="body1">
-              Example of using PageWrapper component with child as object
-            </Typography>
-            <Navigation />
-          </div>
+          <>
+            <div tw="h-96 bg-primary">
+              <Typography variant="h4">PageWrapper example 1</Typography>
+              <Typography variant="body1">
+                Example of using PageWrapper component with child as object
+              </Typography>
+              <Navigation />
+            </div>
+            <div tw="h-96 bg-primary" />
+          </>
         ),
-        bottom: (
-          <div
-            css={css`
-              background-color: orange;
-              height: 45px;
-            `}>
-            bottom bar
-          </div>
-        ),
+        bottom: <div tw="bg-secondary h-20">bottom bar</div>,
       }}
     </PageWrapper>
   )

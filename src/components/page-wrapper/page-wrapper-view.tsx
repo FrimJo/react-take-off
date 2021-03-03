@@ -1,5 +1,5 @@
 import React, { Children } from 'react'
-import { css } from 'styled-components'
+import { css } from 'twin.macro'
 import {
   IOSSafeArea,
   SafeAreaTop,

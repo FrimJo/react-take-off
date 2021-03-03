@@ -4,6 +4,7 @@
     "msjsdiag.debugger-for-chrome",
     "esbenp.prettier-vscode",
     "editorconfig.editorconfig",
-    "jpoissonnier.vscode-styled-components"
+    "jpoissonnier.vscode-styled-components",
+    "bradlc.vscode-tailwindcss"
   ]
 }

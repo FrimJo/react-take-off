@@ -18,3 +18,5 @@ export {
   PageBottom,
   PageTop,
 } from './page-wrapper/page-wrapper-view'
+
+export { default as Typography } from './typography/typography-view'

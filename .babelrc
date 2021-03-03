@@ -1,10 +1,19 @@
 {
   "presets": [
-    "next/babel"
+    [
+      "next/babel",
+      {
+        "preset-react":
+        {
+          "runtime": "automatic"
+        }
+      }
+    ]
   ],
   "plugins": [
     "inline-react-svg",
     "@babel/syntax-dynamic-import",
+    "babel-plugin-macros",
     [
       "styled-components",
       {

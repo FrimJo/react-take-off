@@ -1,13 +1,20 @@
 import { NextPage } from 'next'
 import { useCookies } from 'react-cookie'
 
-const TOKEN = {}
+const loginUser = (user: string) => fetch('/api/login', { method: 'POST' })
 
 const LoginPage: NextPage = () => {
   const [cookie, setCookie] = useCookies(['user'])
 
   const handleSignIn = async () => {
-    setCookie('user', JSON.stringify(TOKEN), { path: '/', maxAge: 3600, sameSite: true })
+    try {
+      const response = await loginUser('John')
+      const { token } = await response.json()
+      console.log('token', token)
+      setCookie('user', JSON.stringify(token), { path: '/', maxAge: 3600, sameSite: true })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (

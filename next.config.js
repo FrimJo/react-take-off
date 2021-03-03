@@ -18,6 +18,14 @@ module.exports = withPWA({
   pwa: {
     dest: 'public',
   },
+  webpack: (config, { isServer }) => {
+    // Fixes packages that depend on fs/module module
+    if (!isServer) {
+      config.node = { fs: 'empty', module: 'empty' }
+    }
+
+    return config
+  },
   /* Uncomment this to serv as SPA */
   // target: 'serverless',
   // async rewrites() {

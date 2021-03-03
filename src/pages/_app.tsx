@@ -4,10 +4,9 @@ import React from 'react'
 import { CookiesProvider } from 'react-cookie'
 import { Hydrate } from 'react-query/hydration'
 import { InstallMessage } from 'components'
+import { ThemeProvider } from 'contexts'
 import { LocalStorageProvider } from 'contexts/local-storage'
 import { ReactQueryProvider } from 'contexts/react-query-provider'
-import { ThemeProvider } from 'contexts/theme-provider'
-import { THEME } from 'styles/theme'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -42,7 +41,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Hydrate state={pageProps.dehydratedState}>
             <LocalStorageProvider>
               <React.Suspense fallback={<h2>Loading...</h2>}>
-                <ThemeProvider theme={THEME}>
+                <ThemeProvider>
                   <Component {...pageProps} />
                   <InstallMessage />
                 </ThemeProvider>

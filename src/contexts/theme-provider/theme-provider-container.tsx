@@ -1,28 +1,15 @@
-import {
-  StylesProvider,
-  responsiveFontSizes,
-  createMuiTheme,
-  ThemeOptions,
-} from '@material-ui/core'
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles'
-import React, { useMemo } from 'react'
-import { ThemeProvider as ScThemeProvider } from 'styled-components'
-import { GlobalStyle } from 'styles/global'
+import React from 'react'
+import { GlobalStyles as TwinGlobalStyles } from 'twin.macro'
+import LocalGlobalStyles from 'styles/global-styles'
 
-type Props = { theme: ThemeOptions }
-
-const ThemeProviderContainer = (props: React.PropsWithChildren<Props>) => {
-  const { children, theme } = props
-  const responseiveTheme = useMemo(() => responsiveFontSizes(createMuiTheme(theme)), [theme])
+const ThemeProviderContainer: React.FC = (props) => {
+  const { children } = props
   return (
-    <StylesProvider injectFirst={true}>
-      <ScThemeProvider theme={responseiveTheme}>
-        <MuiThemeProvider theme={responseiveTheme}>
-          <GlobalStyle />
-          {children}
-        </MuiThemeProvider>
-      </ScThemeProvider>
-    </StylesProvider>
+    <>
+      <TwinGlobalStyles />
+      <LocalGlobalStyles />
+      {children}
+    </>
   )
 }
 
