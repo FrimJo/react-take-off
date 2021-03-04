@@ -1,120 +1,30 @@
-import { styled, theme } from 'twin.macro'
+import * as React from 'react'
+import tw from 'twin.macro'
 
 const typographyVariants = {
-  h1: styled.h1`
-    font-size: 6rem;
-    letter-spacing: -1.5;
-    font-weight: 100;
-    text-transform: none;
-    color: ${theme`textColor.primary`};
-    line-height: 1.25;
-  `,
-  h2: styled.h2`
-    font-size: 4.175rem;
-    letter-spacing: -0.5;
-    font-weight: 100;
-    text-transform: none;
-    color: ${theme`textColor.primary`};
-    line-height: 1.25;
-  `,
-  h3: styled.h3`
-    font-size: 3rem;
-    letter-spacing: 0;
-    font-weight: 300;
-    text-transform: none;
-    color: ${theme`textColor.primary`};
-    line-height: 1.25;
-  `,
-  h4: styled.h4`
-    font-size: 2.125rem;
-    letter-spacing: 0.25;
-    font-weight: 300;
-    text-transform: none;
-    color: ${theme`textColor.primary`};
-    line-height: 1.5;
-  `,
-  h5: styled.h5`
-    font-size: 1.5rem;
-    letter-spacing: 0;
-    font-weight: 300;
-    text-transform: none;
-    color: ${theme`textColor.primary`};
-    line-height: 1.5;
-  `,
-  h6: styled.h6`
-    font-size: 1.25rem;
-    letter-spacing: 0.15;
-    font-weight: 400;
-    text-transform: none;
-    color: ${theme`textColor.primary`};
-    line-height: 1.5;
-  `,
-  subtitle1: styled.span`
-    font-size: 1rem;
-    letter-spacing: 0.15;
-    font-weight: 500;
-    text-transform: none;
-    color: ${theme`textColor.primary`};
-    line-height: 1.5;
-  `,
-  subtitle2: styled.span`
-    font-size: 0.875rem;
-    letter-spacing: 0.1;
-    font-weight: 500;
-    text-transform: none;
-    color: ${theme`textColor.primary`};
-    line-height: 1.5;
-  `,
-  body1: styled.span`
-    font-size: 1rem;
-    letter-spacing: 0.5;
-    font-weight: 300;
-    text-transform: none;
-    color: ${theme`textColor.primary`};
-    line-height: 1.5;
-  `,
-  body2: styled.span`
-    font-size: 0.875rem;
-    letter-spacing: 0.25;
-    font-weight: 300;
-    text-transform: none;
-    color: ${theme`textColor.primary`};
-    line-height: 1.5;
-  `,
-  button: styled.span`
-    font-size: 0.875rem;
-    letter-spacing: 1.25;
-    font-weight: 400;
-    text-transform: none;
-    color: ${theme`textColor.primary`};
-    line-height: 1.5;
-  `,
-  caption: styled.span`
-    font-size: 0.75rem;
-    letter-spacing: 0.4;
-    font-weight: 300;
-    text-transform: none;
-    color: ${theme`textColor.primary`};
-    line-height: 1.5;
-  `,
-  overline: styled.span`
-    font-size: 0.625rem;
-    letter-spacing: 1.5;
-    font-weight: 300;
-    text-transform: uppercase;
-    color: ${theme`textColor.primary`};
-    line-height: 1.5;
-  `,
+  h1: tw.h1`text-8xl tracking-tighter font-thin normal-case text-primary font-display`,
+  h2: tw.h2`text-7xl tracking-tight font-thin normal-case text-primary font-display`,
+  h3: tw.h3`text-5xl tracking-normal font-light normal-case text-primary font-display`,
+  h4: tw.h4`text-4xl tracking-tight font-light normal-case text-primary font-display`,
+  h5: tw.h5`text-2xl tracking-normal font-light normal-case text-primary font-display`,
+  h6: tw.h6`text-xl tracking-normal font-normal normal-case text-primary font-display`,
+  subtitle1: tw.h6`text-base tracking-wider font-semibold normal-case text-primary font-display`,
+  subtitle2: tw.h6`text-sm tracking-normal font-semibold normal-case text-primary font-display`,
+  body1: tw.p`text-base tracking-wide font-normal normal-case text-primary font-body`,
+  body2: tw.p`text-sm tracking-wide font-normal normal-case text-primary font-body`,
+  button: tw.span`text-sm tracking-widest font-normal uppercase text-primary font-body`,
+  caption: tw.span`text-xs tracking-wide font-light normal-case text-primary font-body`,
+  overline: tw.span`text-xs tracking-widest font-light uppercase text-primary font-body`,
 }
 
 type Variant = keyof typeof typographyVariants
 
 type TypographyProps = { variant: Variant }
 
-const TypographyProps: React.FC<{ variant: Variant }> = (props) => {
-  const { variant, children } = props
-  const TypographyComponent = typographyVariants[variant]
-  return <TypographyComponent>{children}</TypographyComponent>
+const TypographyView: React.FC<TypographyProps> = (props) => {
+  const { variant, ...rest } = props
+  const Component = typographyVariants[variant]
+  return <Component {...rest} />
 }
 
-export default TypographyProps
+export default TypographyView

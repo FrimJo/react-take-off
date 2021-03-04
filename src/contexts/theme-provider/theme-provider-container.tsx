@@ -5,11 +5,11 @@ import LocalGlobalStyles from 'styles/global-styles'
 const ThemeProviderContainer: React.FC = (props) => {
   const { children } = props
   return (
-    <>
+    <React.Fragment>
       <TwinGlobalStyles />
       <LocalGlobalStyles />
       {children}
-    </>
+    </React.Fragment>
   )
 }
 

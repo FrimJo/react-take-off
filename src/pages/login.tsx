@@ -10,7 +10,6 @@ const LoginPage: NextPage = () => {
     try {
       const response = await loginUser('John')
       const { token } = await response.json()
-      console.log('token', token)
       setCookie('user', JSON.stringify(token), { path: '/', maxAge: 3600, sameSite: true })
     } catch (error) {
       console.error(error)

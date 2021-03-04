@@ -52,14 +52,14 @@ export const PageTop: React.FC<{ iOSConfig?: IosSafeAreaProps }> = ({
   const child = Children.only(children)
   const { isIOS } = checkForIOS()
   if (!(isIOS && isInStandaloneMode())) {
-    return <>{child}</>
+    return <React.Fragment>{child}</React.Fragment>
   }
   if (iOSConfig.statusBarColor) {
     return (
-      <>
+      <React.Fragment>
         {renderStatusBar(iOSConfig.statusBarColor)}
         {child}
-      </>
+      </React.Fragment>
     )
   }
   return <SafeAreaTop>{child}</SafeAreaTop>
@@ -92,7 +92,7 @@ export const PageBottom: React.FC = ({ children }) => {
   const child = Children.only(children)
   const { isIOS } = checkForIOS()
   if (!(isIOS && isInStandaloneMode())) {
-    return <>{child}</>
+    return <React.Fragment>{child}</React.Fragment>
   }
 
   return <SafeAreaBottom>{child}</SafeAreaBottom>

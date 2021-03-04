@@ -1,5 +1,6 @@
 export { default as InstallMessage } from './install-message/install-message-view'
 export { default as Navigation } from './navigation/navigation-view'
+export { default as Head } from './head/head-view'
 
 export {
   default as IOSSafeArea,

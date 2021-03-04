@@ -4,7 +4,7 @@ import { PageTop, PageBody, PageBottom, Navigation, Typography } from 'component
 
 const PageWrapperExample4: NextPage = () => {
   return (
-    <>
+    <React.Fragment>
       <PageTop>
         <div tw="bg-secondary h-20">top bar</div>
       </PageTop>
@@ -21,7 +21,7 @@ const PageWrapperExample4: NextPage = () => {
       <PageBottom>
         <div tw="bg-secondary h-20">bottom bar</div>
       </PageBottom>
-    </>
+    </React.Fragment>
   )
 }
 

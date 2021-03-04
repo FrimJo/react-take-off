@@ -8,7 +8,7 @@ const PageWrapperExample2: NextPage = () => {
       {{
         top: <div tw="bg-secondary h-20">top bar</div>,
         body: (
-          <>
+          <React.Fragment>
             <div tw="h-96 bg-primary">
               <Typography variant="h4">PageWrapper example 1</Typography>
               <Typography variant="body1">
@@ -17,7 +17,7 @@ const PageWrapperExample2: NextPage = () => {
               <Navigation />
             </div>
             <div tw="h-96 bg-primary" />
-          </>
+          </React.Fragment>
         ),
         bottom: <div tw="bg-secondary h-20">bottom bar</div>,
       }}

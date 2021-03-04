@@ -61,7 +61,11 @@ export const renderStatusBar = (statusbarColor: string) => (
 
 export const OnlyChild: React.FC<{ className?: string }> = ({ className, children }) => {
   const child = Children.only(children)
-  return <>{isValidElement(child) ? cloneElement(child, { className }) : child}</>
+  return (
+    <React.Fragment>
+      {isValidElement(child) ? cloneElement(child, { className }) : child}
+    </React.Fragment>
+  )
 }
 
 /*
@@ -118,11 +122,11 @@ const renderIOSChildren = (children: React.ReactNode, statusBarColor: string | f
   }
 
   return (
-    <>
+    <React.Fragment>
       {childrenArray.map((child, index) =>
         isValidElement(child) ? cloneElement(child, { key: index }) : child
       )}
-    </>
+    </React.Fragment>
   )
 }
 
@@ -134,7 +138,11 @@ const IosSafeArea: React.FC<IosSafeAreaProps> = (props) => {
   const { children, statusBarColor = false } = props
   const { isIOS } = checkForIOS()
 
-  return <>{isIOS ? renderIOSChildren(children, statusBarColor) : children}</>
+  return (
+    <React.Fragment>
+      {isIOS ? renderIOSChildren(children, statusBarColor) : children}
+    </React.Fragment>
+  )
 }
 
 export default IosSafeArea

@@ -23,6 +23,7 @@
     "date-fns": "^2.16.1",
     "history": "^5.0.0",
     "next": "latest",
+    "next-google-fonts": "^2.0.0",
     "next-images": "^1.6.0",
     "next-pwa": "^3.1.5",
     "nextjs-sitemap-generator": "^1.1.0",
