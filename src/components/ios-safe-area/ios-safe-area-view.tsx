@@ -1,5 +1,5 @@
+import { css } from '@emotion/react'
 import React, { Children, cloneElement, isValidElement } from 'react'
-import { css } from 'styled-components'
 import { checkForIOS, isInStandaloneMode } from 'utilities'
 
 const DEFAULT_STATUSBAR_PADDING = 40

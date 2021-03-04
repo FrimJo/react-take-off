@@ -1,6 +1,6 @@
 module.exports = {
   twin: {
-    preset: 'styled-components',
+    preset: 'emotion',
     config: 'tailwind.config.js',
     dataTwProp: true,
     debugPlugins: false,
