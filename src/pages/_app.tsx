@@ -1,4 +1,3 @@
-import { GoogleFonts } from 'next-google-fonts'
 import type { AppProps /*, AppContext */ } from 'next/app'
 import React from 'react'
 import { CookiesProvider } from 'react-cookie'
