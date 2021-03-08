@@ -24,6 +24,11 @@ module.exports = withPWA({
       config.node = { fs: 'empty', module: 'empty' }
     }
 
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    })
+
     return config
   },
   /* Uncomment this to serv as SPA */

@@ -19,16 +19,12 @@ const globalStyles = css`
         min-height: fill-available;
       `}
 
-      background-color: ${theme`backgroundColor.primary`};
+      background-color: ${theme`colors.concrete`};
       padding: 0px;
       margin: 0px;
 
       display: flex;
       flex-direction: column;
-
-      .MuiTypography-root {
-        max-width: ${theme`screens.sm`};
-      }
     }
 
     #__next {

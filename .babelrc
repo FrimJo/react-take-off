@@ -6,13 +6,12 @@
         "preset-react":
         {
           "runtime": "automatic",
-          "importSource": "@emotion/react",
+          "importSource": "@emotion/react"
         }
       }
     ]
   ],
   "plugins": [
-    "inline-react-svg",
     "@babel/syntax-dynamic-import",
     "@emotion/babel-plugin",
     "babel-plugin-macros"

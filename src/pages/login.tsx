@@ -1,16 +1,24 @@
 import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
+import { useMutation } from 'react-query'
 
 const loginUser = (user: string) => fetch('/api/login', { method: 'POST' })
 
 const LoginPage: NextPage = () => {
-  const [cookie, setCookie] = useCookies(['user'])
+  const [, setCookie] = useCookies(['user'])
+  const mutation = useMutation(loginUser)
+  const router = useRouter()
 
   const handleSignIn = async () => {
     try {
-      const response = await loginUser('John')
-      const { token } = await response.json()
-      setCookie('user', JSON.stringify(token), { path: '/', maxAge: 3600, sameSite: true })
+      mutation.mutate('John', {
+        onSuccess: async (response) => {
+          const { token } = await response.json()
+          setCookie('user', JSON.stringify(token), { path: '/', maxAge: 3600, sameSite: true })
+          router.push('/')
+        },
+      })
     } catch (error) {
       console.error(error)
     }
@@ -18,8 +26,11 @@ const LoginPage: NextPage = () => {
 
   return (
     <label htmlFor="username">
-      <input type="text" placeholder="enter username" />
-      <button onClick={handleSignIn}>Sign In</button>
+      <input type="text" placeholder="enter username" disabled={mutation.isLoading} />
+      <button disabled={mutation.isLoading} onClick={handleSignIn}>
+        Sign In
+      </button>
+      <div>{mutation.status}</div>
     </label>
   )
 }

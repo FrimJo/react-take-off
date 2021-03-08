@@ -1,12 +1,12 @@
 import { NextPage } from 'next'
 import React from 'react'
-import { Navigation, PageWrapper, Typography } from 'components'
+import { Footer, Header, PageWrapper, SimpleSearch, Typography } from 'components'
 
 const PageWrapperExample2: NextPage = () => {
   return (
     <PageWrapper>
       {{
-        top: <div tw="bg-secondary h-20">top bar</div>,
+        top: <Header />,
         body: (
           <React.Fragment>
             <div tw="h-96 bg-primary">
@@ -14,12 +14,11 @@ const PageWrapperExample2: NextPage = () => {
               <Typography variant="body1">
                 Example of using PageWrapper component with child as object
               </Typography>
-              <Navigation />
             </div>
-            <div tw="h-96 bg-primary" />
+            <Footer />
           </React.Fragment>
         ),
-        bottom: <div tw="bg-secondary h-20">bottom bar</div>,
+        bottom: <SimpleSearch />,
       }}
     </PageWrapper>
   )
