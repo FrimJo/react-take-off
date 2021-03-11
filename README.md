@@ -15,12 +15,12 @@ This project was bootstrapped with [NextJs](https://nextjs.org/).
 - A local copy of the codebase
 
 ## Pre-setup
-Install all dependencies
+1. Install all dependencies
 ```bash
 yarn install
 ```
 
-Copy `.env.example` and rename it to `.env`
+2. Copy `.env.example` and rename it to `.env`
 
 ### Use as PWA
 
@@ -124,10 +124,68 @@ The `contexts` folder contains all React contexts. There is a hook under `utilit
 
 The `queries` folder contains all hooks for fetching async data. Each file should be named `[type of query]-query.ts` and contain hooks for fetching, creating, updating that type, example: `post-query` would have hooks for `usePost`, `useUpdatePost`, `useDeletePost` etc.
 
-### Using [Material-UI](https://github.com/mui-org/material-ui)
+## Styling using [Tailwind](https://tailwindcss.com/docs)
+In this boiler plate we are using Tailwind to add styling streight into our markup.
 
-To alter Material-UI components we use [styled-components](https://github.com/styled-components/styled-components), read [here](https://material-ui.com/guides/interoperability/#styled-components) on how it works.
+Example:
+```tsx
+  <div tw="pt-6 md:p-8 text-center">...</div>
+```
 
+Above code snippet adds the follwing css styling to the div element:
+```css
+padding-top: 1.5rem; /* pt-6 */
+@media (min-width: 768px) { padding: 2rem; } /* md:p-8 */
+text-align: center; /* text-center */
+```
+
+---
+NOTE
+
+Changes in `tailwind.config.js` needs to followed by a `yarn dev:clean` to persist changes.
+
+---
+
+### Styling using [twin.macro](https://github.com/ben-rogerson/twin.macro) and [Emotion](https://emotion.sh/docs/styled) styled comonents
+This boiler plate includes some example tailwind components grabbed from [tailwind-kit](https://www.tailwind-kit.com/).
+
+There are multiple ways of adding styles to a component, below are the three most common ones.
+
+This one is good if no logoc is needed.
+```tsx
+import tw from 'twin.macro'
+
+const SimpleButton = tw.button`bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded`
+```
+
+If logic needs to be added to a component
+```tsx
+import 'twin.macro'
+
+type Props = React.ComponentProps<'button'>
+const SimpleButton: React.FC<Props> = ({children, ...rest}) => {
+  // Internal logic goes here
+  return (
+    <button tw="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" {...rest}>{children}</button>
+  )
+}
+```
+
+If for some special scenario one needs to add regular css (not using tailwind classes)
+```tsx
+import { css } from 'twin.macro'
+
+type Props = React.ComponentProps<'button'>
+const SimpleButton: React.FC<Props> = ({children, ...rest}) => {
+  return (
+    <button css={css`
+      /* Regular css styles goes here */
+      background-color: red;
+    `} {...rest}>{children}</button>
+  )
+}
+```
+More aabout the different ways of styling using twin.macro can be found [her](https://github.com/ben-rogerson/twin.macro).
 
 ### Generate TypeScript from Open API spec
 
