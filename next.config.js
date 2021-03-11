@@ -1,23 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const withPWA = require('next-pwa')
+// Uncomment this to serve as PWA (also uncomment withPWA export at bottom of file)
+// const withPWA = require('next-pwa')
 
-/* Uncomment this to serve as SPA */
-// const sitemap = require('nextjs-sitemap-generator')
-
-/* It generates a sitemap.xml file inside the out directory. Keep in mind; Need to
-manually provide your sitemap to the Google Search Console for it get recognized by Google. */
-
-/* Uncomment this to serv as SPA */
-// sitemap({
-//   baseUrl: '<your_website_base_url>',
-//   pagesDirectory: __dirname + '/pages',
-//   targetDirectory: 'static/',
-// })
-
-module.exports = withPWA({
-  pwa: {
-    dest: 'public',
-  },
+const nextConfig = {
   webpack: (config, { isServer }) => {
     // Fixes packages that depend on fs/module module
     if (!isServer) {
@@ -31,7 +16,7 @@ module.exports = withPWA({
 
     return config
   },
-  /* Uncomment this to serv as SPA */
+  /* Uncomment this to serve using serverless functions */
   // target: 'serverless',
   // async rewrites() {
   //   return [
@@ -47,4 +32,8 @@ module.exports = withPWA({
   //     },
   //   ]
   // },
-})
+}
+
+// Uncomment this to serve as PWA (also uncomment require('next-pwa') at top of file)
+// module.exports = withPWA({ ...nextConfig, pwa: { dest: 'pbulic' } })
+module.exports = nextConfig

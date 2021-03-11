@@ -1,28 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-
-## Highlights
-- TypeScript
-- PWA ready
-- [react-query](https://react-query.tanstack.com/)
-- [material-ui](https://material-ui.com/)
-- [formik](https://formik.org/)
-- [react-router](https://reactrouter.com/web)
-- [styled-components](https://styled-components.com/)
-- eslint
-- prettier
-- react-refresh
-- [openapi-generator](https://openapi-generator.tech/)
-
-### Includes
-- Pre commit hooks using `husky` to prevent lint warnings and errors being committed
-- Hooks for working with local storage
-- Helper HOC to create contexts
-- Hook for building forms with Formik
-- Function for creating route props
-- Spinner HOC for showing loading spinners in components, such as buttons
-- Middleware for JWT token renewal
-- Support for iOS safe-area
+This project was bootstrapped with [NextJs](https://nextjs.org/).
 
 ## Prerequisites
 
@@ -39,9 +15,20 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - A local copy of the codebase
 
 ## Pre-setup
-- If project is an `SPA`, edit `next.config.js` to use project as SPA.
-- If `PWA` is not needed, remove `withPWA` and `pwa` settings in `next.config.js`. Also, add `react-router-dom` to `pages/index.ts`.
-- Uncomment and update `sitemap` settings for `sitemap()` in `next.config.js` to generate `sitemap.xml` to be used with `Google Search Console`.
+Install all dependencies
+```bash
+yarn install
+```
+
+Copy `.env.example` and rename it to `.env`
+
+### Use as PWA
+
+If you want to serve as `PWA` follow instructions in `next.config.js`.
+
+### Use serv serverless using serverless functions (azure functions)
+
+If you want to serve using serverless function follow instructions in `next.config.js`.
 
 ## Available Scripts
 
@@ -73,7 +60,6 @@ mkcert localhost # Generated pem-files needs to be placed in root folder of proj
 yarn build
 yarn start
 ```
-
 
 ### Build project as SPA (Static site)
 
