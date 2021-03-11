@@ -25,7 +25,7 @@
     "suppressImplicitAnyIndexErrors": true,
     "target": "es5",
   },
-  "files": ["./src/types/twin.d.ts", "./src/types/inline-react-svg.d.ts", "./src/types/env.d.ts"],
+  "files": ["./src/types/twin.d.ts", "./src/types/images.d.ts", "./src/types/env.d.ts"],
   "exclude": [
     "node_modules"
   ],
