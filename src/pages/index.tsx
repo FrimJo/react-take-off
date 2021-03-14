@@ -3,6 +3,7 @@ import React from 'react'
 import { useQuery, QueryClient } from 'react-query'
 import { dehydrate } from 'react-query/hydration'
 import { Footer, Header, PageWrapper, SimpleSearch, Typography } from 'components'
+import { httpMiddleware } from 'utilities'
 import parseCookies from 'utilities/parse-cookies.server'
 import 'twin.macro'
 
@@ -16,8 +17,28 @@ type Joke = {
   value: string
 }
 
-const getRandomJoke = (): Promise<Joke> =>
-  fetch(`${process.env.NEXT_PUBLIC_API_URL}/random`).then((response) => response.json())
+const getRandomJoke = async (): Promise<Joke> => {
+  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/random`).then((response) => response.json())
+}
+// const getRandomJoke = async (): Promise<Joke> => {
+//   const { url, init } = await httpMiddleware.pre({
+//     fetch,
+//     init: { method: 'GET' },
+//     url: `${process.env.NEXT_PUBLIC_API_URL}/random`,
+//   })
+
+//   const response = await fetch(url, init)
+
+//   const data = await httpMiddleware.post({
+//     fetch,
+//     init,
+//     response,
+//     url,
+//   })
+
+//   const joke: Joke = await data.json()
+//   return joke
+// }
 
 const LandingPage: NextPage<{ data: any }> = ({ data }) => {
   const { data: joke } = useQuery('joke', getRandomJoke)
