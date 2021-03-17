@@ -41,6 +41,10 @@ Open [https://localhost:3000](https://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits. You will also see any lint errors in the console.
 
+### `yarn dev:clean`
+
+Because of a bug...
+
 ### Deploy build locally
 
 To test service worker, we need to run build using https. To do this, generate certificate using [mkcert](https://github.com/FiloSottile/mkcert). Following their instructions on [GitHub](https://github.com/FiloSottile/mkcert).
@@ -79,6 +83,13 @@ serve -s out
 
 Launches the test runner in the interactive watch mode.
 *See section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.*
+
+## Development
+
+### git conventions
+TOTO: Update this section with body text
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/#summary)
+
 
 ## Folder structure
 

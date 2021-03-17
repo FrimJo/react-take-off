@@ -1,5 +1,6 @@
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { Children } from 'react'
-import { css } from 'twin.macro'
 import {
   IOSSafeArea,
   SafeAreaTop,
@@ -13,7 +14,7 @@ import { checkForIOS, isInStandaloneMode } from 'utilities'
 
 type ChildObject = { top?: React.ReactNode; body?: React.ReactNode; bottom?: React.ReactNode }
 
-type Props = {
+type PageWrapperProps = {
   className?: string
   iOSConfig?: IosSafeAreaProps
   topComponent?: React.ReactNode
@@ -21,11 +22,11 @@ type Props = {
   children: React.ReactNode | ChildObject
 }
 
-const PageWrapperView: React.FC<Props> = (props) => {
+const PageWrapperView = (props: React.PropsWithChildren<PageWrapperProps>) => {
   const { children, iOSConfig = {}, className } = props
 
   if ((props.topComponent || props.bottomComponent) && isChildObject(children)) {
-    throw Error('Can not both use component props and child as object')
+    throw Error('Can not use both component props and child as object')
   }
 
   const topComponent: React.ReactNode | undefined =
@@ -38,64 +39,61 @@ const PageWrapperView: React.FC<Props> = (props) => {
 
   return (
     <IOSSafeArea {...iOSConfig}>
-      {topComponent && <PageTop>{topComponent}</PageTop>}
-      <PageBody className={className}>{bodyComponent}</PageBody>
-      {bottomComponent && <PageBottom>{bottomComponent}</PageBottom>}
+      {topComponent && <PageTopView>{topComponent}</PageTopView>}
+      <PageBodyView className={className}>{bodyComponent}</PageBodyView>
+      {bottomComponent && <PageBottomView>{bottomComponent}</PageBottomView>}
     </IOSSafeArea>
   )
 }
 
-export const PageTop: React.FC<{ iOSConfig?: IosSafeAreaProps }> = ({
-  children,
-  iOSConfig = {},
-}) => {
-  const child = Children.only(children)
+const PageTopView: React.FC<{
+  iOSConfig?: IosSafeAreaProps
+  as?: keyof JSX.IntrinsicElements
+}> = ({ children, iOSConfig = {}, as }) => {
+  const Component = as ? styled(as)(css``) : React.Fragment
   const { isIOS } = checkForIOS()
-  if (!(isIOS && isInStandaloneMode())) {
-    return <React.Fragment>{child}</React.Fragment>
+  if (!isIOS || !isInStandaloneMode()) {
+    return <Component>{children}</Component>
   }
   if (iOSConfig.statusBarColor) {
     return (
-      <React.Fragment>
+      <Component>
         {renderStatusBar(iOSConfig.statusBarColor)}
-        {child}
-      </React.Fragment>
+        {children}
+      </Component>
     )
   }
-  return <SafeAreaTop>{child}</SafeAreaTop>
+  return <Component css={safeAreaInsetTop}>{children}</Component>
 }
 
-export const PageBody: React.FC<{
+const PageBodyView: React.FC<{
   className?: string
   iOSConfig?: { safeAreaTop?: boolean; safeAreaBottom?: boolean }
-}> = ({ children, className, iOSConfig = { safeAreaTop: false, safeAreaBottom: false } }) => {
-  return (
-    <div
-      className={className}
-      css={css`
-        ${iOSConfig.safeAreaTop && safeAreaInsetTop}
-        ${iOSConfig.safeAreaBottom && safeAreaInsetBottom}
-         /*
-          * Set 'flex-shrink' to '0' to prevent Chrome, Opera, and Safari from
-          * letting these items shrink to smaller than their content's default
-          * minimum size.
-          */
-        flex: 1 0 0%;
-        overflow-y: auto;
-      `}>
-      {children}
-    </div>
-  )
+  as?: keyof JSX.IntrinsicElements
+}> = ({ children, className, iOSConfig = { safeAreaTop: false, safeAreaBottom: false }, as }) => {
+  const Component = styled(as ?? 'div')(css`
+    ${iOSConfig.safeAreaTop && safeAreaInsetTop}
+    ${iOSConfig.safeAreaBottom && safeAreaInsetBottom}
+   /*
+    * Set 'flex-shrink' to '0' to prevent Chrome, Opera, and Safari from
+    * letting these items shrink to smaller than their content's default
+    * minimum size.
+    */
+  flex: 1 0 0%;
+    overflow-y: auto;
+  `)
+  return <Component className={className}>{children}</Component>
 }
 
-export const PageBottom: React.FC = ({ children }) => {
+const PageBottomView: React.FC<{ as?: keyof JSX.IntrinsicElements }> = ({ children, as }) => {
+  const Component = as ? styled(as)(css``) : React.Fragment
   const child = Children.only(children)
   const { isIOS } = checkForIOS()
   if (!(isIOS && isInStandaloneMode())) {
-    return <React.Fragment>{child}</React.Fragment>
+    return <Component>{child}</Component>
   }
 
-  return <SafeAreaBottom>{child}</SafeAreaBottom>
+  return <Component css={safeAreaInsetBottom}>{child}</Component>
 }
 
 const isChildObject = (child: React.ReactNode | ChildObject): child is ChildObject => {
@@ -106,5 +104,9 @@ const isChildObject = (child: React.ReactNode | ChildObject): child is ChildObje
     childObject.bottom !== undefined
   )
 }
+
+PageWrapperView.Top = PageTopView
+PageWrapperView.Body = PageBodyView
+PageWrapperView.Bottom = PageBottomView
 
 export default PageWrapperView

@@ -1,3 +1,5 @@
+// Implemented from https://tailwindui.com/components/application-ui/elements/buttons#component-80fd0d5ac7982f1a83b171bb0fb9e116
+
 import tw from 'twin.macro'
 import { Typography } from 'components'
 
@@ -7,10 +9,10 @@ type ContaiendButtonProps = {
 } & Omit<React.HTMLProps<HTMLButtonElement>, 'type'>
 
 const colorStyleMap = {
-  primary: tw`bg-primary hover:bg-primary-dark focus:ring-primary focus:ring-offset-primary-light text-primary-contrast`,
-  secondary: tw`bg-secondary hover:bg-secondary-dark focus:ring-secondary focus:ring-offset-secondary-light text-secondary-contrast`,
-  success: tw`bg-success hover:bg-success-dark focus:ring-success focus:ring-offset-success-light text-success-contrast`,
-  error: tw`bg-error hover:bg-error-dark focus:ring-error focus:ring-offset-error-light text-error-contrast`,
+  primary: tw`bg-primary hover:bg-primary-dark focus:ring-primary-dark text-primary-contrast`,
+  secondary: tw`bg-secondary hover:bg-secondary-dark focus:ring-secondary-dark text-secondary-contrast`,
+  success: tw`bg-success hover:bg-success-dark focus:ring-success-dark text-success-contrast`,
+  error: tw`bg-error hover:bg-error-dark focus:ring-error-dark text-error-contrast`,
 }
 
 const ContaiendButtonView: React.FC<ContaiendButtonProps> = (props) => {
@@ -22,19 +24,27 @@ const ContaiendButtonView: React.FC<ContaiendButtonProps> = (props) => {
       css={[
         colorStyleMap[variant],
         isDisabled && tw`cursor-not-allowed`,
-        tw`py-2 px-4 flex justify-center items-center transition ease-in duration-200 text-center shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg `,
+        tw`inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2`,
       ]}
       disabled={isDisabled}
       {...rest}>
       {loading && (
         <svg
-          width="20"
-          height="20"
-          fill="currentColor"
-          tw="mr-2 animate-spin"
-          viewBox="0 0 1792 1792"
-          xmlns="http://www.w3.org/2000/svg">
-          <path d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-964-996q0 66-47 113t-113 47-113-47-47-113 47-113 113-47 113 47 47 113zm1170 498q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-640-704q0 80-56 136t-136 56-136-56-56-136 56-136 136-56 136 56 56 136zm530 206q0 93-66 158.5t-158 65.5q-93 0-158.5-65.5t-65.5-158.5q0-92 65.5-158t158.5-66q92 0 158 66t66 158z"></path>
+          tw="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24">
+          <circle
+            tw="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"></circle>
+          <path
+            tw="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
       )}
       {<Typography variant="button">{children}</Typography>}
@@ -43,3 +53,37 @@ const ContaiendButtonView: React.FC<ContaiendButtonProps> = (props) => {
 }
 
 export default ContaiendButtonView
+
+// <!-- This example requires Tailwind CSS v2.0+ -->
+// <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+//   <!-- Heroicon name: solid/mail -->
+//   <svg class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+//     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+//     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+//   </svg>
+//   Button text
+// </button>
+// <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+//   <!-- Heroicon name: solid/mail -->
+//   <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+//     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+//     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+//   </svg>
+//   Button text
+// </button>
+// <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+//   <!-- Heroicon name: solid/mail -->
+//   <svg class="-ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+//     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+//     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+//   </svg>
+//   Button text
+// </button>
+// <button type="button" class="inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+//   <!-- Heroicon name: solid/mail -->
+//   <svg class="-ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+//     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+//     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+//   </svg>
+//   Button text
+// </button>

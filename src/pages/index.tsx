@@ -2,7 +2,7 @@ import { NextPage, GetServerSideProps } from 'next'
 import React from 'react'
 import { useQuery, QueryClient } from 'react-query'
 import { dehydrate } from 'react-query/hydration'
-import { Footer, Header, PageWrapper, SimpleSearch, Typography } from 'components'
+import { ApplicationShell, ContainedButton, Typography } from 'components'
 import { httpMiddleware } from 'utilities'
 import parseCookies from 'utilities/parse-cookies.server'
 import 'twin.macro'
@@ -44,14 +44,11 @@ const LandingPage: NextPage<{ data: any }> = ({ data }) => {
   const { data: joke } = useQuery('joke', getRandomJoke)
 
   return (
-    <PageWrapper topComponent={<Header />} bottomComponent={<SimpleSearch />}>
-      <div tw="flex flex-col items-start bg-concrete">
-        <Typography variant="h4">Home</Typography>
-        <Typography variant="body1">Random Chuck Norris joke</Typography>
-        {joke?.value && <Typography variant="body1">{joke.value}</Typography>}
-      </div>
-      <Footer />
-    </PageWrapper>
+    <ApplicationShell title="Dashboard">
+      <Typography variant="h4">Home</Typography>
+      <Typography variant="body1">Random Chuck Norris joke</Typography>
+      {joke?.value && <Typography variant="body1">{joke.value}</Typography>}
+    </ApplicationShell>
   )
 }
 

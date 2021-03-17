@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const tailwindColors = require('tailwindcss/colors')
+
 const colors = {
   alto: '#DADADA',
   burntUmber: '#932432',
@@ -30,28 +33,28 @@ module.exports = {
       colors: {
         ...colors,
         primary: {
-          light: colors.meteorite,
-          DEFAULT: colors.meteorite,
-          dark: colors.meteorite,
-          contrast: colors.white,
+          light: tailwindColors.indigo[500],
+          DEFAULT: tailwindColors.indigo[600],
+          dark: tailwindColors.indigo[700],
+          contrast: tailwindColors.white,
         },
         secondary: {
-          light: colors.ceriseRed,
-          DEFAULT: colors.burntUmber,
-          dark: colors.mahogany,
-          contrast: colors.white,
+          light: tailwindColors.pink[500],
+          DEFAULT: tailwindColors.pink[600],
+          dark: tailwindColors.pink[700],
+          contrast: tailwindColors.white,
         },
         success: {
-          light: colors.cascade,
-          DEFAULT: colors.viridian,
-          dark: colors.stromboli,
-          contrast: colors.white,
+          light: tailwindColors.emerald[500],
+          DEFAULT: tailwindColors.emerald[600],
+          dark: tailwindColors.emerald[700],
+          contrast: tailwindColors.white,
         },
         error: {
-          light: colors.ceriseRed,
-          DEFAULT: colors.burntUmber,
-          dark: colors.mahogany,
-          contrast: colors.white,
+          light: tailwindColors.red[500],
+          DEFAULT: tailwindColors.red[600],
+          dark: tailwindColors.red[700],
+          contrast: tailwindColors.white,
         },
       },
       textColor: (theme) => ({}),
