@@ -3,8 +3,6 @@ import styled from '@emotion/styled'
 import React, { Children } from 'react'
 import {
   IOSSafeArea,
-  SafeAreaTop,
-  SafeAreaBottom,
   renderStatusBar,
   safeAreaInsetTop,
   safeAreaInsetBottom,

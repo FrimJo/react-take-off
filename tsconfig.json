@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
+    "rootDir": "src",
+    "incremental": true, //Tells TypeScript to save information about the project graph from the last compilation to files stored on disk
+    "importHelpers": true, // Imports helper functions from the tslib module
     "allowJs": true, // Allow JavaScript files to be compiled
     "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "declaration": true, // Generate corresponding .d.ts file
     "esModuleInterop": true, // Disables namespace imports (import * as fs from "fs") and enables CJS/AMD/UMD style imports (import fs from "fs")
     "forceConsistentCasingInFileNames": true, // Disallow inconsistently-cased references to the same file.
@@ -13,6 +16,9 @@
       "dom.iterable",
       "esnext"
     ],
+    "noUnusedLocals": true, // Report errors on unused local variables
+    "noUnusedParameters": true, // Report errors on unused parameters in functions
+    "noImplicitReturns": true, //  TypeScript will check all code paths in a function to ensure they return a value.
     "module": "esnext", // Specify module code generation
     "moduleResolution": "node", // Resolve modules using Node.js style
     "noEmit": true, // Do not emit output (meaning do not compile code, only perform type checking)

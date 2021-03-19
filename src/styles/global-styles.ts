@@ -19,7 +19,7 @@ const globalStyles = css`
         min-height: fill-available;
       `}
 
-      background-color: ${theme`colors.concrete`};
+      background-color: ${theme`colors.gray.50`};
       padding: 0px;
       margin: 0px;
 

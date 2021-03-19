@@ -2,8 +2,7 @@ import { NextPage, GetServerSideProps } from 'next'
 import React from 'react'
 import { useQuery, QueryClient } from 'react-query'
 import { dehydrate } from 'react-query/hydration'
-import { ApplicationShell, ContainedButton, Typography } from 'components'
-import { httpMiddleware } from 'utilities'
+import { ApplicationShell, Typography } from 'components'
 import parseCookies from 'utilities/parse-cookies.server'
 import 'twin.macro'
 
@@ -40,7 +39,7 @@ const getRandomJoke = async (): Promise<Joke> => {
 //   return joke
 // }
 
-const LandingPage: NextPage<{ data: any }> = ({ data }) => {
+const LandingPage: NextPage<{ data: any }> = () => {
   const { data: joke } = useQuery('joke', getRandomJoke)
 
   return (

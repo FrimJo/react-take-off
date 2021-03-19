@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { useMutation } from 'react-query'
 
-const loginUser = (user: string) => fetch('/api/login', { method: 'POST' })
+const loginUser = () => fetch('/api/login', { method: 'POST' })
 
 const LoginPage: NextPage = () => {
   const [, setCookie] = useCookies(['user'])
@@ -12,7 +12,7 @@ const LoginPage: NextPage = () => {
 
   const handleSignIn = async () => {
     try {
-      mutation.mutate('John', {
+      mutation.mutate(undefined, {
         onSuccess: async (response) => {
           const { token } = await response.json()
           setCookie('user', JSON.stringify(token), { path: '/', maxAge: 3600, sameSite: true })
