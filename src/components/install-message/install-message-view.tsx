@@ -14,16 +14,16 @@ const InstallMessageView: React.FC = () => {
   const handleDecline = React.useCallback(() => setDeclined(true), [setDeclined])
 
   return (
-    <div tw="fixed z-10 inset-0 overflow-y-auto">
-      <div tw="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:p-0">
-        <Transition
-          show={!declined && show}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          enterTo="opacity-100 translate-y-0 sm:scale-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-          leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+    <Transition
+      show={!declined && show}
+      enter="ease-out duration-300"
+      enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+      enterTo="opacity-100 translate-y-0 sm:scale-100"
+      leave="ease-in duration-200"
+      leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+      leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+      <div tw="fixed z-10 inset-0 overflow-y-auto">
+        <div tw="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:p-0">
           <div
             tw="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6"
             role="dialog"
@@ -51,7 +51,7 @@ const InstallMessageView: React.FC = () => {
                   <Typography variant="body2" tw="text-gray-500">
                     To install this webapp on your device. Tap{' '}
                     <ShareIcon tw="h-6 w-6 color[rgb(0,122,255)] fill-current align-text-bottom inline-block" />{' '}
-                    then tap "Add to Home Screen"{' '}
+                    then tap <i>Add to Home Screen</i>{' '}
                     <PlusAppIcon tw="h-6 w-6 color[rgb(0,122,255)] fill-current align-text-bottom inline-block" />
                   </Typography>
                 </div>
@@ -66,9 +66,9 @@ const InstallMessageView: React.FC = () => {
               </button>
             </div>
           </div>
-        </Transition>
+        </div>
       </div>
-    </div>
+    </Transition>
   )
 }
 
