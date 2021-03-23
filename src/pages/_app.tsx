@@ -1,6 +1,6 @@
+import { Provider as AuthProvider } from 'next-auth/client'
 import type { AppProps /*, AppContext */ } from 'next/app'
 import React from 'react'
-import { CookiesProvider } from 'react-cookie'
 import { Hydrate } from 'react-query/hydration'
 import { InstallMessage, Head } from 'components'
 import { ThemeProvider } from 'contexts'
@@ -11,9 +11,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <React.Fragment>
       <Head />
-      <CookiesProvider>
-        <ReactQueryProvider>
-          <Hydrate state={pageProps.dehydratedState}>
+      <ReactQueryProvider>
+        <Hydrate state={pageProps.dehydratedState}>
+          <AuthProvider session={pageProps.session}>
             <LocalStorageProvider>
               <React.Suspense fallback={<h2>Loading...</h2>}>
                 <ThemeProvider>
@@ -22,9 +22,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </ThemeProvider>
               </React.Suspense>
             </LocalStorageProvider>
-          </Hydrate>
-        </ReactQueryProvider>
-      </CookiesProvider>
+          </AuthProvider>
+        </Hydrate>
+      </ReactQueryProvider>
     </React.Fragment>
   )
 }

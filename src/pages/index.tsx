@@ -1,9 +1,9 @@
 import { NextPage, GetServerSideProps } from 'next'
+import { getSession } from 'next-auth/client'
 import React from 'react'
 import { useQuery, QueryClient } from 'react-query'
 import { dehydrate } from 'react-query/hydration'
 import { ApplicationShell, Typography } from 'components'
-import parseCookies from 'utilities/parse-cookies.server'
 import 'twin.macro'
 
 type Joke = {
@@ -51,22 +51,21 @@ const LandingPage: NextPage<{ data: any }> = () => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const queryClient = new QueryClient()
-  const data = parseCookies(req)
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { res, req } = context
+  const session = await getSession(context)
 
-  if (res) {
-    if (Object.keys(data).length === 0 && data.constructor === Object) {
-      res.writeHead(301, { Location: '/login' })
-      res.end()
-    }
+  if (!session) {
+    res.writeHead(301, { Location: `/auth/signin?from=${req.url}` })
+    res.end()
   }
+
+  const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery('joke', getRandomJoke)
 
   return {
     props: {
-      data: data && data,
       dehydratedState: dehydrate(queryClient),
     },
   }

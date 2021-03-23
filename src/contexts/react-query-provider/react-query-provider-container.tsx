@@ -9,10 +9,12 @@ const ReactQueryProvider: React.FC = ({ children }) => {
 
   const handleError: (error: unknown) => Promise<void> | void = React.useCallback(
     (error: any) => {
+      console.error(error) // Log error to console for bug tracking
+
       if (error instanceof Response) {
         if (error.status === 401) {
           console.warn('Error status 401, logout user')
-          router.push(`/login?from=${router.pathname}`, 'login')
+          router.push(`/auth/signin?from=${router.pathname}`, 'signin')
           return
         } else if (error.status === 403) {
           console.warn('Error status 403, show "forbbiden" message to user')
@@ -21,7 +23,6 @@ const ReactQueryProvider: React.FC = ({ children }) => {
         }
       }
 
-      console.error(error) // Log error to console for bug tracking
       trackException(JSON.stringify(error, null, 2)) // Track error using application insights
 
       // TODO: Implement better handling of unknown errors
