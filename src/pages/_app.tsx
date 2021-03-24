@@ -9,23 +9,21 @@ import { ReactQueryProvider } from 'contexts/react-query-provider'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <React.Fragment>
+    <AuthProvider session={pageProps.session}>
       <Head />
       <ReactQueryProvider>
         <Hydrate state={pageProps.dehydratedState}>
-          <AuthProvider session={pageProps.session}>
-            <LocalStorageProvider>
-              <React.Suspense fallback={<h2>Loading...</h2>}>
-                <ThemeProvider>
-                  <Component {...pageProps} />
-                  <InstallMessage />
-                </ThemeProvider>
-              </React.Suspense>
-            </LocalStorageProvider>
-          </AuthProvider>
+          <LocalStorageProvider>
+            <React.Suspense fallback={<h2>Loading...</h2>}>
+              <ThemeProvider>
+                <Component {...pageProps} />
+                <InstallMessage />
+              </ThemeProvider>
+            </React.Suspense>
+          </LocalStorageProvider>
         </Hydrate>
       </ReactQueryProvider>
-    </React.Fragment>
+    </AuthProvider>
   )
 }
 

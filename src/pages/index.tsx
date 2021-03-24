@@ -1,5 +1,5 @@
 import { NextPage, GetServerSideProps } from 'next'
-import { getSession } from 'next-auth/client'
+import { getSession, useSession, signOut } from 'next-auth/client'
 import React from 'react'
 import { useQuery, QueryClient } from 'react-query'
 import { dehydrate } from 'react-query/hydration'
@@ -41,12 +41,20 @@ const getRandomJoke = async (): Promise<Joke> => {
 
 const LandingPage: NextPage<{ data: any }> = () => {
   const { data: joke } = useQuery('joke', getRandomJoke)
-
+  const [session] = useSession()
   return (
     <ApplicationShell title="Dashboard">
       <Typography variant="h4">Home</Typography>
       <Typography variant="body1">Random Chuck Norris joke</Typography>
       {joke?.value && <Typography variant="body1">{joke.value}</Typography>}
+      {session && (
+        <>
+          Signed in as {session.user.email} <br />
+          <button onClick={() => signOut({ callbackUrl: 'http://localhost:3000/auth/signin' })}>
+            Sign out
+          </button>
+        </>
+      )}
     </ApplicationShell>
   )
 }
@@ -54,7 +62,7 @@ const LandingPage: NextPage<{ data: any }> = () => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { res, req } = context
   const session = await getSession(context)
-
+  console.log('index getServerSideProps')
   if (!session) {
     res.writeHead(301, { Location: `/auth/signin?from=${req.url}` })
     res.end()
