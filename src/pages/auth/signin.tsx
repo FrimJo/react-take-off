@@ -125,30 +125,6 @@ const Signin: NextPage<{ providers: Record<string, AppProvider> }> = ({ provider
       </div>
     </div>
   )
-  {
-    /* return (
-    <>
-      {!session && (
-        <>
-          Not signed in <br />
-          {Object.values(providers).map((provider) => (
-            <div key={provider.id ?? provider.name}>
-              <button onClick={() => signIn(provider.id, { callbackUrl: query.from as string })}>
-                Sign in with {provider.name}
-              </button>
-            </div>
-          ))}
-        </>
-      )}
-      {session && (
-        <>
-          Signed in as {session.user.email} <br />
-          <button onClick={() => signOut()}>Sign out</button>
-        </>
-      )}
-    </>
-  ) */
-  }
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

@@ -1,4 +1,5 @@
 import { Transition } from '@headlessui/react'
+import { signOut } from 'next-auth/client'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -97,14 +98,12 @@ const NavbarView = (props: React.PropsWithRef<NavbarProps>) => {
                         Settings
                       </a>
                     </Link>
-
-                    <Link href="#">
-                      <a
-                        tw="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        role="menuitem">
-                        Sign out
-                      </a>
-                    </Link>
+                    <a
+                      tw="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      role="menuitem"
+                      onClick={() => signOut({ callbackUrl: 'http://localhost:3000/auth/signin' })}>
+                      Sign out
+                    </a>
                   </div>
                 </Transition>
               </div>
