@@ -7,14 +7,20 @@ import tw from 'twin.macro'
 import BellMediumIcon from 'assets/icons/bell-medium.svg'
 import MenuMediumIcon from 'assets/icons/menu-medium.svg'
 import XMediumIcon from 'assets/icons/x-medium.svg'
+import { useClickOutside } from 'utilities'
 
 type NavbarProps = { links: Array<{ title: string; href: string }> }
 
 const NavbarView = (props: React.PropsWithRef<NavbarProps>) => {
   const { links } = props
   const { asPath } = useRouter()
+  const ref = React.useRef<HTMLDivElement>(null)
+
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = React.useState(false)
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+
+  useClickOutside(ref, () => setIsProfileDropdownOpen(false))
+
   return (
     <nav tw="bg-gray-800">
       <div tw="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,6 +85,7 @@ const NavbarView = (props: React.PropsWithRef<NavbarProps>) => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95">
                   <div
+                    ref={ref}
                     tw="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                     role="menu"
                     aria-orientation="vertical"
