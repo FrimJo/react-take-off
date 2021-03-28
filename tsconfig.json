@@ -2,6 +2,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "incremental": true, //Tells TypeScript to save information about the project graph from the last compilation to files stored on disk
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
     "importHelpers": true, // Imports helper functions from the tslib module
     "allowJs": true, // Allow JavaScript files to be compiled
     "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
