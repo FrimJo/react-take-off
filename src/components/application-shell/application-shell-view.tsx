@@ -28,8 +28,8 @@ const ApplicationShellView = ({
           </div>
         </header>
       </PageWrapper.Top>
-      <PageWrapper.Body as="main">
-        <div tw="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">{children}</div>
+      <PageWrapper.Body as="main" tw="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        {children}
       </PageWrapper.Body>
     </React.Fragment>
   )
