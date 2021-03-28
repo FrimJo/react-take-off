@@ -34,7 +34,7 @@ const httpMiddleware: Middleware = {
     const init: RequestInit = {
       ...initOptions,
       headers: {
-        'Access-Control-Allow-Origin': window.location.origin,
+        // 'Access-Control-Allow-Origin': window.location.origin,
         'Content-Type': 'application/json',
         Accept: 'application/json',
         ...(!!token && { Authorization: `Bearer ${token}` }), // Add Authorization property only if we have a token

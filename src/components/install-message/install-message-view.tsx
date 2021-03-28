@@ -1,10 +1,7 @@
 import { Transition } from '@headlessui/react'
 import React from 'react'
 import 'twin.macro'
-import DeviceMobileMediumIcon from 'assets/icons/device-mobile-medium.svg'
-import PlusAppIcon from 'assets/icons/plus-app.svg'
-import ShareIcon from 'assets/icons/share.svg'
-import XMediumIcon from 'assets/icons/x-medium.svg'
+import { DeviceMobileMediumIcon, PlusAppIcon, ShareIcon, XMediumIcon } from 'assets/icons'
 import { Typography } from 'components'
 import { useInstallStorage } from './utilities/use-install-storage'
 

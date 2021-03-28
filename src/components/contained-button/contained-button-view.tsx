@@ -1,30 +1,37 @@
-// Implemented from https://tailwindui.com/components/application-ui/elements/buttons#component-80fd0d5ac7982f1a83b171bb0fb9e116
+import tw, { TwStyle } from 'twin.macro'
 
-import tw from 'twin.macro'
-import { Typography } from 'components'
+type Variant = 'primary' | 'secondary' | 'success' | 'error'
 
 type ContaiendButtonProps = {
-  variant: 'primary' | 'secondary' | 'success' | 'error'
+  variant?: Variant
   loading?: boolean
+  type?: 'button' | 'submit' | 'reset' | undefined
 } & Omit<React.HTMLProps<HTMLButtonElement>, 'type'>
 
-const colorStyleMap = {
-  primary: tw`bg-primary hover:bg-primary-dark focus:ring-primary-dark text-primary-contrast`,
-  secondary: tw`bg-secondary hover:bg-secondary-dark focus:ring-secondary-dark text-secondary-contrast`,
-  success: tw`bg-success hover:bg-success-dark focus:ring-success-dark text-success-contrast`,
-  error: tw`bg-error hover:bg-error-dark focus:ring-error-dark text-error-contrast`,
+const colorStyleMap: { [variant in Variant]: TwStyle } = {
+  primary: tw`bg-primary hover:bg-primary-dark focus:ring-primary text-primary-contrast`,
+  secondary: tw`bg-secondary hover:bg-secondary-dark focus:ring-secondary text-secondary-contrast`,
+  success: tw`bg-success hover:bg-success-dark focus:ring-success text-success-contrast`,
+  error: tw`bg-error hover:bg-error-dark focus:ring-error text-error-contrast`,
 }
 
 const ContaiendButtonView: React.FC<ContaiendButtonProps> = (props) => {
-  const { children, variant, loading = false, disabled, ...rest } = props
+  const {
+    children,
+    type = 'button',
+    variant = 'primary',
+    loading = false,
+    disabled,
+    ...rest
+  } = props
   const isDisabled = loading || disabled
   return (
     <button
-      type="button"
+      type={type}
       css={[
-        colorStyleMap[variant],
+        tw`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2`,
         isDisabled && tw`cursor-not-allowed`,
-        tw`inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2`,
+        colorStyleMap[variant],
       ]}
       disabled={isDisabled}
       {...rest}>
@@ -47,7 +54,7 @@ const ContaiendButtonView: React.FC<ContaiendButtonProps> = (props) => {
             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
       )}
-      {<Typography variant="button">{children}</Typography>}
+      {children}
     </button>
   )
 }

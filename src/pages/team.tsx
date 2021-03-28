@@ -12,9 +12,9 @@ const TeamPage: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { res, req } = context
   const session = await getSession(context)
-  console.log('team getServerSideProps')
+
   if (!session) {
-    res.writeHead(301, { Location: `/auth/signin?from=${req.url}` })
+    res.writeHead(301, { Location: `/auth/signin` })
     res.end()
   }
 

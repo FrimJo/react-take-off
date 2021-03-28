@@ -1,12 +1,10 @@
 import { Transition } from '@headlessui/react'
-import { signOut } from 'next-auth/client'
+import { signOut, useSession } from 'next-auth/client'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
-import BellMediumIcon from 'assets/icons/bell-medium.svg'
-import MenuMediumIcon from 'assets/icons/menu-medium.svg'
-import XMediumIcon from 'assets/icons/x-medium.svg'
+import { BellMediumIcon, MenuMediumIcon, XMediumIcon } from 'assets/icons'
 import { useClickOutside } from 'utilities'
 
 type NavbarProps = { links: Array<{ title: string; href: string }> }
@@ -14,12 +12,13 @@ type NavbarProps = { links: Array<{ title: string; href: string }> }
 const NavbarView = (props: React.PropsWithRef<NavbarProps>) => {
   const { links } = props
   const { asPath } = useRouter()
+  const [session] = useSession()
   const ref = React.useRef<HTMLDivElement>(null)
 
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = React.useState(false)
+  const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
-  useClickOutside(ref, () => setIsProfileDropdownOpen(false))
+  useClickOutside(ref, () => setIsDropdownOpen(false))
 
   return (
     <nav tw="bg-gray-800">
@@ -62,7 +61,7 @@ const NavbarView = (props: React.PropsWithRef<NavbarProps>) => {
               <div tw="ml-3 relative">
                 <div>
                   <button
-                    onClick={() => setIsProfileDropdownOpen((prev) => !prev)}
+                    onClick={() => setIsDropdownOpen((prev) => !prev)}
                     type="button"
                     tw="max-w-xs bg-gray-800 rounded-full flex items-center text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     id="user-menu"
@@ -71,13 +70,13 @@ const NavbarView = (props: React.PropsWithRef<NavbarProps>) => {
                     <span tw="sr-only">Open user menu</span>
                     <img
                       tw="h-8 w-8 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=Q9RIahEnX4&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
+                      src={session?.user.image ?? undefined}
+                      alt="Avatar image"
                     />
                   </button>
                 </div>
                 <Transition
-                  show={isProfileDropdownOpen}
+                  show={isDropdownOpen}
                   enter="transition ease-out duration-100"
                   enterFrom="transform opacity-0 scale-95"
                   enterTo="transform opacity-100 scale-100"
@@ -108,7 +107,7 @@ const NavbarView = (props: React.PropsWithRef<NavbarProps>) => {
                     <a
                       tw="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       role="menuitem"
-                      onClick={() => signOut({ callbackUrl: 'http://localhost:3000/auth/signin' })}>
+                      onClick={() => signOut()}>
                       Sign out
                     </a>
                   </div>

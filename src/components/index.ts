@@ -5,6 +5,7 @@ export { default as ApplicationShell } from './application-shell/application-she
 export { default as Navbar } from './navbar/navbar-view'
 export { default as PageWrapper } from './page-wrapper/page-wrapper-view'
 export { default as Typography } from './typography/typography-view'
+export { default as OutlinedInput } from './outlined-input/outlined-input-view'
 
 export {
   default as IOSSafeArea,

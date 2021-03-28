@@ -7,17 +7,18 @@ import { ApplicationShell, Typography } from 'components'
 import 'twin.macro'
 
 type Joke = {
-  categories: string[]
-  created_at: string
-  icon_url: string
   id: string
-  updated_at: string
-  url: string
-  value: string
+  language: string
+  permalink: string
+  source: string
+  source_url: string
+  text: string
 }
 
-const getRandomJoke = async (): Promise<Joke> => {
-  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/random`).then((response) => response.json())
+const getTodaysUselssFacts = async (): Promise<Joke> => {
+  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/today.json?language=en`).then((response) =>
+    response.json()
+  )
 }
 // const getRandomJoke = async (): Promise<Joke> => {
 //   const { url, init } = await httpMiddleware.pre({
@@ -40,12 +41,13 @@ const getRandomJoke = async (): Promise<Joke> => {
 // }
 
 const LandingPage: NextPage<{ data: any }> = () => {
-  const { data: joke } = useQuery('joke', getRandomJoke)
+  console.log('document.referrer', document.referrer)
+  const { data: facts, isError } = useQuery('joke', getTodaysUselssFacts)
   return (
     <ApplicationShell title="Dashboard">
-      <Typography variant="h4">Home</Typography>
-      <Typography variant="body1">Random Chuck Norris joke</Typography>
-      {joke?.value && <Typography variant="body1">{joke.value}</Typography>}
+      <Typography variant="h4">Todays Useless Facts</Typography>
+      {facts?.text && <Typography variant="body1">{facts.text}</Typography>}
+      {isError && <Typography variant="body1">Couln't fetch todays useless facts</Typography>}
     </ApplicationShell>
   )
 }
@@ -53,15 +55,13 @@ const LandingPage: NextPage<{ data: any }> = () => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { res, req } = context
   const session = await getSession(context)
-  console.log('index getServerSideProps')
   if (!session) {
-    res.writeHead(301, { Location: `/auth/signin?from=${req.url}` })
+    res.writeHead(301, { Location: `/auth/signin` })
     res.end()
   }
 
   const queryClient = new QueryClient()
-
-  await queryClient.prefetchQuery('joke', getRandomJoke)
+  await queryClient.prefetchQuery('joke', getTodaysUselssFacts)
 
   return {
     props: {
