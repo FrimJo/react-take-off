@@ -10,7 +10,7 @@ if (!process.env.GITHUB_SECRET) {
 }
 
 /* Users collection sample */
-const USERS: Array<User> = [
+const MOCK_USERS: Array<User> = [
   {
     id: 1,
     email: 'example1@example.com',
@@ -46,23 +46,13 @@ export default NextAuth({
       },
       async authorize(credentials) {
         console.log('authorize credentials', credentials)
-        // return null
-        // You need to provide your own logic here that takes the credentials
-        // submitted and returns either a object representing a user or value
-        // that is false/null if the credentials are invalid.
-        // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-
         // Any user object returned here will be saved in the JSON Web Token
-        const user: User | undefined = USERS.find((user) => user.email === credentials.email)
+        const user: User | undefined = MOCK_USERS.find((user) => user.email === credentials.email)
 
-        if (user) {
-          return user
-        } else {
-          // throw 'http://localhost:3000/auth/signin?error=auth_failed'
+        if (!user) {
           throw new Error('auth_failed')
-          // return Promise.reject('http://localhost:3000/test')
-          // throw 'http://localhost:3000/auth/signin?error=auth_failed'
         }
+        return user
       },
     }),
   ],
