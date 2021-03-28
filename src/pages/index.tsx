@@ -1,5 +1,5 @@
 import { NextPage, GetServerSideProps } from 'next'
-import { getSession } from 'next-auth/client'
+import { getSession, useSession } from 'next-auth/client'
 import React from 'react'
 import { useQuery, QueryClient } from 'react-query'
 import { dehydrate } from 'react-query/hydration'
@@ -42,10 +42,12 @@ const getTodaysUselssFacts = async (): Promise<Joke> => {
 
 const LandingPage: NextPage<{ data: any }> = () => {
   console.log('document.referrer', document.referrer)
+  const [session] = useSession()
   const { data: facts, isError } = useQuery('joke', getTodaysUselssFacts)
   return (
     <ApplicationShell title="Dashboard">
-      <Typography variant="h4">Todays Useless Facts</Typography>
+      <Typography variant="h3">Hello, {session?.user.name}</Typography>
+      <Typography variant="h4"> Useless Facts of the Day</Typography>
       {facts?.text && <Typography variant="body1">{facts.text}</Typography>}
       {isError && <Typography variant="body1">Couln't fetch todays useless facts</Typography>}
     </ApplicationShell>
